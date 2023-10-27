@@ -16,7 +16,7 @@ class Car extends Model
         "model",
         "year",
         "color",
-        "condition",
+        "condition", // ['bad', 'good', 'new']
         "status", // ['waiting_validation', 'on_sale', 'not_sold', 'didnt_sell', 'sold_out']
         "additional",
         "user_id",
@@ -41,5 +41,25 @@ class Car extends Model
     public function auctions(): HasMany
     {
         return $this->hasMany(Auction::class);
+    }
+
+    public static function statusList()
+    {
+        return [
+            'waiting_validation',
+            'on_sale',
+            'not_sold',
+            'didnt_sell',
+            'sold_out'
+        ];
+    }
+
+    public static function conditionList()
+    {
+        return [
+            'bad',
+            'good',
+            'new'
+        ];
     }
 }

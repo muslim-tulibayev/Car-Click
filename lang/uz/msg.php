@@ -80,8 +80,7 @@ return [
     'ask_lastname' => "Familiya: (masalan, Doe)",
     'add_car_btn' => "➕ Avtomobilingizni qo'shing",
     'contact_btn' => "📲 Mening kontaktimni baham ko'rish",
-    'channel_link_for_dealer' => "Siz ushbu kanalda yangi auktsionlar haqidagi bildirishnomalarni kuzatishingiz mumkin.\n"
-        . env('BROADCASTING_CHANNEL_LINK'),
+    'channel_link_for_dealer' => "Yangi auktsionlardan xabardor bo'lish uchun ushbu kanalga obuna bo'lishingiz kerak\n",
     'new_task' => "☑️ Yangi vazifa",
     'ask_car_company' => "Kompaniya: (masalan, Daewoo)",
     'ask_car_model' => "Model: (masalan, Epica)",
@@ -102,7 +101,7 @@ return [
         . "(masalan, 10000|10 000|10 000|10 000$|10 000$)",
     'cant_left' => "‼️ Kechirasiz! Auktsionni tark eta olmaysiz, chunki hozir eng yuqori narx egasi sizsiz.",
     'left' => "✅ Siz auksionni muvaffaqiyatli tark etdingiz.",
-    'price_not_higher_enough' => "⚠️ Narx kamida :enough_money\$ dan yuqori bo'lishi kerak.",
+    'price_not_higher_enough' => "⚠️ Narx kamida :enough_price\$ dan yuqori bo'lishi kerak.",
     'owner_confirm_message' => "Sizning :color :company :model avtomobilingiz kimoshdi savdosida :highest_price\$ narxda edi. Siz Avtomobilingizni shu narxga sotishga rozimisiz?",
     'car_sold_message_for_dealers' => "<b>Avtomobil sotildi</b>\n"
         . "👨‍💼 G'olib: :lastname :lastname\n"
@@ -231,6 +230,7 @@ return [
     'image_limit_msg' => "‼️ Siz maksimal rasmlar soniga yetdingiz",
     'invalid_image' => "⚠️ Bizga surat yuborishingiz kerak",
     'ask_car_image' => "Avtomobilingiz tasvirini yuboring:",
+    'visit_channel' => "🌐 Tashrif buyurish",
 
     'attributes' => [],
 

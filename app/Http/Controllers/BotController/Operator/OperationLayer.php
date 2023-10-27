@@ -121,7 +121,7 @@ class OperationLayer
             $data->starting_price = $update->data;
 
             // * Broadcast
-            $new_auction = AuctionController::broadcast($data, $update->tg_chat->operator->id);
+            $new_auction = AuctionController::broadcast($data);
 
             // * Send message for Owner
             app()->setlocale($new_auction->car->user->tg_chat->lang);

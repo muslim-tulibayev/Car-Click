@@ -17,12 +17,13 @@ class OperatorSeeder extends Seeder
         $operator = [
             "firstname" => 'Operator-name',
             "lastname" => 'Operator',
-            "contact" => '998997182029',
+            // "contact" => '998997182029',
+            "contact" => '998330060261',
             "password" => Hash::make('12345678'),
             "is_validated" => true,
         ];
 
         Operator::create($operator);
-        Operator::factory(20)->create();
+        // Operator::factory(20)->create();
     }
 }

@@ -85,8 +85,7 @@ return [
     'ask_lastname' => "Lastname: (e.g. Doe)",
     'add_car_btn' => "➕ Add your car",
     'contact_btn' => "📲 Share my contact",
-    'channel_link_for_dealer' => "You can follow notifications about new auctions on this channel.\n"
-        . env('BROADCASTING_CHANNEL_LINK'),
+    'channel_link_for_dealer' => "You must subscribe to this channel to be notified of new auctions\n",
     'new_task' => "☑️ New task",
     'ask_car_company' => "Company: (e.g. Daewoo)",
     'ask_car_model' => "Model: (e.g. Epica)",
@@ -236,6 +235,7 @@ return [
     'image_limit_msg' => "‼️ You have reached the maximum number of images",
     'invalid_image' => "⚠️ You should send us a photo",
     'ask_car_image' => "Send an image of your car:",
+    'visit_channel' => "🌐 Visit channel",
 
 
     'attributes' => [],

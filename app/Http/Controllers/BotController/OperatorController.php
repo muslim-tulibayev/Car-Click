@@ -47,13 +47,12 @@ class OperatorController
             $message = $e->getMessage();
             $lineNumber = $e->getLine();
             $file = $e->getFile();
-
             $error = "$message (Line $lineNumber in $file)";
             Log::error($error);
-            $update->bot->sendMessage([
-                'chat_id' => $update->chat_id,
-                'text' => $error,
-            ]);
+            // $update->bot->sendMessage([
+            //     'chat_id' => $update->chat_id,
+            //     'text' => $error,
+            // ]);
         }
     }
 }

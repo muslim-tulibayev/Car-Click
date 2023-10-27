@@ -148,6 +148,7 @@ class FreeCallback
             ]);
             Telegram::bot('dealer-bot')->sendMessage([
                 'chat_id' => $dealer->tg_chat->chat_id,
+                'reply_markup' => KeyboardLayout::home('dealer'),
                 'text' => trans('msg.welcome_msg', [
                     'firstname' => $dealer->firstname,
                     'lastname' => $dealer->lastname,
@@ -155,7 +156,7 @@ class FreeCallback
             ]);
             Telegram::bot('dealer-bot')->sendMessage([
                 'chat_id' => $dealer->tg_chat->chat_id,
-                'reply_markup' => KeyboardLayout::home('dealer'),
+                'reply_markup' => KeyboardLayout::channelLink(),
                 'text' => trans('msg.channel_link_for_dealer'),
             ]);
         }

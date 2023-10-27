@@ -291,4 +291,20 @@ class KeyboardLayout
                 ])
             ]);
     }
+
+
+
+
+
+    public static function channelLink()
+    {
+        return Keyboard::make()
+            ->inline()
+            ->row([
+                Button::make([
+                    'text' => trans('msg.visit_channel'),
+                    'url' => env('BROADCASTING_CHANNEL_LINK'),
+                ])
+            ]);
+    }
 }

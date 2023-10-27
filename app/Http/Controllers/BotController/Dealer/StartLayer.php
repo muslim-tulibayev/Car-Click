@@ -6,6 +6,7 @@ use App\Http\Controllers\BotController\Keyboard\KeyboardLayout;
 use App\Http\Controllers\Queue\QueueController;
 use App\Models\Dealer;
 use App\Traits\SendValidatorMessagesTrait;
+use Telegram\Bot\Laravel\Facades\Telegram;
 
 class StartLayer
 {
@@ -96,7 +97,7 @@ class StartLayer
             ]);
             return $update->bot->sendMessage([
                 'chat_id' => $update->chat_id,
-                'reply_markup' => KeyboardLayout::home('dealer'),
+                'reply_markup' => KeyboardLayout::channelLink(),
                 'text' => trans('msg.channel_link_for_dealer'),
             ]);
         }
@@ -161,6 +162,7 @@ class StartLayer
         ]);
         $update->bot->sendMessage([
             'chat_id' => $update->chat_id,
+            'reply_markup' => KeyboardLayout::home('dealer'),
             'text' => trans('msg.welcome_msg', [
                 'firstname' => $dealer->firstname,
                 'lastname' => $dealer->lastname,
@@ -168,7 +170,7 @@ class StartLayer
         ]);
         return $update->bot->sendMessage([
             'chat_id' => $update->chat_id,
-            'reply_markup' => KeyboardLayout::home('dealer'),
+            'reply_markup' => KeyboardLayout::channelLink(),
             'text' => trans('msg.channel_link_for_dealer'),
         ]);
     }

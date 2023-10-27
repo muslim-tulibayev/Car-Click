@@ -2,7 +2,6 @@
 
 namespace App\Console;
 
-// use App\Http\Controllers\Auction\AuctionController;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -13,12 +12,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
-
-        // $schedule->call(function () {
-        //     AuctionController::finish();
-        //     AuctionController::start();
-        // })->everyMinute();
+        $schedule->call(function () {
+            \App\Http\Controllers\Auction\AuctionController::finish();
+            \App\Http\Controllers\Auction\AuctionController::start();
+        })->everyMinute();
     }
 
     /**

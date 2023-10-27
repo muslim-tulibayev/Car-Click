@@ -12,16 +12,16 @@ use Telegram\Bot\Laravel\Facades\Telegram;
 
 class AuctionController
 {
-    public static function broadcast($data, $operator_id)
+    public static function broadcast($data)
     {
         $start = new DateTime($data->start, new DateTimeZone('GMT+5'));
         $start->setTimezone(new DateTimeZone('GMT+0'));
+        $start->setTime($start->format('H'), $start->format('i'), 0);
         $now = now()->second(0);
         if ($start < $now)
             $start = $now;
         $new_auction = Auction::create([
             "car_id" => $data->car_id,
-            "operator_id" => $operator_id,
             "starting_price" => $data->starting_price,
             "start" => $start->format('Y-m-d H:i:s'),
             "finish" => $start
@@ -189,7 +189,7 @@ class AuctionController
 
         if (!$auction) return;
 
-        $auction->update(['life_cycle', 'finished']);
+        $auction->update(['life_cycle' => 'finished']);
 
         $auction->car->update([
             "dealer_id" => $auction->highest_price_owner_id,
