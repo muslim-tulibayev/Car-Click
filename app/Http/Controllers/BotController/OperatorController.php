@@ -32,7 +32,7 @@ class OperatorController
 
             // * Free Callbacks
             if (!$completed)
-                $completed = FreeCallback::handle($update);
+                $completed = en::handle($update);
 
             // * Actions
             if (!$completed)
