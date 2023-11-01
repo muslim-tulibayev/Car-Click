@@ -171,6 +171,7 @@ class QueueController
             $queue->update(['operator_id' => null]);
             Telegram::bot('operator-bot')->sendMessage([
                 'chat_id' => $operator->tg_chat->chat_id,
+                'reply_markup' => KeyboardLayout::home('operator'),
                 'text' => trans(key: 'msg.queue_ignored', locale: $operator->tg_chat->lang),
             ]);
             return;
@@ -178,6 +179,7 @@ class QueueController
 
         Telegram::bot('operator-bot')->sendMessage([
             'chat_id' => $operator->tg_chat->chat_id,
+            'reply_markup' => KeyboardLayout::home('operator'),
             'text' => trans('msg.cannot_cancel_queue'),
         ]);
         self::setOperatorToQueue($operator, $queue);
@@ -274,6 +276,7 @@ class QueueController
                 app()->setlocale($operator->tg_chat->lang);
                 Telegram::bot('operator-bot')->sendMessage([
                     'chat_id' => $operator->tg_chat->chat_id,
+                    'reply_markup' => KeyboardLayout::home('operator'),
                     'text' => trans('msg.request_denied_for_operator'),
                 ]);
             }
@@ -330,6 +333,7 @@ class QueueController
                 app()->setlocale($operator->tg_chat->lang);
                 Telegram::bot('operator-bot')->sendMessage([
                     'chat_id' => $operator->tg_chat->chat_id,
+                    'reply_markup' => KeyboardLayout::home('operator'),
                     'text' => trans('msg.request_allowed_for_operator'),
                 ]);
             }
@@ -360,6 +364,7 @@ class QueueController
                 app()->setlocale($operator->tg_chat->lang);
                 Telegram::bot('operator-bot')->sendMessage([
                     'chat_id' => $operator->tg_chat->chat_id,
+                    'reply_markup' => KeyboardLayout::home('operator'),
                     'text' => trans('msg.request_denied_for_operator'),
                 ]);
             }
@@ -472,6 +477,7 @@ class QueueController
             app()->setlocale($operator->tg_chat->lang);
             Telegram::bot('operator-bot')->sendMessage([
                 'chat_id' => $operator->tg_chat->chat_id,
+                'reply_markup' => KeyboardLayout::home('operator'),
                 'text' => trans('msg.task_done_msg'),
             ]);
         }
