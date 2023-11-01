@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\PanelController;
 
+use App\Http\Controllers\Auction\AuctionController as BroadcastController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Queue\QueueController;
 use App\Models\Auction;
+use App\Models\Car;
 use DateTime;
 use DateTimeZone;
 use Illuminate\Http\Request;
@@ -18,20 +21,55 @@ class AuctionController extends Controller
             ->with('auctions', $auctions);
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        //
+        if ($request->has('car_id')) {
+            $car = Car::find($request->car_id);
+
+            if (!$car)
+                abort(404);
+        }
+
+        return view('auction.create')
+            ->with('car_id', $request->car_id);
     }
 
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            "car_id" => ['required', 'integer', 'exists:cars,id'],
+            "starting_price" => ['required', 'integer', 'min:0'],
+            'start' => ['required', 'date_format:Y-m-d\TH:i'],
+        ]);
+
+        $start = DateTime::createFromFormat('Y-m-d\TH:i', $request->start)
+
+            // * input (datetime-local) tag sends time in T0 timezone
+            ->setTimezone(new DateTimeZone('GMT-5'));
+
+        $car = Car::find($request->car_id);
+
+        $new_auction = BroadcastController::broadcast((object) [
+            "car_id" => $car->id,
+            "starting_price" => $request->starting_price,
+            'start' => $start->format('Y-m-d H:i:s'),
+        ]);
+
+        if ($car->queueable)
+            QueueController::finish($car->queueable, 'allow');
+
+        $alert_success = (object) [
+            'primary' => 'Success',
+            'text' => 'Auction with ' . $new_auction->id . ' id successfully updated',
+        ];
+
+        return redirect()->route('auctions.show', ['auction' => $new_auction->id])
+            ->with('alert_success', $alert_success)
+            ->with('auction', $new_auction);
     }
 
     public function show(Auction $auction)
     {
-        if (!$auction) abort(404);
-
         return view('auction.show')->with('auction', $auction);
     }
 

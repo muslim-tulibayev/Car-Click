@@ -20,19 +20,19 @@
 <x-layouts.app>
 
     @if ($alert_error)
-        <x-alerts.error :message="$alert_error" />
+        <x-webhook.error :message="$alert_error" />
     @endif
 
     @if ($operator_bot)
-        <x-alerts.success :message="$operator_message" />
+        <x-webhook.success :message="$operator_message" id="successOne" />
     @endif
 
     @if ($dealer_bot)
-        <x-alerts.success :message="$dealer_message" />
+        <x-webhook.success :message="$dealer_message" id="successTwo" />
     @endif
 
     @if ($user_bot)
-        <x-alerts.success :message="$user_message" />
+        <x-webhook.success :message="$user_message" id="successThree" />
     @endif
 
 </x-layouts.app>

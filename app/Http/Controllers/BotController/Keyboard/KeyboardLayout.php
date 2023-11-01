@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\BotController\Keyboard;
 
+use App\Models\Queue;
 use Telegram\Bot\Keyboard\Button;
 use Telegram\Bot\Keyboard\Keyboard;
 
@@ -181,24 +182,24 @@ class KeyboardLayout
 
 
 
-    public static function validateCar($car_id)
+    public static function taskValidationBtns(Queue $queue)
     {
         return Keyboard::make()
             ->inline()
             ->row([
                 Button::make([
                     'text' => trans('msg.allow'),
-                    'callback_data' => 'validate_car|allow|car_id:' . $car_id
+                    'callback_data' => 'queue|' . $queue->id . '|allow'
                 ]),
                 Button::make([
                     'text' => trans('msg.deny'),
-                    'callback_data' => 'validate_car|deny|car_id:' . $car_id
+                    'callback_data' => 'queue|' . $queue->id . '|deny'
                 ]),
             ])
             ->row([
                 Button::make([
                     'text' => trans('msg.ignore'),
-                    'callback_data' => 'task|ignore'
+                    'callback_data' => 'queue|' . $queue->id . '|ignore'
                 ])
             ]);
     }
@@ -207,54 +208,24 @@ class KeyboardLayout
 
 
 
-    public static function validateOperator($operator_id)
+    public static function taskDoneBtns(Queue $queue)
     {
         return Keyboard::make()
             ->inline()
             ->row([
                 Button::make([
-                    'text' => trans('msg.allow'),
-                    'callback_data' => 'validate_operator|allow|operator_id:' . $operator_id
-                ]),
-                Button::make([
-                    'text' => trans('msg.deny'),
-                    'callback_data' => 'validate_operator|deny|operator_id:' . $operator_id
-                ]),
+                    'text' => trans('msg.done'),
+                    'callback_data' => 'queue|' . $queue->id . '|done',
+                ])
             ])
             ->row([
                 Button::make([
                     'text' => trans('msg.ignore'),
-                    'callback_data' => 'task|ignore'
+                    'callback_data' => 'queue|' . $queue->id . '|ignore'
                 ])
             ]);
     }
 
-
-
-
-
-
-    public static function validateDealer($dealer_id)
-    {
-        return Keyboard::make()
-            ->inline()
-            ->row([
-                Button::make([
-                    'text' => trans('msg.allow'),
-                    'callback_data' => 'validate_dealer|allow|dealer_id:' . $dealer_id
-                ]),
-                Button::make([
-                    'text' => trans('msg.deny'),
-                    'callback_data' => 'validate_dealer|deny|dealer_id:' . $dealer_id
-                ]),
-            ])
-            ->row([
-                Button::make([
-                    'text' => trans('msg.ignore'),
-                    'callback_data' => 'task|ignore'
-                ])
-            ]);
-    }
 
 
 
@@ -271,26 +242,6 @@ class KeyboardLayout
             ->row([Button::make(['text' => trans('msg.cancel_btn')])]);
     }
 
-
-
-
-    public static function askTaskDone()
-    {
-        return Keyboard::make()
-            ->inline()
-            ->row([
-                Button::make([
-                    'text' => trans('msg.done'),
-                    'callback_data' => 'finished_auction|done',
-                ])
-            ])
-            ->row([
-                Button::make([
-                    'text' => trans('msg.ignore'),
-                    'callback_data' => 'task|ignore'
-                ])
-            ]);
-    }
 
 
 

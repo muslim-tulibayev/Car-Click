@@ -5,78 +5,46 @@
 
 <x-layouts.app>
 
-    @if (session('alert_success'))
-        <x-alerts.success :message="session('alert_success')" />
-    @endif
+    <x-alerts.success />
 
     <form action="{{ route('dealers.update', ['dealer' => $dealer->id]) }}" method="POST"
-        class="w-full mt-[20px] flex flex-col items-center">
-
+        class="w-full my-5 flex flex-col items-center justify-center">
         @method('PUT')
         @csrf
 
-        <div class="w-[500px] m-[5px] p-[15px] shadow-2xl rounded-lg">
+        <x-show-card>
+
             <h2 class="text-[20px] text-gray-700 font-[700]"> Dealer id: {{ $dealer->id }} </h2>
 
-            <div class="flex items-center justify-between my-[5px]">
-                <span class="text-sm bg-orange-100 rounded-full px-3 py-px text-orange-500">
-                    Firstname
-                </span>
+            <x-card-item name="Firstname">
                 <div>
                     <input type="text" name="firstname"
                         class="w-[150px] text-sm text-gray-400 outline-none bg-gray-100 focus:bg-gray-300 rounded-md px-[3px]"
                         value="{{ old('firstname') ?? $dealer->firstname }}" />
                 </div>
-            </div>
-            @error('firstname')
-                <p class="text-red-600 bg-red-100 rounded-md text-[14px] py-[3px] px-[5px]"> {{ $message }} </p>
-            @enderror
+            </x-card-item>
+            <x-v-error name="firstname" />
 
-            <div class="flex items-center justify-between my-[5px]">
-                <span class="text-sm bg-orange-100 rounded-full px-3 py-px text-orange-500">
-                    Lastname
-                </span>
+            <x-card-item name="Lastname">
                 <div>
                     <input type="text" name="lastname"
                         class="w-[150px] text-sm text-gray-400 outline-none bg-gray-100 focus:bg-gray-300 rounded-md px-[3px]"
                         value="{{ old('lastname') ?? $dealer->lastname }}" />
                 </div>
-            </div>
-            @error('lastname')
-                <p class="text-red-600 bg-red-100 rounded-md text-[14px] py-[3px] px-[5px]"> {{ $message }} </p>
-            @enderror
+            </x-card-item>
+            <x-v-error name="lastname" />
 
-            <div class="flex items-center justify-between my-[5px]">
-                <span class="text-sm bg-orange-100 rounded-full px-3 py-px text-orange-500">
-                    Contact
-                </span>
+            <x-card-item name="Contact">
                 <div>
                     <input type="text" name="contact"
                         class="w-[150px] text-sm text-gray-400 outline-none bg-gray-100 focus:bg-gray-300 rounded-md px-[3px]"
                         value="{{ old('contact') ?? $dealer->contact }}" />
                 </div>
-            </div>
-            @error('contact')
-                <p class="text-red-600 bg-red-100 rounded-md text-[14px] py-[3px] px-[5px]"> {{ $message }} </p>
-            @enderror
+            </x-card-item>
+            <x-v-error name="contact" />
 
-            <div class="flex items-center justify-between my-[5px]">
-                <span class="text-sm bg-orange-100 rounded-full px-3 py-px text-orange-500">
-                    Validated
-                </span>
-                <div>
-                    <select name="is_validated"
-                        class="w-[150px] text-sm text-gray-400 outline-none bg-gray-100 focus:bg-gray-300 rounded-md px-[3px]">
-                        <option value="0" @if (!$dealer->is_validated) selected @endif> False </option>
-                        <option value="1" @if ($dealer->is_validated) selected @endif> True </option>
-                    </select>
-                </div>
-            </div>
-            @error('contact')
-                <p class="text-red-600 bg-red-100 rounded-md text-[14px] py-[3px] px-[5px]"> {{ $message }} </p>
-            @enderror
+        </x-show-card>
 
-        </div>
         <div class="mt-[10px]">
             <button type="submit"
                 class="inline-flex items-center justify-center w-[120px] h-[30px] mx-[10px] rounded-md text-white bg-green-700 bg-gradient-to-t from-[rgba(0,0,0,0.1)]">

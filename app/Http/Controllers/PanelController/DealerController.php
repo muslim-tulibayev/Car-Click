@@ -43,14 +43,12 @@ class DealerController extends Controller
             "firstname" => ['required', 'string', 'max:255'],
             "lastname" => ['required', 'string', 'max:255'],
             "contact" => ['required', 'string', 'max:255'],
-            "is_validated" => ['required', 'boolean'],
         ]);
 
         $dealer->update([
             "firstname" => $request->firstname,
             "lastname" => $request->lastname,
             "contact" => $request->contact,
-            "is_validated" => $request->is_validated,
         ]);
 
         $alert_success = (object) [

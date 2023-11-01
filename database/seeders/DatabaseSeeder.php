@@ -11,12 +11,13 @@ class DatabaseSeeder extends Seeder
         $this->call([
             AdminSeeder::class,
             SettingSeeder::class,
-            OperatorSeeder::class,
-
+            
+            // OperatorSeeder::class,
             // DealerSeeder::class,
             // UserSeeder::class,
             // CarSeeder::class,
             // AuctionSeeder::class,
+            // QueueSeeder::class,
         ]);
     }
 }

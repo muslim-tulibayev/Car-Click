@@ -18,7 +18,8 @@
                         clip-rule="evenodd" />
                 </svg>
                 <h2 class="text-xl font-bold py-4 ">Are you sure?</h3>
-                    <p class="text-sm text-gray-500 px-8">Do you really want to delete {{ $name }} {{ $item->id }}?
+                    <p class="text-sm text-gray-500 px-8">Do you really want to delete {{ $name }}
+                        {{ $item->id }}?
                         This process cannot be undone</p>
             </div>
             <!--footer-->
@@ -42,9 +43,21 @@
 </div>
 
 <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const deleteButtons = document.querySelectorAll(".delete-button")
+        deleteButtons.forEach(button => {
+            button.addEventListener("click", function() {
+                const itemId = this.getAttribute("data-id")
+                const modal = document.getElementById(`confirmationModal_${itemId}`)
+                modal.classList.remove('hidden')
+                modal.classList.add('flex')
+            })
+        })
+    })
+
     function closeModal(itemId) {
-        const modal = document.getElementById(`confirmationModal_${itemId}`);
-        modal.classList.remove('flex');
-        modal.classList.add('hidden');
+        const modal = document.getElementById(`confirmationModal_${itemId}`)
+        modal.classList.remove('flex')
+        modal.classList.add('hidden')
     }
 </script>

@@ -38,4 +38,9 @@ class Operator extends Model
     {
         return $this->hasOne(Queue::class);
     }
+
+    public function queueable()
+    {
+        return $this->morphOne(Queue::class, 'queueable');
+    }
 }

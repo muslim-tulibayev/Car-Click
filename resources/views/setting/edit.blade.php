@@ -1,8 +1,6 @@
 <x-layouts.app>
 
-    @if (session('alert_success'))
-        <x-alerts.success :message="session('alert_success')" />
-    @endif
+    <x-alerts.success />
 
     <form action="{{ route('settings.update', ['setting' => $setting->id]) }}" method="POST"
         class="w-full mt-[20px] flex flex-col items-center">

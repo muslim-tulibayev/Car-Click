@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('queues', function (Blueprint $table) {
             $table->id();
-            $table->string('operation');
-            $table->string('data', 500);
+            $table->string('operation', 50);
+            $table->morphs('queueable');
             $table->foreignId('operator_id')
                 ->nullable()
                 ->constrained()
-                ->cascadeOnDelete();
+                ->nullOnDelete();
             $table->timestamps();
         });
     }

@@ -184,11 +184,9 @@ class AuctionLayer
                 ]),
             ]);
 
-            // Log::alert('here 193');
-            // Log::alert(json_encode($update->tg_chat->operator->queue));
             if ($update->tg_chat->operator->queue) {
                 $update->tg_chat->operator->queue->delete();
-                QueueController::setToOperator($update->tg_chat->operator);
+                QueueController::setOperatorToQueue($update->tg_chat->operator);
             }
             return $update->tg_chat->update(['action' => 'home>end']);
         }

@@ -26,183 +26,68 @@
 
 <x-layouts.app>
 
-    <div class="h-full flex flex-col justify-center gap-20">
-
-        {{-- First row --}}
-        <div class="flex justify-around">
-            {{-- Auctions --}}
-            <div class="flex flex-col gap-5 w-[400px] m-[5px] p-[15px] shadow-2xl rounded-lg">
-                <div class="flex items-center justify-center gap-2 h-auto w-full text-lg text-green-600">
-                    <i class="bx bx-user-voice text-2xl font-thin bg-green-300 text-green-600 p-2 rounded-md"></i>
-                    <span class="inline-block font-medium text-xl"> Auctions </span>
-                </div>
-                <div>
-                    <div class="flex items-center justify-between my-[5px]">
-                        <span class="text-sm bg-orange-100 rounded-full px-3 py-px text-orange-500">
-                            Number
-                        </span>
-                        <span class="text-sm px-3 py-px text-blue-500">
-                            {{ $auction_number }}
-                        </span>
-                    </div>
-                    <div class="flex items-center justify-between my-[5px]">
-                        <span class="text-sm bg-orange-100 rounded-full px-3 py-px text-orange-500">
-                            Finished
-                        </span>
-                        <span class="text-sm px-3 py-px text-blue-500">
-                            {{ $auction_finished }}
-                        </span>
-                    </div>
-                    <div class="flex items-center justify-between my-[5px]">
-                        <span class="text-sm bg-orange-100 rounded-full px-3 py-px text-orange-500">
-                            Playing
-                        </span>
-                        <span class="text-sm px-3 py-px text-blue-500">
-                            {{ $auction_playing }}
-                        </span>
-                    </div>
-                    <div class="flex items-center justify-between my-[5px]">
-                        <span class="text-sm bg-orange-100 rounded-full px-3 py-px text-orange-500">
-                            Waiting start
-                        </span>
-                        <span class="text-sm px-3 py-px text-blue-500">
-                            {{ $auction_waiting_start }}
-                        </span>
-                    </div>
-                </div>
-            </div>
-            {{-- Cars --}}
-            <div class="flex flex-col gap-5 w-[400px] m-[5px] p-[15px] shadow-2xl rounded-lg">
-                <div class="flex items-center justify-center gap-2 h-auto w-full text-lg text-yellow-600">
-                    <i class="bx bx-car text-2xl font-thin bg-yellow-300 text-yellow-600 p-2 rounded-md"></i>
-                    <span class="inline-block font-medium text-xl"> Cars </span>
-                </div>
-                <div>
-                    <div class="flex items-center justify-between my-[5px]">
-                        <span class="text-sm bg-orange-100 rounded-full px-3 py-px text-orange-500">
-                            Number
-                        </span>
-                        <span class="text-sm px-3 py-px text-blue-500">
-                            {{ $car_number }}
-                        </span>
-                    </div>
-                    <div class="flex items-center justify-between my-[5px]">
-                        <span class="text-sm bg-orange-100 rounded-full px-3 py-px text-orange-500">
-                            Amount of money (Sold out)
-                        </span>
-                        <span class="text-sm px-3 py-px text-blue-500">
-                            ${{ $car_amount }}
-                        </span>
-                    </div>
-                    <div class="flex items-center justify-between my-[5px]">
-                        <span class="text-sm bg-orange-100 rounded-full px-3 py-px text-orange-500">
-                            Sold out
-                        </span>
-                        <span class="text-sm px-3 py-px text-blue-500">
-                            {{ $car_sold_out }}
-                        </span>
-                    </div>
-                    <div class="flex items-center justify-between my-[5px]">
-                        <span class="text-sm bg-orange-100 rounded-full px-3 py-px text-orange-500">
-                            Did not sell
-                        </span>
-                        <span class="text-sm px-3 py-px text-blue-500">
-                            {{ $car_didnt_sell }}
-                        </span>
-                    </div>
-                    <div class="flex items-center justify-between my-[5px]">
-                        <span class="text-sm bg-orange-100 rounded-full px-3 py-px text-orange-500">
-                            Not sold
-                        </span>
-                        <span class="text-sm px-3 py-px text-blue-500">
-                            {{ $car_not_sold }}
-                        </span>
-                    </div>
-                    <div class="flex items-center justify-between my-[5px]">
-                        <span class="text-sm bg-orange-100 rounded-full px-3 py-px text-orange-500">
-                            Waiting validation
-                        </span>
-                        <span class="text-sm px-3 py-px text-blue-500">
-                            {{ $car_waiting_validation }}
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        {{-- Second row --}}
-        <div class="flex gap-3 justify-around">
+    <div class="h-full flex flex-col gap-2 p-5">
+        <div class="flex gap-2">
             {{-- Users --}}
-            <div class="flex flex-col gap-5 w-[400px] m-[5px] p-[15px] shadow-2xl rounded-lg">
+            <x-home-card>
                 <div class="flex items-center justify-center gap-2 h-auto w-full text-lg text-violet-600">
-                    <i class="bx bx-user text-2xl font-thin bg-violet-300 text-violet-600 p-2 rounded-md"></i>
+                    <i class="bx bx-user h-10 w-10 flex items-center justify-center text-2xl font-thin bg-violet-300 text-violet-600 rounded-md"></i>
                     <span class="inline-block font-medium text-xl"> Users </span>
                 </div>
-                <div>
-                    <div class="flex items-center justify-between my-[5px]">
-                        <span class="text-sm bg-orange-100 rounded-full px-3 py-px text-orange-500">
-                            Number
-                        </span>
-                        <span class="text-sm px-3 py-px text-blue-500">
-                            {{ $user_number }}
-                        </span>
-                    </div>
-                </div>
-            </div>
+                <x-home-card-item name="Number" value="{{ $user_number }}" />
+            </x-home-card>
             {{-- Dealers --}}
-            <div class="flex flex-col gap-5 w-[400px] m-[5px] p-[15px] shadow-2xl rounded-lg">
+            <x-home-card>
                 <div class="flex items-center justify-center gap-2 h-auto w-full text-lg text-sky-600">
-                    <i class="bx bx-user text-2xl font-thin bg-sky-300 text-sky-600 p-2 rounded-md"></i>
+                    <i class="bx bx-user h-10 w-10 flex items-center justify-center text-2xl font-thin bg-sky-300 text-sky-600 rounded-md"></i>
                     <span class="inline-block font-medium text-xl"> Dealers </span>
                 </div>
                 <div>
-                    <div class="flex items-center justify-between my-[5px]">
-                        <span class="text-sm bg-orange-100 rounded-full px-3 py-px text-orange-500">
-                            Number
-                        </span>
-                        <span class="text-sm px-3 py-px text-blue-500">
-                            {{ $dealer_number }}
-                        </span>
-                    </div>
-                    <div class="flex items-center justify-between my-[5px]">
-                        <span class="text-sm bg-orange-100 rounded-full px-3 py-px text-orange-500">
-                            Validated
-                        </span>
-                        <span class="text-sm px-3 py-px text-blue-500">
-                            {{ $dealer_validated }}
-                        </span>
-                    </div>
+                    <x-home-card-item name="Number" value="{{ $dealer_number }}" />
                 </div>
-            </div>
+            </x-home-card>
             {{-- Operators --}}
-            <div class="flex flex-col gap-5 w-[400px] m-[5px] p-[15px] shadow-2xl rounded-lg">
+            <x-home-card>
                 <div class="flex items-center justify-center gap-2 h-auto w-full text-lg text-indigo-600">
-                    <i class="bx bx-microphone text-2xl font-thin bg-indigo-300 text-indigo-600 p-2 rounded-md"></i>
+                    <i class="bx bx-microphone h-10 w-10 flex items-center justify-center text-2xl font-thin bg-indigo-300 text-indigo-600 rounded-md"></i>
                     <span class="inline-block font-medium text-xl"> Operators </span>
                 </div>
                 <div>
-                    <div>
-                        <div class="flex items-center justify-between my-[5px]">
-                            <span class="text-sm bg-orange-100 rounded-full px-3 py-px text-orange-500">
-                                Number
-                            </span>
-                            <span class="text-sm px-3 py-px text-blue-500">
-                                {{ $operator_number }}
-                            </span>
-                        </div>
-                        <div class="flex items-center justify-between my-[5px]">
-                            <span class="text-sm bg-orange-100 rounded-full px-3 py-px text-orange-500">
-                                Validated
-                            </span>
-                            <span class="text-sm px-3 py-px text-blue-500">
-                                {{ $operator_validated }}
-                            </span>
-                        </div>
-                    </div>
+                    <x-home-card-item name="Number" value="{{ $operator_number }}" />
+                    <x-home-card-item name="Validated" value="{{ $operator_validated }}" />
                 </div>
-            </div>
+            </x-home-card>
         </div>
-
+        <div class="flex gap-2">
+            {{-- Auctions --}}
+            <x-home-card>
+                <div class="flex items-center justify-center gap-2 h-auto w-full text-lg text-green-600">
+                    <i class="bx bx-user-voice h-10 w-10 flex items-center justify-center text-2xl font-thin bg-green-300 text-green-600 rounded-md"></i>
+                    <span class="inline-block font-medium text-xl"> Auctions </span>
+                </div>
+                <div>
+                    <x-home-card-item name="Number" value="{{ $auction_number }}" />
+                    <x-home-card-item name="Finished" value="{{ $auction_finished }}" />
+                    <x-home-card-item name="Playing" value="{{ $auction_playing }}" />
+                    <x-home-card-item name="Waiting start" value="{{ $auction_waiting_start }}" />
+                </div>
+            </x-home-card>
+            {{-- Cars --}}
+            <x-home-card>
+                <div class="flex items-center justify-center gap-2 h-auto w-full text-lg text-yellow-600">
+                    <i class="bx bx-car h-10 w-10 flex items-center justify-center text-2xl font-thin bg-yellow-300 text-yellow-600 rounded-md"></i>
+                    <span class="inline-block font-medium text-xl"> Cars </span>
+                </div>
+                <div>
+                    <x-home-card-item name="Number" value="{{ $car_number }}" />
+                    <x-home-card-item name="Amount of money (Sold out)" value="{{ $car_amount }}" />
+                    <x-home-card-item name="Sold out" value="{{ $car_sold_out }}" />
+                    <x-home-card-item name="Did not sell" value="{{ $car_didnt_sell }}" />
+                    <x-home-card-item name="Not sold" value="{{ $car_not_sold }}" />
+                    <x-home-card-item name="Waiting validation" value="{{ $car_waiting_validation }}" />
+                </div>
+            </x-home-card>
+        </div>
     </div>
 
 </x-layouts.app>

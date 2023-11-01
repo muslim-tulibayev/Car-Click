@@ -121,45 +121,10 @@ class OperationLayer
             $data->starting_price = $update->data;
 
             // * Broadcast
-            $new_auction = AuctionController::broadcast($data);
+            AuctionController::broadcast($data);
 
-            // * Send message for Owner
-            app()->setlocale($new_auction->car->user->tg_chat->lang);
-            Telegram::bot('user-bot')->sendMessage([
-                'chat_id' => $new_auction->car->user->tg_chat->chat_id,
-                'parse_mode' => 'html',
-                'text' => trans('msg.auction_created_info', [
-                    'car_id' => $new_auction->car->id,
-                    'company' => $new_auction->car->company,
-                    'model' => $new_auction->car->model,
-                    'owner' => $new_auction->car->user->firstname . ' ' . $new_auction->car->user->lastname,
-                    'start' => $new_auction->getStart(),
-                    'finish' => $new_auction->getFinish(),
-                    'starting_price' => $new_auction->starting_price,
-                ]),
-            ]);
+            QueueController::finish($update->tg_chat->operator->queue, 'allow');
 
-            // * Send message for Operator
-            app()->setlocale($update->tg_chat->lang);
-            $update->bot->sendMessage([
-                'chat_id' => $update->chat_id,
-                'parse_mode' => 'html',
-                'reply_markup' => KeyboardLayout::home('operator'),
-                'text' => trans('msg.auction_created_info', [
-                    'car_id' => $new_auction->car->id,
-                    'company' => $new_auction->car->company,
-                    'model' => $new_auction->car->model,
-                    'owner' => $new_auction->car->user->firstname . ' ' . $new_auction->car->user->lastname,
-                    'start' => $new_auction->getStart(),
-                    'finish' => $new_auction->getFinish(),
-                    'starting_price' => $new_auction->starting_price,
-                ]),
-            ]);
-
-            if ($update->tg_chat->operator->queue) {
-                $update->tg_chat->operator->queue->delete();
-                QueueController::setToOperator($update->tg_chat->operator);
-            }
             return $update->tg_chat->update(['action' => 'home>end']);
         }
     }

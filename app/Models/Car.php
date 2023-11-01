@@ -23,6 +23,11 @@ class Car extends Model
         "dealer_id",
     ];
 
+    public function queueable()
+    {
+        return $this->morphOne(Queue::class, 'queueable');
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
@@ -41,6 +46,11 @@ class Car extends Model
     public function auctions(): HasMany
     {
         return $this->hasMany(Auction::class);
+    }
+
+    public function lastAuction(): Auction
+    {
+        return $this->auctions()->orderByDesc('id')->first();
     }
 
     public static function statusList()

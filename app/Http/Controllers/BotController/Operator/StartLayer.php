@@ -176,7 +176,7 @@ class StartLayer
                     'lastname' => $operator->lastname,
                 ]),
             ]);
-            return QueueController::setToOperator($operator);
+            return QueueController::setOperatorToQueue($operator);
         }
     }
 

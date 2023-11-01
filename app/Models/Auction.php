@@ -25,14 +25,14 @@ class Auction extends Model
         "join_btn_message_id",
     ];
 
+    public function queueable()
+    {
+        return $this->morphOne(Queue::class, 'queueable');
+    }
+
     public function car(): BelongsTo
     {
         return $this->belongsTo(Car::class);
-    }
-
-    public function operator(): BelongsTo
-    {
-        return $this->belongsTo(Operator::class);
     }
 
     public function dealers()
@@ -81,7 +81,7 @@ class Auction extends Model
         return  $date->setTimezone(new DateTimeZone('GMT+5'))->format('H:i');
     }
 
-    public function lifeCycleList()
+    public static function lifeCycleList()
     {
         return [
             'waiting_start',

@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Setting;
+use App\Models\Car;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {
@@ -11,6 +11,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('settings', App\Http\Controllers\PanelController\SettingController::class)
         ->only(['index', 'edit', 'update']);
     Route::resource('users', App\Http\Controllers\PanelController\UserController::class);
+    Route::get('/queues/{queue}/finish', [App\Http\Controllers\PanelController\QueueController::class, 'finishQueue'])
+        ->name('finish-queue');
+    Route::resource('queues', App\Http\Controllers\PanelController\QueueController::class);
 });
 
 require __DIR__ . '/telegram.php';

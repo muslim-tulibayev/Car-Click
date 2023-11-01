@@ -7,71 +7,46 @@
 
 <x-layouts.app>
 
-    @if (session('alert_success'))
-        <x-alerts.success :message="session('alert_success')" />
-    @endif
+    <x-alerts.success />
 
     <form action="{{ route('cars.update', ['car' => $car->id]) }}" method="POST"
-        class="w-full mt-[20px] flex flex-col items-center">
-
+        class="w-full my-5 flex flex-col items-center justify-center">
         @method('PUT')
         @csrf
 
-        <div class="w-[500px] m-[5px] p-[15px] shadow-2xl rounded-lg">
+        <x-show-card>
+
             <h2 class="text-[20px] text-gray-700 font-[700]"> Car id: {{ $car->id }} </h2>
 
-            <div class="flex items-center justify-between my-[5px]">
-                <span class="text-sm bg-orange-100 rounded-full px-3 py-px text-orange-500">
-                    Company
-                </span>
+            <x-card-item name="Company">
                 <input type="text" name="company"
                     class="w-[150px] text-sm text-gray-700 outline-none bg-gray-100 focus:bg-gray-300 rounded-md px-[3px]"
                     value="{{ old('company') ?? $car->company }}" />
-            </div>
-            @error('company')
-                <p class="text-red-600 bg-red-100 rounded-md text-[14px] py-[3px] px-[5px]"> {{ $message }} </p>
-            @enderror
+            </x-card-item>
+            <x-v-error name="company" />
 
-            <div class="flex items-center justify-between my-[5px]">
-                <span class="text-sm bg-orange-100 rounded-full px-3 py-px text-orange-500">
-                    Model
-                </span>
+            <x-card-item name="Model">
                 <input type="text" name="model"
                     class="w-[150px] text-sm text-gray-700 outline-none bg-gray-100 focus:bg-gray-300 rounded-md px-[3px]"
                     value="{{ old('model') ?? $car->model }}" />
-            </div>
-            @error('model')
-                <p class="text-red-600 bg-red-100 rounded-md text-[14px] py-[3px] px-[5px]"> {{ $message }} </p>
-            @enderror
+            </x-card-item>
+            <x-v-error name="model" />
 
-            <div class="flex items-center justify-between my-[5px]">
-                <span class="text-sm bg-orange-100 rounded-full px-3 py-px text-orange-500">
-                    Color
-                </span>
+            <x-card-item name="Color">
                 <input type="text" name="color"
                     class="w-[150px] text-sm text-gray-700 outline-none bg-gray-100 focus:bg-gray-300 rounded-md px-[3px]"
                     value="{{ old('color') ?? $car->color }}" />
-            </div>
-            @error('color')
-                <p class="text-red-600 bg-red-100 rounded-md text-[14px] py-[3px] px-[5px]"> {{ $message }} </p>
-            @enderror
+            </x-card-item>
+            <x-v-error name="color" />
 
-            <div class="flex items-center justify-between my-[5px]">
-                <span class="text-sm bg-orange-100 rounded-full px-3 py-px text-orange-500">
-                    Year
-                </span>
+            <x-card-item name="Year">
                 <input type="number" name="year"
                     class="w-[150px] text-sm text-gray-700 outline-none bg-gray-100 focus:bg-gray-300 rounded-md px-[3px]"
                     value="{{ old('year') ?? $car->year }}" />
-            </div>
-            @error('year')
-                <p class="text-red-600 bg-red-100 rounded-md text-[14px] py-[3px] px-[5px]"> {{ $message }} </p>
-            @enderror
+            </x-card-item>
+            <x-v-error name="year" />
 
-            <div class="flex items-center justify-between my-[5px]">
-                <span class="text-sm bg-orange-100 rounded-full px-3 py-px text-orange-500">
-                    Condition
-                </span>
+            <x-card-item name="Condition">
                 <div class="relative inline-flex">
                     <svg class="w-2 h-2 absolute top-0 right-0 m-2 pointer-events-none"
                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 412 232">
@@ -82,30 +57,19 @@
                     <select name="condition"
                         class="rounded-md text-gray-600 px-[10px] bg-gray-100 focus:bg-gray-300 focus:outline-none appearance-none">
                         @foreach ($condition_list as $condition)
-                            <option value="{{ $condition }}" 
-                                @if (old('condition'))
-                                    @if (old('condition') == $condition)
-                                        selected
-                                    @endif
-                                @else
-                                    @if ($car->condition === $condition)
-                                        selected
-                                    @endif
-                                @endif>
+                            <option value="{{ $condition }}"
+                                @if (old('condition')) @if (old('condition') == $condition)
+                                        selected @endif
+                            @else @if ($car->condition === $condition) selected @endif @endif>
                                 {{ $condition }}
                             </option>
                         @endforeach
                     </select>
                 </div>
-            </div>
-            @error('condition')
-                <p class="text-red-600 bg-red-100 rounded-md text-[14px] py-[3px] px-[5px]"> {{ $message }} </p>
-            @enderror
+            </x-card-item>
+            <x-v-error name="condition" />
 
-            <div class="flex items-center justify-between my-[5px]">
-                <span class="text-sm bg-orange-100 rounded-full px-3 py-px text-orange-500">
-                    Status
-                </span>
+            <x-card-item name="Status">
                 <div class="relative inline-flex">
                     <svg class="w-2 h-2 absolute top-0 right-0 m-2 pointer-events-none"
                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 412 232">
@@ -116,41 +80,25 @@
                     <select name="status"
                         class="rounded-md text-gray-600 px-[10px] bg-gray-100 focus:bg-gray-300 focus:outline-none appearance-none">
                         @foreach ($status_list as $status)
-                            <option value="{{ $status }}" 
-                                @if (old('status'))
-                                    @if (old('status') == $status)
-                                        selected
-                                    @endif
-                                @else
-                                    @if ($car->status === $status)
-                                        selected
-                                    @endif
-                                @endif>
+                            <option value="{{ $status }}"
+                                @if (old('status')) @if (old('status') == $status)
+                                        selected @endif
+                            @else @if ($car->status === $status) selected @endif @endif>
                                 {{ $status }}
                             </option>
                         @endforeach
                     </select>
                 </div>
-            </div>
-            @error('status')
-                <p class="text-red-600 bg-red-100 rounded-md text-[14px] py-[3px] px-[5px]"> {{ $message }} </p>
-            @enderror
+            </x-card-item>
+            <x-v-error name="status" />
 
-            <div class="flex items-center justify-between my-[5px]">
-                <span class="text-sm bg-orange-100 rounded-full px-3 py-px text-orange-500">
-                    Additional
-                </span>
+            <x-card-item name="Additional">
                 <textarea maxlength="255" name="additional"
                     class="w-[300px] p-2 bg-gray-100 rounded-md text-gray-500 text-sm text-start outline-none focus:bg-gray-300">{{ $car->additional }}</textarea>
-            </div>
-            @error('additional')
-                <p class="text-red-600 bg-red-100 rounded-md text-[14px] py-[3px] px-[5px]"> {{ $message }} </p>
-            @enderror
+            </x-card-item>
+            <x-v-error name="additional" />
 
-            <div class="flex items-center justify-between my-[5px]">
-                <span class="text-sm bg-orange-100 rounded-full px-3 py-px text-orange-500">
-                    Owner
-                </span>
+            <x-card-item name="Owner">
                 <div class="relative inline-flex">
                     <svg class="w-2 h-2 absolute top-0 right-0 m-2 pointer-events-none"
                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 412 232">
@@ -162,30 +110,19 @@
                         class="rounded-md text-gray-600 px-[10px] bg-gray-100 focus:bg-gray-300 focus:outline-none appearance-none">
                         <option value=""> Null </option>
                         @foreach ($users_list as $user)
-                            <option value="{{ $user->id }}" 
-                                @if (old('user_id'))
-                                    @if (old('user_id') == $user->id)
-                                        selected
-                                    @endif
-                                @else
-                                    @if ($car->user_id === $user->id)
-                                        selected
-                                    @endif
-                                @endif>
+                            <option value="{{ $user->id }}"
+                                @if (old('user_id')) @if (old('user_id') == $user->id)
+                                        selected @endif
+                            @else @if ($car->user_id === $user->id) selected @endif @endif>
                                 {{ $user->firstname . ' ' . $user->lastname }}
                             </option>
                         @endforeach
                     </select>
                 </div>
-            </div>
-            @error('user_id')
-                <p class="text-red-600 bg-red-100 rounded-md text-[14px] py-[3px] px-[5px]"> {{ $message }} </p>
-            @enderror
+            </x-card-item>
+            <x-v-error name="user_id" />
 
-            <div class="flex items-center justify-between my-[5px]">
-                <span class="text-sm bg-orange-100 rounded-full px-3 py-px text-orange-500">
-                    Winner
-                </span>
+            <x-card-item name="Winner">
                 <div class="relative inline-flex">
                     <svg class="w-2 h-2 absolute top-0 right-0 m-2 pointer-events-none"
                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 412 232">
@@ -197,26 +134,19 @@
                         class="rounded-md text-gray-600 px-[10px] bg-gray-100 focus:bg-gray-300 focus:outline-none appearance-none">
                         <option value=""> Null </option>
                         @foreach ($dealers_list as $dealer)
-                            <option value="{{ $dealer->id }}" 
-                                @if (old('dealer_id'))
-                                    @if (old('dealer_id') == $dealer->id)
-                                        selected
-                                    @endif
-                                @else
-                                    @if ($car->dealer_id === $dealer->id)
-                                        selected
-                                    @endif
-                                @endif>
+                            <option value="{{ $dealer->id }}"
+                                @if (old('dealer_id')) @if (old('dealer_id') == $dealer->id)
+                                        selected @endif
+                            @else @if ($car->dealer_id === $dealer->id) selected @endif @endif>
                                 {{ $dealer->firstname . ' ' . $dealer->lastname }}
                             </option>
                         @endforeach
                     </select>
                 </div>
-            </div>
-            @error('dealer_id')
-                <p class="text-red-600 bg-red-100 rounded-md text-[14px] py-[3px] px-[5px]"> {{ $message }} </p>
-            @enderror
-        </div>
+            </x-card-item>
+            <x-v-error name="dealer_id" />
+
+        </x-show-card>
 
         <div class="mt-[10px]">
             <button type="submit"

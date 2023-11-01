@@ -87,9 +87,6 @@ class FreeCallback
             'callback_query_id' => $update->callback_query_id,
             'text' => trans('msg.joined_the_auction'),
             'show_alert' => true,
-            // todo
-            // 'text' => trans('msg.bot_opening_msg'),
-            // 'url' => env('DEALER_BOT_USERNAME') . '?start=h',
         ]);
         $update->bot->sendMediaGroup([
             'chat_id' => $update->chat_id,
@@ -104,11 +101,11 @@ class FreeCallback
         if ($auction->life_cycle === 'playing') {
             $update->bot->sendMessage([
                 'chat_id' => $update->chat_id,
-                'text' => trans('msg.auction_info', [
+                'text' => trans('msg.auction_info_msg_for_dealers', [
                     'highest_price' => $auction->highest_price,
-                    'starting_price' => $auction->starting_price,
                     'participants' => $auction->dealers()->count(),
                     'finish' => $auction->getFinish(),
+                    'enough_price' => $auction->highest_price + 50,
                 ]),
             ]);
             return $update->bot->sendMessage([

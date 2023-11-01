@@ -232,7 +232,6 @@ class CarLayer
     }
     private static function waitingImages($update)
     {
-        // todo: work with album
         if ($update->data === trans('msg.cancel_btn'))
             return Command::cancel($update);
         if ($update->data === trans('msg.next_btn')) {

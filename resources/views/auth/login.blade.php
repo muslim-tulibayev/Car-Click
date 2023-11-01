@@ -26,9 +26,8 @@
 
                     <div class="relative">
                         <input type="text" required
-                            class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                            name="username" value="{{ old('username') }}" placeholder="Enter username" />
-
+                            class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm" name="username"
+                            value="{{ old('username') }}" placeholder="Username" />
                         <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor">
@@ -43,11 +42,10 @@
                     <label for="password" class="sr-only">Password</label>
 
                     <div class="relative">
-                        <input type="password" required
-                            class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                            name="password" value="{{ old('password') }}" placeholder="Enter password" />
-
-                        <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
+                        <input id="inputPassword" type="password" required name="password" value="{{ old('password') }}"
+                            placeholder="Password"
+                            class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm" />
+                        <span onclick="temp()" class="absolute inset-y-0 end-0 grid place-content-center px-4">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -71,4 +69,12 @@
             </form>
         </div>
     </div>
+    <script>
+        function temp() {
+            if (inputPassword.getAttribute('type') === 'password')
+                inputPassword.type = 'text'
+            else
+                inputPassword.type = 'password'
+        }
+    </script>
 </x-layouts.empty-app>

@@ -1,4 +1,3 @@
-<!-- Critical -->
 <div class="p-4 text-red-900 bg-red-100 border border-red-200 rounded-md m-1" id="alertError">
     <div class="flex justify-between flex-wrap">
         <div class="w-0 flex-1 flex">
@@ -18,9 +17,6 @@
                         font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2
                         focus:ring-red-500 sm:w-auto sm:text-sm">
                         Close </button>
-                    {{-- <button type="button"
-                        class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 ml-2 bg-red-200 text-base font-medium hover:bg-red-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400 sm:w-auto sm:text-sm">
-                        Secondary button </button> --}}
                 </div>
             </div>
         </div>

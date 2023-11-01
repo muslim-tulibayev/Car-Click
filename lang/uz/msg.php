@@ -43,13 +43,13 @@ return [
         . "🔷 Rang: :color\n"
         . "🆕 Holati: :condition\n"
         . "💬 Qo'shimcha: :additional\n"
-        . "🙍‍♂️ Egasi: :owner_fname :owner_lname\n"
-        . "👨‍💼 G'olib: :winner_fname :winner_lname\n",
+        . "👤 Egasi: :owner_fname :owner_lname\n"
+        . "🏆 G'olib: :winner_fname :winner_lname\n",
     'auction_created_info' => "<b>Auksion belgilandi</b>\n"
         . "🆔 Avtomobil ID: :car_id\n"
         . "🅰 Kompaniya: :company\n"
         . "Ⓜ Model: :model\n"
-        . "🙍‍♂️ Egasi: :owner\n"
+        . "👤 Egasi: :owner\n"
         . "📅 Boshlash: :start\n"
         . "🏁 Tugatish: :finish\n"
         . "💵 Boshlang'ich narxi: :starting_price\$\n",
@@ -93,27 +93,23 @@ return [
     'join_btn' => "Qo'shilish",
     'left_btn' => "🚪 Auktsionni tark etish",
     'auction_inactive' => "‼️ Kechirasiz! Auktsion faol emas.",
-    'auction_info' => "📈 Eng yuqori narx: :highest_price\$\n"
-        . "💵 Boshlang'ich narxi: :starting_price\$\n"
-        . "👁 Ishtirokchilar: :participants\n"
-        . "🏁 Tugatish: :finish\n",
     'write_price' => "Siz bu yerda o'zingizga mos narxni osongina yozishingiz mumkin:\n"
-        . "(masalan, 10000|10 000|10 000|10 000$|10 000$)",
+        . "(masalan, 10000|10 000|10,000|10 000$|$10 000)",
     'cant_left' => "‼️ Kechirasiz! Auktsionni tark eta olmaysiz, chunki hozir eng yuqori narx egasi sizsiz.",
     'left' => "✅ Siz auksionni muvaffaqiyatli tark etdingiz.",
     'price_not_higher_enough' => "⚠️ Narx kamida :enough_price\$ dan yuqori bo'lishi kerak.",
     'owner_confirm_message' => "Sizning :color :company :model avtomobilingiz kimoshdi savdosida :highest_price\$ narxda edi. Siz Avtomobilingizni shu narxga sotishga rozimisiz?",
     'car_sold_message_for_dealers' => "<b>Avtomobil sotildi</b>\n"
-        . "👨‍💼 G'olib: :lastname :lastname\n"
+        . "🏆 G'olib: :lastname :lastname\n"
         . "🚘 Avtomobil: :color :company :model\n"
         . "💵 Narxi: :highest_price\$\n",
     'car_sold_message_for_operator' => "<b>Avtomobil sotildi</b>\n"
         . "🆔 Avtomobil ID: :car_id\n"
         . "🚘 Avtomobil: :color :company :model\n"
         . "💵 Narxi: :highest_price\$\n"
-        . "👨‍💼 G'olib: :winner_fname :winner_lname\n"
+        . "🏆 G'olib: :winner_fname :winner_lname\n"
         . "📲 Telefon: :winner_phone\n"
-        . "🙍‍♂️ Egasi: :owner_fname :owner_lname\n"
+        . "👤 Egasi: :owner_fname :owner_lname\n"
         . "📲 Telefon: :owner_phone\n",
     'car_sold_message_for_winner' => "🎉<b>Tabriklaymiz!</b>🎉\n"
         . "Hurmatli :firstname :lastname\n"
@@ -127,7 +123,7 @@ return [
         . "🆔 Avtomobil ID: :car_id\n"
         . "🚘 Avtomobil: :color :company :model\n"
         . "💵 Narxi: :highest_price\$\n"
-        . "👨‍💼 G'olib: :winner_fname :winner_lname\n",
+        . "🏆 G'olib: :winner_fname :winner_lname\n",
     'car_not_sold_message_for_dealers' => "<b>Avtomobil sotilmadi</b>\n"
         . "🚘 Avtomobil: :color :company :model\n"
         . "💵 Narxi: :starting_price\$\n",
@@ -138,7 +134,7 @@ return [
     'car_not_sold_message_for_operator' => "<b>Avtomobil sotilmadi</b>\n"
         . "🆔 Avtomobil ID: :car_id\n"
         . "🚘 Avtomobil: :color :company :model\n"
-        . "🙍‍♂️ Egasi: :owner_fname :owner_lname\n"
+        . "👤 Egasi: :owner_fname :owner_lname\n"
         . "📲 Telefon: :owner_phone\n",
     'didnt_sell_message_for_dealers' => "<b>Avtomobil sotilmadi</b>\n"
         . "Avtomobilning egasi sotishga rozi bo'lmadi.\n\n"
@@ -149,7 +145,7 @@ return [
         . "🆔 Avtomobil ID: :car_id\n"
         . "🚘 Avtomobil: :color :company :model\n"
         . "💵 Narxi: :highest_price\$\n"
-        . "🙍‍♂️ Egasi: :owner_fname :owner_lname\n"
+        . "👤 Egasi: :owner_fname :owner_lname\n"
         . "📲 Telefon: :owner_phone\n",
     'didnt_sell_message_for_winner' => "<b>Avtomobil sotilmadi</b>\n"
         . "Hurmatli :firstname :lastname auktsion so'rovingiz avtomobil egasi tomonidan rad etildi.\n\n"
@@ -219,6 +215,7 @@ return [
     'waiting_confirmation' => "Tasdiqlash kutilmoqda",
     'finished' => "Tugatildi",
     'cannot_cancel_queue' => "‼️ Kechirasiz, siz operatsiyani bekor qila olmaysiz, chunki sizdan boshqa operator yo'q.",
+    'queue_ignored' => "✅ Vazifa muvaffaqiyatli e'tiborsiz qoldirildi.",
     'empty_queue' => "☑️ Hech qanday vazifa yo'q",
     'done' => "Bajarildi",
     'cannot_logout_because_of_queue' => "‼️ Kechirasiz, siz tizimdan chiqa olmaysiz, chunki sizda vazifa bor va vazifani tayinlaydigan boshqa operator yo'q.",
@@ -231,6 +228,18 @@ return [
     'invalid_image' => "⚠️ Bizga surat yuborishingiz kerak",
     'ask_car_image' => "Avtomobilingiz tasvirini yuboring:",
     'visit_channel' => "🌐 Tashrif buyurish",
+
+    'auction_info_msg_for_current_winner' => "📈 Eng yuqori narx: :highest_price\$\n"
+        . "👀 Ishtirokchilar: :participants\n"
+        . "🏁 Tugatish: :finish\n\n"
+        . "<b> 👑 Hurmatli :fname :lname, hozir eng yuqori narx taklif egasi sizsiz </b>",
+    'auction_info_msg_for_dealers' => "📈 Eng yuqori narx: :highest_price\$\n"
+        . "👀 Ishtirokchilar: :participants\n"
+        . "🏁 Tugatish: :finish\n\n"
+        . "✳ Hozir kim oshdi savdosida g'alaba qozonish uchun :enough_price\$ taklif qilishingiz mumkin",
+    'auction_info_msg_for_owner' => "📈 Eng yuqori narx: :highest_price\$\n"
+        . "👀 Ishtirokchilar: :participants\n"
+        . "🏁 Tugatish: :finish\n",
 
     'attributes' => [],
 

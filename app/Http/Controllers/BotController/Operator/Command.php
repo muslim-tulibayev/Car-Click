@@ -6,7 +6,6 @@ use App\Http\Controllers\BotController\Keyboard\KeyboardLayout;
 use App\Http\Controllers\Queue\QueueController;
 use App\Models\Operator;
 use App\Models\OperatorChat;
-use Illuminate\Support\Facades\Log;
 
 class Command
 {
@@ -57,12 +56,16 @@ class Command
 
     private static function getTask($update)
     {
-        if (!$update->tg_chat->operator) return;
-        if (!$update->tg_chat->operator->is_validated) return;
-        if ($update->tg_chat->action !== 'home>end') return;
-        if ($update->tg_chat->operator->queue) return;
+        $operator = $update->tg_chat->operator;
 
-        if (!QueueController::setToOperator($update->tg_chat->operator))
+        if (!$operator) return;
+        if (!$operator->is_validated) return;
+        if ($update->tg_chat->action !== 'home>end') return;
+
+        if ($operator->queue)
+            return QueueController::setOperatorToQueue($operator, $operator->queue);
+
+        if (!QueueController::setOperatorToQueue($operator))
             return $update->bot->sendMessage([
                 'chat_id' => $update->chat_id,
                 'reply_markup' => KeyboardLayout::empty(),
@@ -80,7 +83,6 @@ class Command
     {
         $operator = $update->tg_chat->operator;
         $operation = $update->tg_chat->action;
-        // todo: another msg for cancel queue
 
         // * No operator and Not validated
         if (!$operator or !$operator->is_validated) {
@@ -107,7 +109,7 @@ class Command
                 'reply_markup' => KeyboardLayout::home('operator'),
                 'text' => trans('msg.empty_action'),
             ]);
-            return QueueController::setToOperator($operator);
+            return QueueController::setOperatorToQueue($operator);
         }
 
 
@@ -119,13 +121,13 @@ class Command
                 'reply_markup' => KeyboardLayout::home('operator'),
                 'text' => trans('msg.cancelled'),
             ]);
-            return QueueController::setToOperator($operator);
+            return QueueController::setOperatorToQueue($operator);
         }
 
         // * Has queue
         // *    Has queue but no operation
         if ($operator->queue and $operation === 'home>end')
-            goto doing_the_operation;
+            return QueueController::ignoreQueue($operator->queue);
 
         // *    Has another operation (which doesn't belong to the current queue)
         if ($operator->queue and explode('>', $operation)[0] !== 'operation') {
@@ -153,7 +155,7 @@ class Command
                 'reply_markup' => KeyboardLayout::home('operator'),
                 'text' => trans('msg.cancelled'),
             ]);
-            return QueueController::unsetFromOperator($operator);
+            return QueueController::ignoreQueue($operator->queue);
         }
     }
 
@@ -253,7 +255,7 @@ class Command
                     'chat_id' => $update->chat_id,
                     'text' => trans('msg.cannot_logout_because_of_queue'),
                 ]);
-            QueueController::unsetFromOperator($operator);
+            QueueController::ignoreQueue($operator->queue);
         }
 
         $update->tg_chat->update([
