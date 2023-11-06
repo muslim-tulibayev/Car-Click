@@ -35,6 +35,7 @@ class KeyboardLayout
                 ->setResizeKeyboard(true)
                 ->row([Button::make(['text' => trans('msg.start_new_auction_btn')])])
                 ->row([Button::make(['text' => trans('msg.get_info_a_car')])])
+                ->row([Button::make(['text' => trans('msg.get_info_dealers')])])
                 ->row([Button::make(['text' => trans('msg.settings_btn')])]);
 
         elseif ($user_type === 'dealer')

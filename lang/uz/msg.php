@@ -220,7 +220,6 @@ return [
     'done' => "Bajarildi",
     'cannot_logout_because_of_queue' => "‼️ Kechirasiz, siz tizimdan chiqa olmaysiz, chunki sizda vazifa bor va vazifani tayinlaydigan boshqa operator yo'q.",
     'waiting_validation' => "Tasdiqlash kutilmoqda",
-
     'help' => 'Bu yordam',
     'info' => "Bu ma'lumot",
     'more_images' => "Siz Avtomobilingizning boshqa rasmlarini qo'shishingiz mumkin, agar qo'shishni xohlamasangiz, quyidagi \":next_btn\" tugmasini bosing",
@@ -228,7 +227,6 @@ return [
     'invalid_image' => "⚠️ Bizga surat yuborishingiz kerak",
     'ask_car_image' => "Avtomobilingiz tasvirini yuboring:",
     'visit_channel' => "🌐 Tashrif buyurish",
-
     'auction_info_msg_for_current_winner' => "📈 Eng yuqori narx: :highest_price\$\n"
         . "👀 Ishtirokchilar: :participants\n"
         . "🏁 Tugatish: :finish\n\n"
@@ -240,6 +238,10 @@ return [
     'auction_info_msg_for_owner' => "📈 Eng yuqori narx: :highest_price\$\n"
         . "👀 Ishtirokchilar: :participants\n"
         . "🏁 Tugatish: :finish\n",
+
+    'get_info_dealers' => "👨‍💼 Dilerlar",
+    'dealers_info_msg' => "👨‍💼 Dilerlar:\n"
+        . "🔢 Raqam: :number\n",
 
     'attributes' => [],
 

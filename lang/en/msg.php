@@ -226,7 +226,6 @@ return [
     'done' => "Done",
     'cannot_logout_because_of_queue' => "‼️ Sorry, you cannot log out because you have a task and there is no other operator to assign the task to",
     'waiting_validation' => "Waiting validation",
-
     'help' => 'This is help',
     'info' => "This is info",
     'more_images' => "You can add more images of your car, If you don't want to add, click \":next_btn\" button below",
@@ -234,7 +233,6 @@ return [
     'invalid_image' => "⚠️ You should send us a photo",
     'ask_car_image' => "Send an image of your car:",
     'visit_channel' => "🌐 Visit channel",
-
     'auction_info_msg_for_current_winner' => "📈 Highest price: :highest_price\$\n"
         . "� Participants: :participants\n"
         . "🏁 Finish: :finish\n\n"
@@ -246,6 +244,10 @@ return [
     'auction_info_msg_for_owner' => "📈 Highest price: :highest_price\$\n"
         . "� Participants: :participants\n"
         . "🏁 Finish: :finish\n",
+
+    'get_info_dealers' => "👨‍💼 Dealers",
+    'dealers_info_msg' => "👨‍💼 Dealers:\n"
+        . "🔢 Number: :number\n",
 
 
     'attributes' => [],

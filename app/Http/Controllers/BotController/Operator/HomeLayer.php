@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\BotController\Operator;
 
 use App\Http\Controllers\BotController\Keyboard\KeyboardLayout;
+use App\Models\Dealer;
 
 class HomeLayer
 {
@@ -44,6 +45,9 @@ class HomeLayer
             case trans('msg.get_info_a_car'):
                 self::getInfoCar($update);
                 return true;
+            case trans('msg.get_info_dealers'):
+                self::getInfoDealers($update);
+                return true;
             case trans('msg.settings_btn'):
                 self::settings($update);
                 return true;
@@ -51,6 +55,19 @@ class HomeLayer
                 return false;
         }
     }
+
+
+
+
+
+    private static function getInfoDealers($update)
+    {
+        return $update->bot->sendMessage([
+            'chat_id' => $update->chat_id,
+            'text' => trans('msg.dealers_info_msg', ['number' => Dealer::count()]),
+        ]);
+    }
+
 
 
 
