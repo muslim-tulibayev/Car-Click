@@ -259,4 +259,59 @@ class KeyboardLayout
                 ])
             ]);
     }
+
+
+
+
+
+
+    public static function dealersList($dealers, int $current_page = 1, bool $prev = false, bool $next = false)
+    {
+        $keyboard = Keyboard::make()->inline();
+
+        $i = 0;
+        $count_dealers = count($dealers);
+
+        while ($i < $count_dealers) {
+            $row = [];
+
+            for ($j = 0; $j < 5; $j++) {
+                $index = $i + $j;
+
+                if ($index === $count_dealers) break;
+
+                $row[] = Button::make([
+                    'text' => $index + 1,
+                    'callback_data' => 'dealer|info|' . $dealers[$index]->id,
+                ]);
+            }
+
+            $keyboard->row($row);
+
+            if ($i + 5 > $count_dealers)
+                $i = $count_dealers;
+            else
+                $i += 5;
+        }
+
+        $row = [];
+        if ($prev)
+            $row[] = Button::make([
+                'text' => '⬅ Prev',
+                'callback_data' => 'dealer|prev|' . $current_page
+            ]);
+        $row[] = Button::make([
+            'text' => '🆑 Cancel',
+            'callback_data' => 'dealer|cancel|' . $current_page
+        ]);
+        if ($next)
+            $row[] = Button::make([
+                'text' => 'Next ➡',
+                'callback_data' => 'dealer|next|' . $current_page
+            ]);
+
+        $keyboard->row($row);
+
+        return $keyboard;
+    }
 }

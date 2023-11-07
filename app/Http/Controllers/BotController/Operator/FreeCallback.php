@@ -17,19 +17,49 @@ class FreeCallback
         $type = explode('|', $update->data)[0]; // * type
 
         // * Remove each callbacks here first
-        $update->bot->deleteMessage([
-            'chat_id' => $update->chat_id,
-            'message_id' => $update->message_id,
-        ]);
+        // * If callback type is 'dealer' -> do not remove
+        if ($type !== 'dealer')
+            $update->bot->deleteMessage([
+                'chat_id' => $update->chat_id,
+                'message_id' => $update->message_id,
+            ]);
 
         switch ($type) {
             case 'queue':
                 self::finishTask($update);
                 return true;
+            case 'dealer':
+                self::getDealerInfo($update);
+                return true;
             default:
                 return false;
         }
     }
+
+
+
+
+    private static function getDealerInfo($update)
+    {
+        $type = explode('|', $update->data)[1]; // * type [prev, cancel, next, info]
+        $data = explode('|', $update->data)[2]; // * data: info -> dealer_id, prev|next|cancel -> current_page
+
+        switch ($type) {
+            case 'prev':
+                DealerLayer::editList($update, $data - 1);
+                break;
+            case 'next':
+                DealerLayer::editList($update, $data + 1);
+                break;
+            case 'info':
+                DealerLayer::getInfo($update, $data);
+                break;
+            default:
+                DealerLayer::removeList($update);
+                break;
+        }
+    }
+
 
 
 

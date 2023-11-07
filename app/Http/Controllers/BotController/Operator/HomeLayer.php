@@ -4,6 +4,8 @@ namespace App\Http\Controllers\BotController\Operator;
 
 use App\Http\Controllers\BotController\Keyboard\KeyboardLayout;
 use App\Models\Dealer;
+use Telegram\Bot\Keyboard\Button;
+use Telegram\Bot\Keyboard\Keyboard;
 
 class HomeLayer
 {
@@ -62,10 +64,14 @@ class HomeLayer
 
     private static function getInfoDealers($update)
     {
-        return $update->bot->sendMessage([
-            'chat_id' => $update->chat_id,
-            'text' => trans('msg.dealers_info_msg', ['number' => Dealer::count()]),
-        ]);
+        // todo: make operation for this
+        if (Dealer::count() === 0)
+            return $update->bot->sendMessage([
+                'chat_id' => $update->chat_id,
+                'text' => "There is no dealers!",
+            ]);
+
+        DealerLayer::getList($update);
     }
 
 

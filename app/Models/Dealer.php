@@ -16,7 +16,7 @@ class Dealer extends Model
         "firstname",
         "lastname",
         "contact",
-        "is_validated",
+        // "is_validated",
         // "account",
         // "password",
     ];
