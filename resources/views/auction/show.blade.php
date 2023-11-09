@@ -4,7 +4,9 @@
         <x-show-card>
             <h2 class="text-[20px] text-gray-700 font-[700]"> Auction id: {{ $auction->id }} </h2>
             <x-card-item name="Car">
-                <x-two-row-text :first="$auction->car->company" :second="$auction->car->color . ' ' . $auction->car->model" />
+                <a href="{{ route('cars.show', ['car' => $auction->car->id]) }}">
+                    <x-two-row-text :first="$auction->car->company" :second="$auction->car->color . ' ' . $auction->car->model" />
+                </a>
             </x-card-item>
             <x-card-item name="Starting price">
                 <span class="text-sm px-3 py-px text-green-500">
@@ -13,13 +15,15 @@
             </x-card-item>
             <x-card-item name="Highest price">
                 <span class="text-sm px-3 py-px text-green-500">
-                    ${{ $auction->highest_price }}
+                    ${{ $auction->highestPrice() }}
                 </span>
             </x-card-item>
             <x-card-item name="Highest price owner">
                 <span class="text-sm px-3 py-px text-gray-700">
-                    @if (isset($auction->highestPriceOwner))
-                        {{ $auction->highestPriceOwner->firstname . ' ' . $auction->highestPriceOwner->lastname }}
+                    @if ($auction->highestPriceOwner())
+                        <a href="{{ route('dealers.show', ['dealer' => $auction->highestPriceOwner()->id]) }}">
+                            {{ $auction->highestPriceOwner()->firstname . ' ' . $auction->highestPriceOwner()->lastname }}
+                        </a>
                     @endif
                 </span>
             </x-card-item>

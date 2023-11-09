@@ -28,12 +28,12 @@ class ProfileController extends Controller
 
         auth()->user()->update($credentials);
 
-        return view('profile.profile', [
-            'updated_message' => 'Your changes updated successfully',
-            'firstname' => auth()->user()->firstname,
-            'lastname' => auth()->user()->lastname,
-            'username' => auth()->user()->username,
-        ]);
+        $alert_success = (object) [
+            'primary' => "Updated",
+            'text' => "Your changes updated successfully",
+        ];
+
+        return back()->with('alert_success', $alert_success);
     }
 
     public function changePassword(Request $request)
@@ -59,29 +59,19 @@ class ProfileController extends Controller
             'password' => Hash::make($request->password)
         ]);
 
-        return view('profile.profile', [
-            'updated_message' => 'Your password updated successfully',
-            'firstname' => auth()->user()->firstname,
-            'lastname' => auth()->user()->lastname,
-            'username' => auth()->user()->username,
-        ]);
+        $alert_success = (object) [
+            'primary' => "Updated",
+            'text' => "Your password updated successfully",
+        ];
+
+        return back()->with('alert_success', $alert_success);
     }
 
-    public function deleteAccountShowModal()
+    public function destroyAccount(Request $request)
     {
-        return view('profile.delete');
-    }
-
-    public function deleteAccount(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'password' => ['required', 'string'],
+        $request->validate([
+            'password' => ['required', 'string']
         ]);
-
-        if ($validator->fails())
-            return back()
-                ->withInput()
-                ->withErrors($validator->messages());
 
         if (!Hash::check($request->password, auth()->user()->password))
             return back()

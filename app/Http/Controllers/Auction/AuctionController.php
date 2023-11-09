@@ -81,7 +81,7 @@ class AuctionController
                 'message_id' => $auction->join_btn_message_id,
             ]);
 
-            if (!$auction->highest_price) {
+            if (!$auction->highestPrice()) {
                 self::deactivateAuctionWithNotSold($auction);
                 continue;
             }
@@ -160,7 +160,7 @@ class AuctionController
                 'color' => $auction->car->color,
                 'company' => $auction->car->company,
                 'model' => $auction->car->model,
-                'highest_price' => $auction->highest_price,
+                'highest_price' => $auction->highestPrice(),
             ]),
         ]);
 
@@ -192,7 +192,7 @@ class AuctionController
         $auction->update(['life_cycle' => 'finished']);
 
         $auction->car->update([
-            "dealer_id" => $auction->highest_price_owner_id,
+            "dealer_id" => $auction->highestPriceOwner()->id,
             "status" => 'sold_out',
         ]);
 
@@ -204,18 +204,18 @@ class AuctionController
                 'car_id' => $auction->car->id,
                 'firstname' => $auction->car->user->firstname,
                 'lastname' => $auction->car->user->lastname,
-                'winner_fname' => $auction->highestPriceOwner->firstname,
-                'winner_lname' => $auction->highestPriceOwner->lastname,
+                'winner_fname' => $auction->highestPriceOwner()->firstname,
+                'winner_lname' => $auction->highestPriceOwner()->lastname,
                 'color' => $auction->car->color,
                 'company' => $auction->car->company,
                 'model' => $auction->car->model,
-                'highest_price' => $auction->highest_price,
+                'highest_price' => $auction->highestPrice(),
             ]),
         ]);
 
         foreach ($auction->dealers as $dealer) {
             app()->setLocale($dealer->tg_chat->lang);
-            if ($dealer->id === $auction->highest_price_owner_id) {
+            if ($dealer->id === $auction->highestPriceOwner()->id) {
                 Telegram::bot('dealer-bot')->sendMessage([
                     'chat_id' => $dealer->tg_chat->chat_id,
                     'parse_mode' => 'html',
@@ -226,7 +226,7 @@ class AuctionController
                         'color' => $auction->car->color,
                         'company' => $auction->car->company,
                         'model' => $auction->car->model,
-                        'highest_price' => $auction->highest_price,
+                        'highest_price' => $auction->highestPrice(),
                     ]),
                 ]);
                 continue;
@@ -235,12 +235,12 @@ class AuctionController
                 'chat_id' => $dealer->tg_chat->chat_id,
                 'parse_mode' => 'html',
                 'text' => trans('msg.car_sold_message_for_dealers', [
-                    'firstname' => $auction->highestPriceOwner->firstname,
-                    'lastname' => $auction->highestPriceOwner->lastname,
+                    'firstname' => $auction->highestPriceOwner()->firstname,
+                    'lastname' => $auction->highestPriceOwner()->lastname,
                     'color' => $auction->car->color,
                     'company' => $auction->car->company,
                     'model' => $auction->car->model,
-                    'highest_price' => $auction->highest_price,
+                    'highest_price' => $auction->highestPrice(),
                 ]),
             ]);
         }
@@ -274,13 +274,13 @@ class AuctionController
                 'company' => $auction->car->company,
                 'model' => $auction->car->model,
                 'car_id' => $auction->car->id,
-                'highest_price' => $auction->highest_price,
+                'highest_price' => $auction->highestPrice(),
             ]),
         ]);
 
         foreach ($auction->dealers as $dealer) {
             app()->setLocale($dealer->tg_chat->lang);
-            if ($dealer->id === $auction->highest_price_owner_id) {
+            if ($dealer->id === $auction->highestPriceOwner()->id) {
                 Telegram::bot('dealer-bot')->sendMessage([
                     'chat_id' => $dealer->tg_chat->chat_id,
                     'parse_mode' => 'html',
@@ -290,7 +290,7 @@ class AuctionController
                         'color' => $auction->car->color,
                         'company' => $auction->car->company,
                         'model' => $auction->car->model,
-                        'highest_price' => $auction->highest_price,
+                        'highest_price' => $auction->highestPrice(),
                     ]),
                 ]);
                 continue;
@@ -302,7 +302,7 @@ class AuctionController
                     'color' => $auction->car->color,
                     'company' => $auction->car->company,
                     'model' => $auction->car->model,
-                    'highest_price' => $auction->highest_price,
+                    'highest_price' => $auction->highestPrice(),
                 ]),
             ]);
         }

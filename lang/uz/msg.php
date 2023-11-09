@@ -18,6 +18,7 @@ return [
     'request_denied' => "❌ Sizning so'rovingiz rad etildi.",
     'request_allowed_for_operator' => "✅ Siz muvaffaqiyatli so'rovga ruxsat berdingiz.",
     'request_denied_for_operator' => "✅ Siz so'rovni muvaffaqiyatli rad etdingiz.",
+    'task_done_msg' => "✅ Siz vazifangizni muvaffaqiyatli bajardingiz",
     'new_operator_confirmation' => "🪪 <b>Yangi operator</b>\n"
         . "Ism: :firstname\n"
         . "Familiya: :lastname\n"
@@ -106,9 +107,8 @@ return [
     'car_sold_message_for_operator' => "<b>Avtomobil sotildi</b>\n"
         . "🆔 Avtomobil ID: :car_id\n"
         . "🚘 Avtomobil: :color :company :model\n"
-        . "💵 Narxi: :highest_price\$\n"
-        . "🏆 G'olib: :winner_fname :winner_lname\n"
-        . "📲 Telefon: :winner_phone\n"
+        . "💵 Narxi: :highest_price\$\n\n"
+        . "🏆 Top :bids_num ta taklif beruvchilar:\n" . ":bidders" . "\n"
         . "👤 Egasi: :owner_fname :owner_lname\n"
         . "📲 Telefon: :owner_phone\n",
     'car_sold_message_for_winner' => "🎉<b>Tabriklaymiz!</b>🎉\n"
@@ -231,17 +231,26 @@ return [
         . "👀 Ishtirokchilar: :participants\n"
         . "🏁 Tugatish: :finish\n\n"
         . "<b> 👑 Hurmatli :fname :lname, hozir eng yuqori narx taklif egasi sizsiz </b>",
-    'auction_info_msg_for_dealers' => "📈 Eng yuqori narx: :highest_price\$\n"
+    'auction_info_msg_for_dealers' => "📈 Eng yuqori narx: :highest_price\n"
         . "👀 Ishtirokchilar: :participants\n"
         . "🏁 Tugatish: :finish\n\n"
         . "✳ Hozir kim oshdi savdosida g'alaba qozonish uchun :enough_price\$ taklif qilishingiz mumkin",
     'auction_info_msg_for_owner' => "📈 Eng yuqori narx: :highest_price\$\n"
         . "👀 Ishtirokchilar: :participants\n"
         . "🏁 Tugatish: :finish\n",
-
     'get_info_dealers' => "👨‍💼 Dilerlar",
     'dealers_info_msg' => "👨‍💼 Dilerlar:\n"
         . "🔢 Raqam: :number\n",
+    'top_bidder' => ":number :price\$\n"
+        . "👨‍💼 Diler: :fname :lname\n"
+        . "📲 Telefon: :phone\n",
+    'not_bid_yet' => 'Hali taklif kiritilmagan',
+    'dealer_list_title' => "<b>👨‍💼 Dilerlar :all_num ta dan :first_num - :last_num </b>\n\n",
+    'dealer_info' => "<b>👨‍💼 Diler </b>\n\n"
+        . "Ism: :fname\n"
+        . "Familiya: :lname\n"
+        . "Telefon: :contact\n"
+        . "Avtomobillar soni: :num_of_cars",
 
     'attributes' => [],
 

@@ -47,17 +47,17 @@
             </x-card-item>
             <x-v-error name="starting_price" />
 
-            <x-card-item name="Highest price">
+            {{-- <x-card-item name="Highest price">
                 <div>
                     <span class="text-green-500"> $ </span>
                     <input type="number" name="highest_price"
                         class="w-[100px] text-sm text-green-500 outline-none bg-gray-100 focus:bg-gray-300 rounded-md px-[3px]"
-                        value="{{ old('highest_price') ?? $auction->highest_price }}" />
+                        value="{{ old('highest_price') ?? $auction->highestPrice() }}" />
                 </div>
             </x-card-item>
-            <x-v-error name="highest_price" />
+            <x-v-error name="highest_price" /> --}}
 
-            <x-card-item name="Highest price owner">
+            {{-- <x-card-item name="Highest price owner">
                 <div class="relative inline-flex">
                     <svg class="w-2 h-2 absolute top-0 right-0 m-2 pointer-events-none"
                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 412 232">
@@ -75,7 +75,7 @@
                     </select>
                 </div>
             </x-card-item>
-            <x-v-error name="highest_price_owner_id" />
+            <x-v-error name="highest_price_owner_id" /> --}}
 
             <x-card-item name="Status">
                 <div class="relative inline-flex">

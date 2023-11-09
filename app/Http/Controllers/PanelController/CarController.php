@@ -46,7 +46,7 @@ class CarController extends Controller
             "color" => ['required', 'string', 'max:255'],
             "condition" => ['required', 'in:bad,good,new'],
             "status" => ['required', 'in:waiting_validation,on_sale,not_sold,didnt_sell,sold_out'],
-            "additional" => ['required', 'string', 'max:255'],
+            "additional" => ['nullable', 'string', 'max:255'],
             "user_id" => ['nullable', 'exists:users,id'],
             "dealer_id" => ['nullable', 'exists:dealers,id'],
         ]);
@@ -58,7 +58,7 @@ class CarController extends Controller
             "color" => $request->color,
             "condition" => $request->condition,
             "status" => $request->status,
-            "additional" => $request->additional,
+            "additional" => $request->additional ?? null,
             "user_id" => $request->user_id,
             "dealer_id" => $request->dealer_id,
         ]);

@@ -18,7 +18,6 @@ class DealerSeeder extends Seeder
             "firstname" => 'Dealer-name',
             "lastname" => 'Dealer',
             "contact" => '998997182029',
-            "is_validated" => true,
         ];
 
         Dealer::create($dealer);

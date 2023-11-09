@@ -19,8 +19,8 @@ class AuctionFactory extends Factory
         return [
             "car_id" => rand(1, 20),
             "starting_price" => rand(100, 100000),
-            "highest_price" => rand(0, 100000),
-            "highest_price_owner_id" => rand(1, 20),
+            // "highest_price" => rand(0, 100000),
+            // "highest_price_owner_id" => rand(1, 20),
             "life_cycle" => fake()->randomElement(['waiting_start', 'playing', 'waiting_confirmation', 'finished']),
             "start" => fake()->date('Y-m-d H:i:s'),
             "finish" => fake()->date('Y-m-d H:i:s'),

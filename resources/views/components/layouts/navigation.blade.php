@@ -3,7 +3,5 @@
         <h1 class="font-[700] text-[25px]"> Programmer uz </h1>
     </a>
 
-    <x-search />
-
     <x-dropdown />
 </nav>

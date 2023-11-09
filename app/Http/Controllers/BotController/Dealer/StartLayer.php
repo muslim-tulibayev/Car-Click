@@ -204,7 +204,6 @@ class StartLayer
                 'contact' => $data->contact,
                 'firstname' => $data->firstname,
                 'lastname' => $data->lastname,
-                'is_validated' => true,
             ]);
             $update->tg_chat->update([
                 "dealer_id" => $new_dealer->id,

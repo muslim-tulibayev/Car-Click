@@ -2,11 +2,10 @@
 
     <x-alerts.success />
 
+    {{-- <x-search-bar name="post" value="{{ $search_val ?? null }}" /> --}}
+
     <div class="p-4">
         <div class="w-full">
-            {{-- <div class="w-full mb-2 text-white font-medium text-right">
-                <a href="{{ route('auctions.create') }}" class="inline-block bg-green-500 py-1 px-3 rounded-md"> + New </a>
-            </div> --}}
             <div class="w-full flex text-gray-400">
                 <h1 class="flex-1 font-normal px-3 pt-0 pb-3"> ID </h1>
                 <h1 class="flex-1 font-normal px-3 pt-0 pb-3"> Car </h1>
@@ -15,7 +14,7 @@
             </div>
             <div class="text-gray-600 dark:text-gray-100">
                 @foreach ($auctions as $auction)
-                    <x-list-item>
+                    <x-list-item :route="route('auctions.show', ['auction' => $auction->id])">
                         <div class="inline-block flex-1 py-2 px-1">
                             <div class="flex items-center text-gray-600"> {{ $auction->id }} </div>
                         </div>

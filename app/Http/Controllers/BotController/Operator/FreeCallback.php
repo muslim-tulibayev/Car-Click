@@ -5,7 +5,6 @@ namespace App\Http\Controllers\BotController\Operator;
 use App\Http\Controllers\BotController\Keyboard\KeyboardLayout;
 use App\Http\Controllers\Queue\QueueController;
 use App\Models\Queue;
-use Illuminate\Support\Facades\Log;
 
 class FreeCallback
 {
@@ -16,25 +15,45 @@ class FreeCallback
 
         $type = explode('|', $update->data)[0]; // * type
 
-        // * Remove each callbacks here first
-        // * If callback type is 'dealer' -> do not remove
-        if ($type !== 'dealer')
-            $update->bot->deleteMessage([
-                'chat_id' => $update->chat_id,
-                'message_id' => $update->message_id,
-            ]);
-
         switch ($type) {
             case 'queue':
                 self::finishTask($update);
                 return true;
             case 'dealer':
                 self::getDealerInfo($update);
+            case 'bid':
+                self::getBidsInfo($update);
                 return true;
             default:
                 return false;
         }
     }
+
+
+
+
+
+    private static function getBidsInfo($update)
+    {
+        $type = explode('|', $update->data)[1]; // * type: [prev, next]
+        $data = explode('|', $update->data)[2]; // * data: [prev, next] -> current_page, [done] -> queue_id
+
+        switch ($type) {
+            case 'prev':
+                BidLayer::editList($update, $data - 1);
+                break;
+            case 'next':
+                BidLayer::editList($update, $data + 1);
+                break;
+            case 'done':
+                BidLayer::taskDone($update, $data);
+                break;
+            case 'cancel':
+                Command::cancel($update);
+                break;
+        }
+    }
+
 
 
 
@@ -66,8 +85,14 @@ class FreeCallback
 
     private static function finishTask($update)
     {
+        // * Remove each callbacks here first
+        $update->bot->deleteMessage([
+            'chat_id' => $update->chat_id,
+            'message_id' => $update->message_id,
+        ]);
+
         $id = explode('|', $update->data)[1]; // * queue id
-        $data = explode('|', $update->data)[2]; // * data [done, allow, deny, ignore]
+        $data = explode('|', $update->data)[2]; // * data [take, done, allow, deny, ignore]
 
         $operator = $update->tg_chat->operator;
         if (!($operator->queue and $operator->queue->id == $id)) return;
@@ -86,6 +111,15 @@ class FreeCallback
                 'reply_markup' => KeyboardLayout::askStart(),
                 'text' => trans('msg.ask_start'),
             ]);
+        }
+
+        if ($queue->operation === 'finished_auction' and $data === 'take') {
+            $update->tg_chat->update([
+                'action' => 'operation>finished_auction',
+                'data' => json_encode(['queue_id' => $queue->id]),
+            ]);
+
+            return BidLayer::getList($update);
         }
 
         QueueController::finish($queue, $data);

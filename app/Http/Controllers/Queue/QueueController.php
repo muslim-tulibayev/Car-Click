@@ -436,7 +436,7 @@ class QueueController
                         'color' => $auction->car->color,
                         'company' => $auction->car->company,
                         'model' => $auction->car->model,
-                        'highest_price' => $auction->highest_price,
+                        'highest_price' => $auction->highestPrice(),
                     ]),
                 ]);
             case 'sold_out':
@@ -447,16 +447,16 @@ class QueueController
                 return Telegram::bot('operator-bot')->sendMessage([
                     'chat_id' => $operator->tg_chat->chat_id,
                     'parse_mode' => 'html',
-                    'reply_markup' => KeyboardLayout::taskDoneBtns($queue),
+                    'reply_markup' => KeyboardLayout::taskTakeBtns($queue),
                     'text' => trans('msg.car_sold_message_for_operator', [
                         'car_id' => $auction->car->id,
                         'color' => $auction->car->color,
                         'company' => $auction->car->company,
                         'model' => $auction->car->model,
-                        'highest_price' => $auction->highest_price,
-                        'winner_fname' => $auction->highestPriceOwner->firstname,
-                        'winner_lname' => $auction->highestPriceOwner->lastname,
-                        'winner_phone' => $auction->highestPriceOwner->contact,
+                        'highest_price' => $auction->highestPrice(),
+                        'winner_fname' => $auction->highestPriceOwner()->firstname,
+                        'winner_lname' => $auction->highestPriceOwner()->lastname,
+                        'winner_phone' => $auction->highestPriceOwner()->contact,
                         'owner_fname' => $auction->car->user->firstname,
                         'owner_lname' => $auction->car->user->lastname,
                         'owner_phone' => $auction->car->user->contact,

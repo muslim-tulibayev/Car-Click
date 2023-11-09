@@ -18,6 +18,7 @@ return [
     'request_denied' => "❌ Ваш запрос отклонен.",
     'request_allowed_for_operator' => "✅ Вы успешно разрешили запрос.",
     'request_denied_for_operator' => "✅ Вы успешно отклонили запрос.",
+    'task_done_msg' => " ✅ Вы успешно выполнили свою задачу",
     'new_operator_confirmation' => "🪪 <b>Новый оператор</b>\n"
         . "Имя: :firstname\n"
         . "Фамилия: :lastname\n"
@@ -106,9 +107,8 @@ return [
     'car_sold_message_for_operator' => "<b>Машина распродана.</b>\n"
         . "🆔 Идентификатор автомобиля: :car_id\n"
         . "🚘 Автомобиль: :color :company :model\n"
-        . "💵 Цена: :highest_price\$\n"
-        . "🏆 Победитель: :winner_fname :winner_lname\n"
-        . "📲 Телефон: :winner_phone\n"
+        . "💵 Цена: :highest_price\$\n\n"
+        . "🏆 Лучшие :bids_num участники торгов:\n" . ":bidders" . "\n"
         . "👤 Владелец: :owner_fname :owner_lname\n"
         . "📲 Телефон: :owner_phone\n",
     'car_sold_message_for_winner' => "🎉<b>Поздравляем!</b>🎉\n"
@@ -231,17 +231,26 @@ return [
         . "👀 Участники: :participants\n"
         . "🏁 Готово: :finish\n\n"
         . "<b> 👑 Дорогой :fname :lname, теперь ты предложишь самую высокую цену </b>",
-    'auction_info_msg_for_dealers' => "📈 Самая высокая цена: :highest_price\$\n"
+    'auction_info_msg_for_dealers' => "📈 Самая высокая цена: :highest_price\n"
         . "👀 Участники: :participants\n"
         . "🏁 Готово: :finish\n\n"
         . "✳ Теперь вы можете предложить :enough_price\$, чтобы выиграть аукцион",
     'auction_info_msg_for_owner' => "📈 Самая высокая цена: :highest_price\$\n"
         . "👀 Участники: :participants\n"
         . "🏁 Готово: :finish\n",
-
     'get_info_dealers' => "👨‍💼 Дилеры",
     'dealers_info_msg' => "👨‍💼 Дилеры:\n"
         . "🔢 Номер: :number\n",
+    'top_bidder' => ":number :price\$\n"
+        . "👨‍💼 Дилер: :fname :lname\n"
+        . "📲 Телефон: :phone\n",
+    'not_bid_yet' => 'Еще не сделана ставка',
+    'dealer_list_title' => "<b>👨‍💼 Дилеры :first_num - :last_num из :all_num </b>\n\n",
+    'dealer_info' => "<b>👨‍💼 Дилер </b>\n\n"
+        . "Имя: :fname\n"
+        . "Фамилия: :lname\n"
+        . "Контакт: :contact\n"
+        . "Количество автомобилей: :num_of_cars",
 
     'attributes' => [],
 

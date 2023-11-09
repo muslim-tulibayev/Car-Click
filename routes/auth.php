@@ -11,16 +11,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
-    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
-    Route::put('/profile', [ProfileController::class, 'update']);
-    Route::put('/profile-change-password', [ProfileController::class, 'changePassword'])->name('profile.change-password');
-    Route::get('/profile-delete', [ProfileController::class, 'deleteAccountShowModal'])->name('delete');
-    Route::delete('/profile-delete', [ProfileController::class, 'deleteAccount']);
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.edit');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/profile-change-password', [ProfileController::class, 'changePassword'])->name('profile.password');
+    Route::delete('/profile-delete', [ProfileController::class, 'destroyAccount'])->name('profile.destroy');
 });
 
 Route::middleware('guest')->group(function () {
-    // Route::get('/register', [RegisterController::class, 'showRegisterForm'])->name('register');
-    // Route::post('/register', [RegisterController::class, 'register']);
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [LoginController::class, 'login']);
+    Route::post('/login', [LoginController::class, 'login'])->name('login.attempt');
 });

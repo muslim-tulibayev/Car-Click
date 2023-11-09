@@ -13,7 +13,6 @@ class HomeLayer
     {
         // * Gate
         if (!$update->tg_chat->dealer) return;
-        if (!$update->tg_chat->dealer->is_validated) return;
 
         switch ($update->action[1]) {
             case 'end':

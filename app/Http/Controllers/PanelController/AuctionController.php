@@ -84,8 +84,8 @@ class AuctionController extends Controller
         $request->validate([
             "car_id" => ['required', 'integer', 'exists:cars,id'],
             "starting_price" => ['required', 'integer', 'min:0'],
-            "highest_price" => ['required', 'integer', 'min:0'],
-            "highest_price_owner_id" => ['required', 'integer', 'exists:dealers,id'],
+            // "highest_price" => ['required', 'integer', 'min:0'],
+            // "highest_price_owner_id" => ['required', 'integer', 'exists:dealers,id'],
             "life_cycle" => ['required', 'in:waiting_start,playing,waiting_confirmation,finished'],
             'start' => ['required', 'date_format:Y-m-d\TH:i'],
             'finish' => ['required', 'date_format:Y-m-d\TH:i', 'after:start'],
@@ -104,8 +104,8 @@ class AuctionController extends Controller
         $auction->update([
             "car_id" => $request->car_id,
             "starting_price" => $request->starting_price,
-            "highest_price" => $request->highest_price,
-            "highest_price_owner_id" => $request->highest_price_owner_id,
+            // "highest_price" => $request->highest_price,
+            // "highest_price_owner_id" => $request->highest_price_owner_id,
             "life_cycle" => $request->life_cycle,
             'start' => $start->format('Y-m-d H:i:s'),
             'finish' => $finish->format('Y-m-d H:i:s'),

@@ -52,7 +52,7 @@ class Command
 
     public static function cancel($update)
     {
-        if (!$update->tg_chat->dealer or !$update->tg_chat->dealer->is_validated) {
+        if (!$update->tg_chat->dealer) {
             $update->tg_chat->update(["action" => null]);
             return $update->bot->sendMessage([
                 'chat_id' => $update->chat_id,
@@ -99,7 +99,7 @@ class Command
             ]);
         }
 
-        if (!$update->tg_chat->dealer or !$update->tg_chat->dealer->is_validated) {
+        if (!$update->tg_chat->dealer) {
             $update->tg_chat->update(['action' => 'start>choosing_lang']);
             return $update->bot->sendMessage([
                 'chat_id' => $update->chat_id,

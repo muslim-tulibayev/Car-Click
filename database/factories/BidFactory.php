@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Dealer>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Bid>
  */
-class DealerFactory extends Factory
+class BidFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,9 +17,7 @@ class DealerFactory extends Factory
     public function definition()
     {
         return [
-            "firstname" => fake()->firstName(),
-            "lastname" => fake()->lastName(),
-            "contact" => fake()->phoneNumber(),
+            //
         ];
     }
 }

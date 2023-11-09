@@ -7,6 +7,8 @@ use DateTimeZone;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Auction extends Model
 {
@@ -17,8 +19,6 @@ class Auction extends Model
     public $fillable = [
         "car_id",
         "starting_price",
-        "highest_price",
-        "highest_price_owner_id",
         "life_cycle", // * ['waiting_start', 'playing', 'waiting_confirmation', 'finished']
         "start",
         "finish",
@@ -35,14 +35,32 @@ class Auction extends Model
         return $this->belongsTo(Car::class);
     }
 
-    public function dealers()
+    public function dealers(): BelongsToMany
     {
         return $this->belongsToMany(Dealer::class);
     }
 
-    public function highestPriceOwner()
+    public function bids(): HasMany
     {
-        return $this->belongsTo(Dealer::class, 'highest_price_owner_id', 'id');
+        return $this->hasMany(Bid::class);
+    }
+
+    // ------------------------- Additional ----------------------- //
+
+    public function highestPriceOwner(): ?Dealer
+    {
+        $bid = $this->bids()->orderByDesc('id')->first();
+        if ($bid)
+            return $bid->dealer;
+        return null;
+    }
+
+    public function highestPrice(): ?int
+    {
+        $bid = $this->bids()->orderByDesc('id')->first();
+        if ($bid)
+            return $bid->price;
+        return null;
     }
 
     public function getFinish(string $finish = 'Y.m.d H:i')

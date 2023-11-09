@@ -39,7 +39,7 @@
                         </p>
                     </div>
                     <div class="py-1 hover:bg-gray-100">
-                        <a href="{{ route('profile') }}" tabindex="0" role="menuitem"
+                        <a href="{{ route('profile.edit') }}" tabindex="0" role="menuitem"
                             class="text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left">
                             Account settings
                         </a>

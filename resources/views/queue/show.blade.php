@@ -13,7 +13,9 @@
 
             <x-card-item name="Operator">
                 @if ($queue->operator)
-                    <x-two-row-text :first="$queue->operator->firstname" :second="$queue->operator->lastname" />
+                    <a href="{{ route('operators.show', ['operator' => $queue->operator->id]) }}">
+                        <x-two-row-text :first="$queue->operator->firstname" :second="$queue->operator->lastname" />
+                    </a>
                 @else
                     <span class="text-orange-500"> Not given </span>
                 @endif

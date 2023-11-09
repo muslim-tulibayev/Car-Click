@@ -231,6 +231,28 @@ class KeyboardLayout
 
 
 
+    public static function taskTakeBtns(Queue $queue)
+    {
+        return Keyboard::make()
+            ->inline()
+            ->row([
+                Button::make([
+                    'text' => trans('msg.take'),
+                    'callback_data' => 'queue|' . $queue->id . '|take',
+                ])
+            ])
+            ->row([
+                Button::make([
+                    'text' => trans('msg.ignore'),
+                    'callback_data' => 'queue|' . $queue->id . '|ignore'
+                ])
+            ]);
+    }
+
+
+
+
+
     public static function askStart()
     {
         return Keyboard::make()
@@ -268,32 +290,24 @@ class KeyboardLayout
     public static function dealersList($dealers, int $current_page = 1, bool $prev = false, bool $next = false)
     {
         $keyboard = Keyboard::make()->inline();
-
         $i = 0;
         $count_dealers = count($dealers);
-
         while ($i < $count_dealers) {
             $row = [];
-
             for ($j = 0; $j < 5; $j++) {
                 $index = $i + $j;
-
                 if ($index === $count_dealers) break;
-
                 $row[] = Button::make([
                     'text' => $index + 1,
                     'callback_data' => 'dealer|info|' . $dealers[$index]->id,
                 ]);
             }
-
             $keyboard->row($row);
-
             if ($i + 5 > $count_dealers)
                 $i = $count_dealers;
             else
                 $i += 5;
         }
-
         $row = [];
         if ($prev)
             $row[] = Button::make([
@@ -309,9 +323,40 @@ class KeyboardLayout
                 'text' => 'Next ➡',
                 'callback_data' => 'dealer|next|' . $current_page
             ]);
-
         $keyboard->row($row);
+        return $keyboard;
+    }
 
+
+
+
+
+
+    public static function bidsList(Queue $queue, int $current_page = 1, bool $prev = false, bool $next = false)
+    {
+        $keyboard = Keyboard::make()->inline();
+        $row = [];
+        if ($prev)
+            $row[] = Button::make([
+                'text' => '⬅ Prev',
+                'callback_data' => 'bid|prev|' . $current_page
+            ]);
+        $row[] = Button::make([
+            'text' => '🆑 Cancel',
+            'callback_data' => 'bid|cancel|' . $queue->id
+        ]);
+        if ($next)
+            $row[] = Button::make([
+                'text' => 'Next ➡',
+                'callback_data' => 'bid|next|' . $current_page
+            ]);
+        $keyboard->row($row);
+        $keyboard->row([
+            Button::make([
+                'text' => '✅ Done',
+                'callback_data' => 'bid|done|' . $queue->id
+            ])
+        ]);
         return $keyboard;
     }
 }

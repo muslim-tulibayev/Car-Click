@@ -6,7 +6,6 @@ return [
         . "Muloqot uchun tilni tanlang:\n\n"
         . "Выберите язык для общения:",
 
-
     'cancelled' => '✅ All operations has been cancelled',
     'empty_action' => "⚠️ Nothing to cancel",
     'ask_contact' => "Contact: (Press the \":btn\" button below)",
@@ -109,14 +108,6 @@ return [
         . "🏆 Winner: :firstname :lastname\n"
         . "🚘 Car: :color :company :model\n"
         . "💵 Price: :highest_price\$\n",
-    'car_sold_message_for_operator' => "<b>Car sold out.</b>\n"
-        . "🆔 Car ID: :car_id\n"
-        . "🚘 Car: :color :company :model\n"
-        . "💵 Price: :highest_price\$\n"
-        . "🏆 Winner: :winner_fname :winner_lname\n"
-        . "📲 Phone: :winner_phone\n"
-        . "� Owner: :owner_fname :owner_lname\n"
-        . "📲 Phone: :owner_phone\n",
     'car_sold_message_for_winner' => "🎉<b>Congratulations!</b>🎉\n"
         . "Dear :firstname :lastname\n"
         . "You won the auction.\n\n"
@@ -151,7 +142,7 @@ return [
         . "🆔 Car ID: :car_id\n"
         . "🚘 Car: :color :company :model\n"
         . "💵 Price: :highest_price\$\n"
-        . "� Owner: :owner_fname :owner_lname\n"
+        . "👤 Owner: :owner_fname :owner_lname\n"
         . "📲 Phone: :owner_phone\n",
     'didnt_sell_message_for_winner' => "<b>Car not sold.</b>\n"
         . "Dear :firstname :lastname your auction request has been rejected by the owner of the car.\n\n"
@@ -234,25 +225,44 @@ return [
     'ask_car_image' => "Send an image of your car:",
     'visit_channel' => "🌐 Visit channel",
     'auction_info_msg_for_current_winner' => "📈 Highest price: :highest_price\$\n"
-        . "� Participants: :participants\n"
+        . "👀 Participants: :participants\n"
         . "🏁 Finish: :finish\n\n"
         . "<b> 👑 Dear :fname :lname, the highest bidder is you now </b>",
-    'auction_info_msg_for_dealers' => "📈 Highest price: :highest_price\$\n"
-        . "� Participants: :participants\n"
+    'auction_info_msg_for_dealers' => "📈 Highest price: :highest_price\n"
+        . "👀 Participants: :participants\n"
         . "🏁 Finish: :finish\n\n"
         . "✳ Now you can bid :enough_price\$ to win the auction",
     'auction_info_msg_for_owner' => "📈 Highest price: :highest_price\$\n"
-        . "� Participants: :participants\n"
+        . "👀 Participants: :participants\n"
         . "🏁 Finish: :finish\n",
-
     'get_info_dealers' => "👨‍💼 Dealers",
     'dealers_info_msg' => "👨‍💼 Dealers:\n"
         . "🔢 Number: :number\n",
+    'not_bid_yet' => 'Not bid yet',
+    'dealer_list_title' => "<b>👨‍💼 Dealers :first_num - :last_num of :all_num </b>\n\n",
+    'dealer_info' => "<b>👨‍💼 Dealer </b>\n\n"
+        . "Firstname: :fname\n"
+        . "Lastname: :lname\n"
+        . "Phone: :contact\n"
+        . "Number of cars: :num_of_cars",
 
+    'take' => "Take",
+    'bids_list' => "<b>🤝 Bids :first_num - :last_num of :all_num </b>\n\n"
+        . ":slot\n"
+        . "👤 Owner: :owner_fname :owner_lname\n"
+        . "📲 Phone: :owner_phone\n",
+    'car_sold_message_for_operator' => "<b>Car sold out.</b>\n"
+        . "🆔 Car ID: :car_id\n"
+        . "🚘 Car: :color :company :model\n"
+        . "💵 Price: :highest_price\$\n"
+        . "🏆 Winner: :winner_fname :winner_lname\n"
+        . "📲 Phone: :winner_phone\n"
+        . "👤 Owner: :owner_fname :owner_lname\n"
+        . "📲 Phone: :owner_phone\n",
+    'bidder' => "<b>:number - :price\$</b>\n"
+        . "👨‍💼 Dealer: :fname :lname\n"
+        . "📲 Phone: :phone\n",
 
     'attributes' => [],
 
 ];
-
-// // 'bot_opening_msg' => "Your request has been received! Opening the bot..",
-// // 'car_in_active_auction' => "Sorry! The car with ID :id is already in Auction",

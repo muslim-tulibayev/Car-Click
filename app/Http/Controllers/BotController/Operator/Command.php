@@ -68,7 +68,6 @@ class Command
         if (!QueueController::setOperatorToQueue($operator))
             return $update->bot->sendMessage([
                 'chat_id' => $update->chat_id,
-                'reply_markup' => KeyboardLayout::empty(),
                 'text' => trans('msg.empty_queue'),
             ]);
     }

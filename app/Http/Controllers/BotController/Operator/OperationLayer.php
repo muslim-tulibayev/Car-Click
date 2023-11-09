@@ -35,6 +35,7 @@ class OperationLayer
 
 
 
+
     private static function validateCar($update)
     {
         if ($update->action[2] === 'waiting_auction_start') {

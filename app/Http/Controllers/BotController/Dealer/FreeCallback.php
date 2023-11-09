@@ -4,6 +4,7 @@ namespace App\Http\Controllers\BotController\Dealer;
 
 use App\Http\Controllers\BotController\Keyboard\KeyboardLayout;
 use App\Models\Auction;
+use Illuminate\Support\Facades\Log;
 
 class FreeCallback
 {
@@ -40,7 +41,6 @@ class FreeCallback
         // * Gate
         if (!$update->tg_chat) return;
         if (!$update->tg_chat->dealer) return;
-        if (!$update->tg_chat->dealer->is_validated) return;
         // * if dealer is already in any auction or click two times 'Join' button -> 'Abort'
         if ($update->tg_chat->action === 'auction>end') {
             if ($update->tg_chat->data === $data[1])
@@ -82,7 +82,7 @@ class FreeCallback
             'finish' => $auction->getFinish(),
             'starting_price' => $auction->starting_price,
         ]);
-        
+
         $update->bot->answerCallbackQuery([
             'callback_query_id' => $update->callback_query_id,
             'text' => trans('msg.joined_the_auction'),
@@ -102,10 +102,10 @@ class FreeCallback
             $update->bot->sendMessage([
                 'chat_id' => $update->chat_id,
                 'text' => trans('msg.auction_info_msg_for_dealers', [
-                    'highest_price' => $auction->highest_price,
+                    'highest_price' => $auction->highestPrice() ? $auction->highestPrice() . '$' : trans('msg.not_bid_yet'),
                     'participants' => $auction->dealers()->count(),
                     'finish' => $auction->getFinish(),
-                    'enough_price' => $auction->highest_price + 50,
+                    'enough_price' => $auction->highestPrice() ? $auction->highestPrice() + 50 : $auction->starting_price,
                 ]),
             ]);
             return $update->bot->sendMessage([

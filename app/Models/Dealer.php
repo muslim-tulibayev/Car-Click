@@ -16,14 +16,7 @@ class Dealer extends Model
         "firstname",
         "lastname",
         "contact",
-        // "is_validated",
-        // "account",
-        // "password",
     ];
-
-    // protected $hidden = [
-    //     'password',
-    // ];
 
     public function tg_chat(): HasOne
     {

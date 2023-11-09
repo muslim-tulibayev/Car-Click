@@ -7,9 +7,9 @@
     'auction_waiting_start' => App\Models\Auction::where('life_cycle', 'waiting_start')->count(),
 
     'car_number' => App\Models\Car::count(),
-    'car_amount' => App\Models\Auction::whereHas('car', function ($query) {
-        $query->where('status', 'sold_out');
-    })->sum('highest_price'),
+    // 'car_amount' => App\Models\Auction::whereHas('car', function ($query) {
+    //     $query->where('status', 'sold_out');
+    // })->sum('highest_price'),
     'car_sold_out' => App\Models\Car::where('status', 'sold_out')->count(),
     'car_didnt_sell' => App\Models\Car::where('status', 'didnt_sell')->count(),
     'car_not_sold' => App\Models\Car::where('status', 'not_sold')->count(),
@@ -18,7 +18,6 @@
     'user_number' => App\Models\User::count(),
 
     'dealer_number' => App\Models\Dealer::count(),
-    'dealer_validated' => App\Models\Dealer::where('is_validated', true)->count(),
 
     'operator_number' => App\Models\Operator::count(),
     'operator_validated' => App\Models\Operator::where('is_validated', true)->count(),

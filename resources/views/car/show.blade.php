@@ -23,13 +23,17 @@
             </x-card-item>
             <x-card-item name="Owner">
                 <span class="text-sm px-3 py-px text-gray-700">
-                    {{ $car->user->firstname . ' ' . $car->user->lastname }}
+                    <a href="{{ route('users.show', ['user' => $car->user->id]) }}">
+                        {{ $car->user->firstname . ' ' . $car->user->lastname }}
+                    </a>
                 </span>
             </x-card-item>
             <x-card-item name="Winner">
                 <span class="text-sm px-3 py-px text-gray-700">
                     @if (isset($car->dealer))
-                        {{ $car->dealer->firstname . ' ' . $car->dealer->lastname }}
+                        <a href="{{ route('dealers.show', ['dealer' => $car->dealer->id]) }}">
+                            {{ $car->dealer->firstname . ' ' . $car->dealer->lastname }}
+                        </a>
                     @endif
                 </span>
             </x-card-item>
