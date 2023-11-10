@@ -7,6 +7,7 @@ use App\Http\Controllers\BotController\User\Command;
 use App\Http\Controllers\BotController\User\FreeCallback;
 use App\Http\Controllers\BotController\User\Update;
 use App\Http\Controllers\Controller;
+use App\Models\Alert;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -46,12 +47,12 @@ class UserController extends Controller
             $message = $e->getMessage();
             $lineNumber = $e->getLine();
             $file = $e->getFile();
-            $error = "$message (Line $lineNumber in $file)";
+            $error = "$message (Line $lineNumber in $file) -> [UserController catch]";
             Log::error($error);
-            // $update->bot->sendMessage([
-            //     'chat_id' => $update->chat_id,
-            //     'text' => $error,
-            // ]);
+            Alert::create([
+                'type' => 'error',
+                'message' => $error,
+            ]);
         }
     }
 }

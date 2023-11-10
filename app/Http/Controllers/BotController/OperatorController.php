@@ -6,6 +6,7 @@ use App\Http\Controllers\BotController\Operator\Action;
 use App\Http\Controllers\BotController\Operator\Command;
 use App\Http\Controllers\BotController\Operator\FreeCallback;
 use App\Http\Controllers\BotController\Operator\Update;
+use App\Models\Alert;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -15,9 +16,6 @@ class OperatorController
 {
     public function handle(Request $request)
     {
-
-        // return;
-
         try {
 
 
@@ -49,11 +47,11 @@ class OperatorController
             $message = $e->getMessage();
             $lineNumber = $e->getLine();
             $file = $e->getFile();
-            $error = "$message (Line $lineNumber in $file)";
+            $error = "$message (Line $lineNumber in $file) -> [OperatorController catch]";
             Log::error($error);
-            $update->bot->sendMessage([
-                'chat_id' => $update->chat_id,
-                'text' => $error,
+            Alert::create([
+                'type' => 'error',
+                'message' => $error,
             ]);
         }
     }

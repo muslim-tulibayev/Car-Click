@@ -7,6 +7,7 @@ use App\Http\Controllers\BotController\Dealer\Command;
 use App\Http\Controllers\BotController\Dealer\FreeCallback;
 use App\Http\Controllers\BotController\Dealer\Update;
 use App\Http\Controllers\Controller;
+use App\Models\Alert;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -44,12 +45,12 @@ class DealerController extends Controller
             $message = $e->getMessage();
             $lineNumber = $e->getLine();
             $file = $e->getFile();
-            $error = "$message (Line $lineNumber in $file)";
+            $error = "$message (Line $lineNumber in $file) -> [DealerController catch]";
             Log::error($error);
-            // $update->bot->sendMessage([
-            //     'chat_id' => $update->chat_id,
-            //     'text' => $error,
-            // ]);
+            Alert::create([
+                'type' => 'error',
+                'message' => $error,
+            ]);
         }
     }
 }

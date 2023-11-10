@@ -6,28 +6,41 @@
 
     <div class="p-4">
         <div class="w-full">
-            <div class="w-full flex text-gray-400">
-                <h1 class="flex-1 font-normal px-3 pt-0 pb-3"> ID </h1>
-                <h1 class="flex-1 font-normal px-3 pt-0 pb-3"> Car </h1>
-                <h1 class="flex-1 font-normal px-3 pt-0 pb-3"> Starting price </h1>
-                <h1 class="flex-1 font-normal px-3 pt-0 pb-3"> Start </h1>
+            <div class="w-full flex text-gray-400 px-2">
+                <h1 class="inline-block flex-1 font-normal pb-2 px-1"> ID </h1>
+                <h1 class="inline-block flex-1 font-normal pb-2 px-1"> Car </h1>
+                <h1 class="inline-block flex-1 font-normal pb-2 px-1"> Starting price </h1>
+                <h1 class="inline-block flex-1 font-normal pb-2 px-1"> Life cycle </h1>
+                <h1 class="inline-block flex-1 font-normal pb-2 px-1"> Start </h1>
+                <h1 class="inline-block flex-1 font-normal pb-2 px-1"> Finish </h1>
+                <h1 class="inline-block w-[100px] font-normal pb-2 px-1 opacity-0"> List btns </h1>
             </div>
-            <div class="text-gray-600 dark:text-gray-100">
+            <div class="text-gray-600">
                 @foreach ($auctions as $auction)
-                    <x-list-item :route="route('auctions.show', ['auction' => $auction->id])">
+                    <x-list-item name="auction" :item="$auction">
+                        {{-- id --}}
                         <div class="inline-block flex-1 py-2 px-1">
-                            <div class="flex items-center text-gray-600"> {{ $auction->id }} </div>
+                            {{ $auction->id }}
                         </div>
+                        {{-- car --}}
                         <div class="inline-block flex-1 py-2 px-1">
                             <x-two-row-text :first="$auction->car->company" :second="$auction->car->color . ' ' . $auction->car->model" />
                         </div>
-                        <div class="sm:p-3 inline-block flex-1 py-2 px-1 text-green-500">
+                        {{-- starting_price --}}
+                        <div class="inline-block flex-1 py-2 px-1">
                             ${{ $auction->starting_price }}
                         </div>
+                        {{-- life_cycle --}}
                         <div class="inline-block flex-1 py-2 px-1">
-                            <x-two-row-text :first="$auction->getStartClock()" :second="$auction->getStartDate()">
-                                <x-list-dropdown name='auction' :item="$auction" />
-                            </x-two-row-text>
+                            {{ $auction->life_cycle }}
+                        </div>
+                        {{-- start --}}
+                        <div class="inline-block flex-1 py-2 px-1">
+                            <x-two-row-text :first="$auction->getStartClock()" :second="$auction->getStartDate()" />
+                        </div>
+                        {{-- finish --}}
+                        <div class="inline-block flex-1 py-2 px-1">
+                            <x-two-row-text :first="$auction->getFinishClock()" :second="$auction->getFinishDate()" />
                         </div>
                     </x-list-item>
                     <x-delete-modal name="Auction" :item="$auction" :route="route('auctions.destroy', ['auction' => $auction->id])" />

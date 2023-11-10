@@ -14,7 +14,7 @@
             </div>
             <div class="text-gray-600">
                 @foreach ($queues as $queue)
-                    <x-list-item>
+                    <x-list-item name="queue" :item="$queue">
                         <div class="inline-block flex-1 py-2 px-1">
                             <div class="flex items-center text-gray-600"> {{ $queue->id }} </div>
                         </div>

@@ -12,12 +12,14 @@ class DatabaseSeeder extends Seeder
             // AdminSeeder::class,
             // SettingSeeder::class,
             
-            OperatorSeeder::class,
-            DealerSeeder::class,
-            UserSeeder::class,
-            CarSeeder::class,
-            AuctionSeeder::class,
-            QueueSeeder::class,
+            // OperatorSeeder::class,
+            // DealerSeeder::class,
+            // UserSeeder::class,
+            // CarSeeder::class,
+            // AuctionSeeder::class,
+            // QueueSeeder::class,
+
+            AlertSeeder::class,
         ]);
     }
 }

@@ -22,4 +22,9 @@ class OperatorChat extends Model
     {
         return $this->belongsTo(Operator::class, 'operator_id');
     }
+
+    public static function langsList()
+    {
+        return ['en', 'uz', 'ru'];
+    }
 }

@@ -11,6 +11,14 @@
                     {{ $user->contact }}
                 </span>
             </x-card-item>
+            <x-card-item name="Telegram chat">
+                @if ($user->tg_chat)
+                    <a href="{{ route('userchats.show', ['userchat' => $user->tg_chat->id]) }}"
+                        class="font-medium bg-gray-200 rounded-md py-1 px-5"> Show </a>
+                @else
+                    <span> Not available </span>
+                @endif
+            </x-card-item>
         </x-show-card>
         <x-show-btns-bar name="user" :item="$user" />
         <x-delete-modal name="User" :item="$user" :route="route('users.destroy', ['user' => $user->id])" />

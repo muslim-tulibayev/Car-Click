@@ -2,29 +2,28 @@
 
     <x-alerts.success />
 
-    <div class="sm:p-7 p-4">
-        <div class="w-full text-left">
-            <div class="block w-full">
-                <div class="text-gray-400 flex w-full">
-                    <h1 class="flex-1 font-normal px-3 pt-0 pb-3"> ID </h1>
-                    <h1 class="flex-1 font-normal px-3 pt-0 pb-3"> Dealer </h1>
-                    <h1 class="flex-1 font-normal px-3 pt-0 pb-3"> Contact </h1>
-                </div>
+    <div class="p-4">
+        <div class="w-full">
+            <div class="w-full flex text-gray-400 px-2">
+                <h1 class="inline-block flex-1 font-normal pb-2 px-1"> ID </h1>
+                <h1 class="inline-block flex-1 font-normal pb-2 px-1"> Dealer </h1>
+                <h1 class="inline-block flex-1 font-normal pb-2 px-1"> Contact </h1>
+                <h1 class="inline-block w-[100px] font-normal pb-2 px-1 opacity-0"> List btns </h1>
             </div>
-            <div class="text-gray-600 dark:text-gray-100">
+            <div class="text-gray-600">
                 @foreach ($dealers as $dealer)
-                    <x-list-item>
-                        <div class="flex-1 text-gray-600">
+                    <x-list-item name="dealer" :item="$dealer">
+                        {{-- id --}}
+                        <div class="inline-block flex-1 py-2 px-1">
                             {{ $dealer->id }}
                         </div>
+                        {{-- Dealer --}}
                         <div class="inline-block flex-1 py-2 px-1">
                             <x-two-row-text :first="$dealer->firstname" :second="$dealer->lastname" />
                         </div>
-                        <div class="flex items-center justify-between flex-1 py-2 px-1">
-                            <div class="sm:p-3 inline-block flex-1 py-2 px-1">
-                                <div class="flex items-center text-blue-600 text-sm"> {{ $dealer->contact }} </div>
-                            </div>
-                            <x-list-dropdown name="dealer" :item="$dealer" />
+                        {{-- contact --}}
+                        <div class="inline-block flex-1 py-2 px-1">
+                            {{ $dealer->contact }}
                         </div>
                     </x-list-item>
                     <x-delete-modal name="Dealer" :item="$dealer" :route="route('dealers.destroy', ['dealer' => $dealer->id])" />

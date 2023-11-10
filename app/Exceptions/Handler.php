@@ -2,7 +2,9 @@
 
 namespace App\Exceptions;
 
+use App\Models\Alert;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Support\Facades\Log;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -37,5 +39,27 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+    public function report(Throwable $exception)
+    {
+        if ($this->shouldReport($exception)) {
+            $this->logToAlertsTable($exception);
+        }
+
+        parent::report($exception);
+    }
+
+    private function logToAlertsTable(Throwable $exception)
+    {
+        $message = $exception->getMessage();
+        $lineNumber = $exception->getLine();
+        $file = $exception->getFile();
+        $error = "$message (Line $lineNumber in $file) -> [ExceptionHandler report]";
+        Log::error($error);
+        Alert::create([
+            'type' => 'error',
+            'message' => $error,
+        ]);
     }
 }

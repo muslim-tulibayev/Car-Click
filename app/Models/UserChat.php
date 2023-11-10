@@ -15,11 +15,16 @@ class UserChat extends Model
         "user_id",
         "action",
         "data",
-        "lang",
+        "lang", // * ['en', 'uz', 'ru'], default('en')
     ];
 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public static function langsList()
+    {
+        return ['en', 'uz', 'ru'];
     }
 }

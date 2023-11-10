@@ -22,4 +22,9 @@ class DealerChat extends Model
     {
         return $this->belongsTo(Dealer::class, 'dealer_id');
     }
+
+    public static function langsList()
+    {
+        return ['en', 'uz', 'ru'];
+    }
 }

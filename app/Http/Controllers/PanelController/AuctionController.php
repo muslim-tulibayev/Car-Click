@@ -137,4 +137,27 @@ class AuctionController extends Controller
             ->with('alert_success', $alert_success)
             ->with('auctions', $auctions);
     }
+
+
+
+
+
+    public function showDealers(Auction $auction)
+    {
+        $dealers = $auction->dealers()->paginate();
+
+        return view('dealer.index')
+            ->with('dealers', $dealers);
+    }
+
+
+
+
+    public function showBids(Auction $auction)
+    {
+        $bids = $auction->bids()->orderByDesc('price')->paginate();
+
+        return view('auction.bids')
+            ->with('bids', $bids);
+    }
 }

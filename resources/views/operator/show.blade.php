@@ -18,6 +18,14 @@
                     <span class="text-sm text-red-500"> False </span>
                 @endif
             </x-card-item>
+            <x-card-item name="Telegram chat">
+                @if ($operator->tg_chat)
+                <a href="{{ route('operatorchats.show', ['operatorchat' => $operator->tg_chat->id]) }}"
+                    class="font-medium bg-gray-200 rounded-md py-1 px-5"> Show </a>
+            @else
+                <span> Not available </span>
+            @endif
+            </x-card-item>
         </x-show-card>
         <x-show-btns-bar name="operator" :item="$operator" />
         <x-delete-modal name="Operator" :item="$operator" :route="route('operators.destroy', ['operator' => $operator->id])" />

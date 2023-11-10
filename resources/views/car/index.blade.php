@@ -2,29 +2,52 @@
 
     <x-alerts.success />
 
-    <div class="sm:p-7 p-4">
-        <div class="w-full text-left">
-            <div class="block w-full">
-                <div class="text-gray-400 flex w-full">
-                    <h1 class="flex-1 font-normal px-3 pt-0 pb-3"> ID </h1>
-                    <h1 class="flex-1 font-normal px-3 pt-0 pb-3"> Car </h1>
-                    <h1 class="flex-1 font-normal px-3 pt-0 pb-3"> Status </h1>
-                </div>
+    <div class="p-4">
+        <div class="w-full">
+            <div class="w-full flex text-gray-400 px-2">
+                <h1 class="inline-block flex-1 font-normal pb-2 px-1"> ID </h1>
+                <h1 class="inline-block flex-1 font-normal pb-2 px-1"> Car </h1>
+                <h1 class="inline-block flex-1 font-normal pb-2 px-1"> Year </h1>
+                <h1 class="inline-block flex-1 font-normal pb-2 px-1"> Condition </h1>
+                <h1 class="inline-block flex-1 font-normal pb-2 px-1"> Status </h1>
+                <h1 class="inline-block flex-1 font-normal pb-2 px-1"> Owner </h1>
+                <h1 class="inline-block flex-1 font-normal pb-2 px-1"> Winner </h1>
+                <h1 class="inline-block w-[100px] font-normal pb-2 px-1 opacity-0"> List btns </h1>
             </div>
-            <div class="text-gray-600 dark:text-gray-100">
+            <div class="text-gray-600">
                 @foreach ($cars as $car)
-                    <x-list-item>
-                        <div class="flex-1 text-gray-600">
+                    <x-list-item name="car" :item="$car">
+                        {{-- id --}}
+                        <div class="inline-block flex-1 py-2 px-1">
                             {{ $car->id }}
                         </div>
+                        {{-- car --}}
                         <div class="inline-block flex-1 py-2 px-1">
                             <x-two-row-text :first="$car->company" :second="$car->color . ' ' . $car->model" />
                         </div>
-                        <div class="flex items-center justify-between flex-1">
-                            <div class="text-sm bg-orange-100 rounded-full px-3 py-px text-orange-500">
-                                {{ $car->status }}
-                            </div>
-                            <x-list-dropdown name="car" :item="$car" />
+                        {{-- year --}}
+                        <div class="inline-block flex-1 py-2 px-1">
+                            {{ $car->year }}
+                        </div>
+                        {{-- condition --}}
+                        <div class="inline-block flex-1 py-2 px-1">
+                            {{ $car->condition }}
+                        </div>
+                        {{-- status --}}
+                        <div class="inline-block flex-1 py-2 px-1">
+                            {{ $car->status }}
+                        </div>
+                        {{-- Owner --}}
+                        <div class="inline-block flex-1 py-2 px-1">
+                            <x-two-row-text :first="$car->user->firstname" :second="$car->user->lastname" />
+                        </div>
+                        {{-- Winner --}}
+                        <div class="inline-block flex-1 py-2 px-1">
+                            @if ($car->dealer)
+                                <x-two-row-text :first="$car->dealer->firstname" :second="$car->dealer->lastname" />
+                            @else
+                                <span> Not available </span>
+                            @endif
                         </div>
                     </x-list-item>
                     <x-delete-modal name="Car" :item="$car" :route="route('cars.destroy', ['car' => $car->id])" />
