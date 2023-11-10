@@ -9,7 +9,18 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-
+/**
+ * @OA\Schema(schema="Auction", title="Auction Title",
+ *   @OA\Property(property="car_id ", type="integer"),
+ *   @OA\Property(property="starting_price", type="integer"),
+ *   @OA\Property(property="life_cycle", type="enum['waiting_start', 'playing', 'waiting_confirma']"),
+ *   @OA\Property(property="start", type="data"),
+ *   @OA\Property(property="finish", type="data"),
+ *   @OA\Property(property="join_btn_message_id", type="string"),
+ *   @OA\Property(property="created_at",type="date"),
+ *   @OA\Property(property="updated_at",type="date"),
+ * )
+ */
 class Auction extends Model
 {
     use HasFactory;
