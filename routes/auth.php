@@ -19,7 +19,7 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('guest')->group(function () {
     Route::get('api/login', function (){
-        return response()->json(['success' => false,'message'=> 'You are not authorized'],401);
+        return response()->json(['message'=> 'Unauthenticated'],401);
     })->name('api.login');
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [LoginController::class, 'login'])->name('login.attempt');
