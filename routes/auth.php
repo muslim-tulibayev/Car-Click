@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\PanelController\Auth\LoginController;
 use App\Http\Controllers\PanelController\Auth\ProfileController;
-use App\Http\Controllers\PanelController\Auth\RegisterController;
 use App\Http\Controllers\PanelController\HomeController;
 use Illuminate\Support\Facades\Route;
 
