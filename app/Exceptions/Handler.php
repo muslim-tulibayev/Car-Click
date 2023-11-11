@@ -3,8 +3,10 @@
 namespace App\Exceptions;
 
 use App\Models\Alert;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -61,5 +63,16 @@ class Handler extends ExceptionHandler
             'type' => 'error',
             'message' => $error,
         ]);
+    }
+
+    protected function unauthenticated($request, AuthenticationException $exception)
+    {
+        if (Str::startsWith($request->path(), 'api') or $request->expectsJson())
+            return response()->json(['message' => 'Unauthenticated'], 401);
+        else
+            return redirect()->guest(route('login'));
+
+        // // if ($request->expectsJson()) {
+        // // }
     }
 }

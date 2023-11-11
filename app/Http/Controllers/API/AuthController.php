@@ -4,8 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\ValidatorResponse;
-use App\Models\Admin;
-use App\Models\User;
+use App\Models\Operator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -21,20 +20,20 @@ class AuthController extends Controller
      * @OA\Post(
      *      path="/api/login",
      *      security={{"api":{}}},
-     *      operationId="auth_admin_login",
+     *      operationId="auth_operator_login",
      *      tags={"1.Auth API"},
-     *      summary="Login Admin",
-     *      description="Login Parol yordamida kirish Adminlar uchun",
+     *      summary="Login Operator",
+     *      description="Login Parol yordamida kirish Operatorlar uchun",
      *       @OA\RequestBody(required=true, description="lesson save",
      *           @OA\MediaType(mediaType="multipart/form-data",
-     *              @OA\Schema(type="object", required={"username", "password"},
-     *                 @OA\Property(property="username", type="string", format="username", example="@admin123"),
-     *                 @OA\Property(property="password", type="string", format="password", example="admin123"),
+     *              @OA\Schema(type="object", required={"contact", "password"},
+     *                 @OA\Property(property="contact", type="string", format="contact", example="998998765678"),
+     *                 @OA\Property(property="password", type="string", format="password", example="12345678"),
      *              )
      *          )
      *      ),
      *      @OA\Response(response=200, description="Success",
-     *          @OA\JsonContent(ref="#/components/schemas/Admin"),
+     *          @OA\JsonContent(ref="#/components/schemas/Operator"),
      *      ),
      *      @OA\Response(response=404,description="Not found",
      *          @OA\JsonContent(ref="#/components/schemas/Error"),
@@ -44,7 +43,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $rules = [
-            'username' => 'required|string',
+            'contact' => 'required|string',
             'password' => 'required|string',
         ];
         $validator = new ValidatorResponse();
@@ -56,14 +55,14 @@ class AuthController extends Controller
             ], 400);
         }
 
-        $model = Admin::where('username', $request->username)->first();
+        $model = Operator::where('contact', 'like', "%$request->contact%")->first();
         if ($model) {
             if (Hash::check($request->password, $model->password)) {
-                $credentials = $request->only('username', 'password');
+                $credentials = $request->only('contact', 'password');
                 $token = auth('api')->attempt($credentials);
-                $admin = auth('api')->user();
+                $operator = auth('api')->user();
                 return response()->json([
-                    'admin' => $admin,
+                    'operator' => $operator,
                     'authorization' => [
                         'token' => $token,
                         'type' => 'bearer',
@@ -76,7 +75,7 @@ class AuthController extends Controller
             }
         } else {
             return response()->json([
-                'message' => 'Admin not found',
+                'message' => 'Operator not found',
             ], 404);
         }
     }
@@ -86,13 +85,13 @@ class AuthController extends Controller
      * @OA\Post(
      *      path="/api/logout",
      *      security={{"api":{}}},
-     *      operationId="auth_admin_logout",
+     *      operationId="auth_operator_logout",
      *      tags={"1.Auth API"},
-     *      summary="Logout Admin",
+     *      summary="Logout Operator",
      *      description="Foydalanuvchini tizimdan chiqishi",
      *
      *      @OA\Response(response=200, description="Success",
-     *          @OA\JsonContent(ref="#/components/schemas/Admin"),
+     *          @OA\JsonContent(ref="#/components/schemas/Operator"),
      *      ),
      *      @OA\Response(response=404,description="Not found",
      *          @OA\JsonContent(ref="#/components/schemas/Error"),
@@ -108,38 +107,38 @@ class AuthController extends Controller
         ]);
     }
 
-//    /**
-//     * @OA\Post(
-//     *      path="/api/register",
-//     *      security={{"api":{}}},
-//     *      operationId="auth_admin_register",
-//     *      tags={"1.Auth API"},
-//     *      summary="Register Admin",
-//     *      description="Foydalanuvchilarni ro'yxatdan o'tkazish",
-//     *       @OA\RequestBody(required=true, description="lesson save",
-//     *           @OA\MediaType(mediaType="multipart/form-data",
-//     *              @OA\Schema(type="object", required={"firstname", "lastname", "username", "password"},
-//     *                 @OA\Property(property="firstname", type="string", format="text", example="Temurbek"),
-//     *                 @OA\Property(property="lastname", type="string", format="text", example="Nuriddinov"),
-//     *                 @OA\Property(property="username", type="string", format="username", example="@admin123"),
-//     *                 @OA\Property(property="password", type="string", format="password", example="admin123"),
-//     *              )
-//     *          )
-//     *      ),
-//     *      @OA\Response(response=200, description="Success",
-//     *          @OA\JsonContent(ref="#/components/schemas/Admin"),
-//     *      ),
-//     *      @OA\Response(response=404,description="Not found",
-//     *          @OA\JsonContent(ref="#/components/schemas/Error"),
-//     *      ),
-//     * )
-//     */
+    //    /**
+    //     * @OA\Post(
+    //     *      path="/api/register",
+    //     *      security={{"api":{}}},
+    //     *      operationId="auth_operator_register",
+    //     *      tags={"1.Auth API"},
+    //     *      summary="Register Operator",
+    //     *      description="Foydalanuvchilarni ro'yxatdan o'tkazish",
+    //     *       @OA\RequestBody(required=true, description="lesson save",
+    //     *           @OA\MediaType(mediaType="multipart/form-data",
+    //     *              @OA\Schema(type="object", required={"firstname", "lastname", "contact", "password"},
+    //     *                 @OA\Property(property="firstname", type="string", format="text", example="Temurbek"),
+    //     *                 @OA\Property(property="lastname", type="string", format="text", example="Nuriddinov"),
+    //     *                 @OA\Property(property="contact", type="string", format="contact", example="998998765678"),
+    //     *                 @OA\Property(property="password", type="string", format="password", example="12345678"),
+    //     *              )
+    //     *          )
+    //     *      ),
+    //     *      @OA\Response(response=200, description="Success",
+    //     *          @OA\JsonContent(ref="#/components/schemas/Operator"),
+    //     *      ),
+    //     *      @OA\Response(response=404,description="Not found",
+    //     *          @OA\JsonContent(ref="#/components/schemas/Error"),
+    //     *      ),
+    //     * )
+    //     */
     public function register(Request $request)
     {
         $rules = [
             'firstname' => 'required|string|max:255',
             'lastname' => 'required|string|max:255',
-            'username' => 'required|string|max:255',
+            'contact' => 'required|string|max:255',
             'password' => 'required|string|min:6',
         ];
         $validator = new ValidatorResponse();
@@ -150,14 +149,14 @@ class AuthController extends Controller
             ], 400);
         }
 
-        Admin::create([
+        Operator::create([
             'firstname' => $request->firstname,
             'lastname' => $request->lastname,
-            'username' => $request->username,
+            'contact' => $request->contact,
             'password' => Hash::make($request->password),
         ]);
 
-        $credentials = $request->only('username', 'password');
+        $credentials = $request->only('contact', 'password');
         $token = auth('api')->attempt($credentials);
         $user = auth('api')->user();
 
@@ -167,6 +166,6 @@ class AuthController extends Controller
                 'token' => $token,
                 'type' => 'bearer',
             ],
-        ], 200  );
+        ], 200);
     }
 }

@@ -47,9 +47,9 @@
                 "tags": [
                     "1.Auth API"
                 ],
-                "summary": "Login Admin",
-                "description": "Login Parol yordamida kirish Adminlar uchun",
-                "operationId": "auth_admin_login",
+                "summary": "Login Operator",
+                "description": "Login Parol yordamida kirish Operatorlar uchun",
+                "operationId": "auth_operator_login",
                 "requestBody": {
                     "description": "lesson save",
                     "required": true,
@@ -57,19 +57,19 @@
                         "multipart/form-data": {
                             "schema": {
                                 "required": [
-                                    "username",
+                                    "contact",
                                     "password"
                                 ],
                                 "properties": {
-                                    "username": {
+                                    "contact": {
                                         "type": "string",
-                                        "format": "username",
-                                        "example": "@admin123"
+                                        "format": "contact",
+                                        "example": "998998765678"
                                     },
                                     "password": {
                                         "type": "string",
                                         "format": "password",
-                                        "example": "admin123"
+                                        "example": "12345678"
                                     }
                                 },
                                 "type": "object"
@@ -83,7 +83,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Admin"
+                                    "$ref": "#/components/schemas/Operator"
                                 }
                             }
                         }
@@ -111,16 +111,16 @@
                 "tags": [
                     "1.Auth API"
                 ],
-                "summary": "Logout Admin",
+                "summary": "Logout Operator",
                 "description": "Foydalanuvchini tizimdan chiqishi",
-                "operationId": "auth_admin_logout",
+                "operationId": "auth_operator_logout",
                 "responses": {
                     "200": {
                         "description": "Success",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Admin"
+                                    "$ref": "#/components/schemas/Operator"
                                 }
                             }
                         }
@@ -171,29 +171,6 @@
                 },
                 "type": "object"
             },
-            "Admin": {
-                "title": "Admin Title",
-                "properties": {
-                    "firstname": {
-                        "type": "string"
-                    },
-                    "lastname": {
-                        "type": "string"
-                    },
-                    "username": {
-                        "type": "username"
-                    },
-                    "created_at": {
-                        "type": "string",
-                        "format": "date"
-                    },
-                    "updated_at": {
-                        "type": "string",
-                        "format": "date"
-                    }
-                },
-                "type": "object"
-            },
             "Auction": {
                 "title": "Auction Title",
                 "properties": {
@@ -214,6 +191,29 @@
                     },
                     "join_btn_message_id": {
                         "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date"
+                    }
+                },
+                "type": "object"
+            },
+            "Operator": {
+                "title": "Operator Title",
+                "properties": {
+                    "firstname": {
+                        "type": "string"
+                    },
+                    "lastname": {
+                        "type": "string"
+                    },
+                    "contact": {
+                        "type": "contact"
                     },
                     "created_at": {
                         "type": "string",
