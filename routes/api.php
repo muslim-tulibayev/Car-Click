@@ -8,3 +8,4 @@ Route::controller(\App\Http\Controllers\API\AuthController::class)->group(functi
 });
 
 Route::get('auction', [\App\Http\Controllers\API\AuctionController::class, 'index']);
+Route::get('auction/{id}', [\App\Http\Controllers\API\AuctionController::class, 'getDealer']);
