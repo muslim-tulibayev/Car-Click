@@ -68,7 +68,7 @@ class AuctionController extends Controller
         $models = Bid::where('auction_id', $id)->get();
         if($models->isEmpty()){
             return response()->json([
-                'message' => 'Big not found'
+                'message' => 'Dealer not found'
             ], 404);
         }
         return response()->json([

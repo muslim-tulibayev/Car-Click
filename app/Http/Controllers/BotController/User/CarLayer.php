@@ -317,14 +317,17 @@ class CarLayer
             "condition" => $data->condition,
             "additional" => $data->additional,
         ]);
+
         // * Make images of the car as public among bots
         foreach ($data->image_ids as $image_id) {
             $update->bot->sendPhoto([
                 'chat_id' => env('STORAGE_CHANNEL_ID'),
                 'photo' => $image_id,
             ]);
+            $response = json_decode(\Illuminate\Support\Facades\Http::get("https://api.telegram.org/bot" . env("TELEGRAM_BOT_TOKEN") ."/getFile?file_id=$image_id")->body());
             $new_car->images()->create([
-                'file_id' => $image_id
+                'file_id' => $image_id,
+                'file_path' => $response->result->file_path,
             ]);
         }
         $album = [];
