@@ -157,7 +157,7 @@ class AuctionController extends Controller
     {
         $bids = $auction->bids()->orderByDesc('price')->paginate();
 
-        return view('auction.bids')
+        return view('bid.index')
             ->with('bids', $bids);
     }
 }
