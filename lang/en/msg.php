@@ -235,6 +235,11 @@ return [
     'auction_info_msg_for_owner' => "📈 Highest price: :highest_price\$\n"
         . "👀 Participants: :participants\n"
         . "🏁 Finish: :finish\n",
+    // 'auction_info_msg_for_owner' => "📈 Highest price: :highest_price\$\n"
+    //     . "👨‍💼 Dealer: :fname :lname\n"
+    //     . "📲 Phone: :phone\n"
+    //     . "👀 Participants: :participants\n"
+    //     . "🏁 Finish: :finish\n",
     'get_info_dealers' => "👨‍💼 Dealers",
     'dealers_info_msg' => "👨‍💼 Dealers:\n"
         . "🔢 Number: :number\n",
@@ -245,7 +250,6 @@ return [
         . "Lastname: :lname\n"
         . "Phone: :contact\n"
         . "Number of cars: :num_of_cars",
-
     'take' => "Take",
     'bids_list' => "<b>🤝 Bids :first_num - :last_num of :all_num </b>\n\n"
         . ":slot\n"

@@ -66,48 +66,8 @@ class AuctionLayer
                         'starting_price' => $auction->starting_price,
                     ]),
                 ]);
-            $auction->bids()->create([
-                "dealer_id" => $update->tg_chat->dealer->id,
-                "price" => $update->data,
-            ]);
-            // $auction->update([
-            //     "highest_price" => $update->data,
-            //     "highest_price_owner_id" => $update->tg_chat->dealer->id,
-            // ]);
-            Telegram::bot('user-bot')->sendMessage([
-                'chat_id' => $auction->car->user->tg_chat->chat_id,
-                'text' => trans('msg.auction_info_msg_for_owner', [
-                    'highest_price' => $auction->highestPrice(),
-                    'participants' => $auction->dealers()->count(),
-                    'finish' => $auction->getFinish()
-                ], $auction->car->user->tg_chat->lang),
-            ]);
-            foreach ($auction->dealers as $dealer) {
-                if ($auction->highestPriceOwner()->id === $dealer->id) {
-                    $update->bot->sendMessage([
-                        'chat_id' => $dealer->tg_chat->chat_id,
-                        'parse_mode' => 'html',
-                        'text' => trans('msg.auction_info_msg_for_current_winner', [
-                            'highest_price' => $auction->highestPrice(),
-                            'participants' => $auction->dealers()->count(),
-                            'finish' => $auction->getFinish(),
-                            'fname' => $dealer->firstname,
-                            'lname' => $dealer->lastname
-                        ], $dealer->tg_chat->lang),
-                    ]);
-                    continue;
-                }
-                $update->bot->sendMessage([
-                    'chat_id' => $dealer->tg_chat->chat_id,
-                    'text' => trans('msg.auction_info_msg_for_dealers', [
-                        'highest_price' => $auction->highestPrice(),
-                        'participants' => $auction->dealers()->count(),
-                        'finish' => $auction->getFinish(),
-                        'enough_price' => $auction->highestPrice() + 50
-                    ], $dealer->tg_chat->lang),
-                ]);
-            }
-            return;
+
+            goto end;
         }
 
         // * Highest price is not null
@@ -118,50 +78,51 @@ class AuctionLayer
                     'enough_price' => $auction->highestPrice() + 50,
                 ]),
             ]);
-        else {
-            $auction->bids()->create([
-                "dealer_id" => $update->tg_chat->dealer->id,
-                "price" => $update->data,
-            ]);
-            // $auction->update([
-            //     "highest_price" => $update->data,
-            //     "highest_price_owner_id" => $update->tg_chat->dealer->id,
-            // ]);
-            Telegram::bot('user-bot')->sendMessage([
-                'chat_id' => $auction->car->user->tg_chat->chat_id,
-                'text' => trans('msg.auction_info_msg_for_owner', [
-                    'highest_price' => $auction->highestPrice(),
-                    'participants' => $auction->dealers()->count(),
-                    'finish' => $auction->getFinish(),
-                ], $auction->car->user->tg_chat->lang),
-            ]);
-            foreach ($auction->dealers as $dealer) {
-                if ($auction->highestPriceOwner()->id === $dealer->id) {
-                    $update->bot->sendMessage([
-                        'chat_id' => $dealer->tg_chat->chat_id,
-                        'parse_mode' => 'html',
-                        'text' => trans('msg.auction_info_msg_for_current_winner', [
-                            'highest_price' => $auction->highestPrice(),
-                            'participants' => $auction->dealers()->count(),
-                            'finish' => $auction->getFinish(),
-                            'fname' => $dealer->firstname,
-                            'lname' => $dealer->lastname
-                        ], $dealer->tg_chat->lang),
-                    ]);
-                    continue;
-                }
+        else
+            goto end;
+
+        end:
+        $auction->bids()->create([
+            "dealer_id" => $update->tg_chat->dealer->id,
+            "price" => $update->data,
+        ]);
+        Telegram::bot('user-bot')->sendMessage([
+            'chat_id' => $auction->car->user->tg_chat->chat_id,
+            'text' => trans('msg.auction_info_msg_for_owner', [
+                // 'fname' => $auction->highestPriceOwner()->firstname,
+                // 'lname' => $auction->highestPriceOwner()->lastname,
+                // 'phone' => $auction->highestPriceOwner()->contact,
+                'highest_price' => $auction->highestPrice(),
+                'participants' => $auction->dealers()->count(),
+                'finish' => $auction->getFinish(),
+            ], $auction->car->user->tg_chat->lang),
+        ]);
+        foreach ($auction->dealers as $dealer) {
+            if ($auction->highestPriceOwner()->id === $dealer->id) {
                 $update->bot->sendMessage([
                     'chat_id' => $dealer->tg_chat->chat_id,
-                    'text' => trans('msg.auction_info_msg_for_dealers', [
+                    'parse_mode' => 'html',
+                    'text' => trans('msg.auction_info_msg_for_current_winner', [
                         'highest_price' => $auction->highestPrice(),
                         'participants' => $auction->dealers()->count(),
                         'finish' => $auction->getFinish(),
-                        'enough_price' => $auction->highestPrice() + 50
+                        'fname' => $dealer->firstname,
+                        'lname' => $dealer->lastname
                     ], $dealer->tg_chat->lang),
                 ]);
+                continue;
             }
-            return;
+            $update->bot->sendMessage([
+                'chat_id' => $dealer->tg_chat->chat_id,
+                'text' => trans('msg.auction_info_msg_for_dealers', [
+                    'highest_price' => $auction->highestPrice(),
+                    'participants' => $auction->dealers()->count(),
+                    'finish' => $auction->getFinish(),
+                    'enough_price' => $auction->highestPrice() + 50
+                ], $dealer->tg_chat->lang),
+            ]);
         }
+        return;
     }
 
 

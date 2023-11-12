@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Auction;
+use App\Models\Dealer;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +18,13 @@ class BidFactory extends Factory
      */
     public function definition()
     {
+        $auctions = Auction::all()->pluck('id');
+        $dealaers = Dealer::all()->pluck('id');
+
         return [
-            //
+            'auction_id' => fake()->randomElement($auctions),
+            'dealer_id' => fake()->randomElement($dealaers),
+            'price' => rand(100, 100000),
         ];
     }
 }

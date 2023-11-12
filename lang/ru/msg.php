@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     'cancelled' => ' ✅ Все операции отменены',
     'empty_action' => "⚠️ Отменять нечего",
     'ask_contact' => "Контакт: (Нажмите кнопку \":btn\" ниже)",
@@ -97,20 +96,13 @@ return [
     'write_price' => "Вы можете легко написать здесь подходящую вам цену:\n"
         . "(например, 10000|10 000|10,000|10 000$|$10 000)",
     'cant_left' => "‼️ Извините! Вы не можете покинуть аукцион, поскольку сейчас вы являетесь владельцем самой высокой цены.",
-    'left' => "Вы успешно покинули аукцион.",
-    'price_not_higher_enough' => "⚠️Цена должна быть как минимум выше :enough_price\$.",
+    'left' => "✅ Вы успешно покинули аукцион.",
+    'price_not_higher_enough' => "⚠️ Цена должна быть как минимум выше :enough_price\$.",
     'owner_confirm_message' => "Ваш автомобиль :color :company :model был оценен на аукционе по цене :highest_price\$. Вы готовы продать свой автомобиль по этой цене?",
     'car_sold_message_for_dealers' => "<b>Машина распродана.</b>\n"
         . "🏆 Победитель: :firstname :lastname\n"
         . "🚘 Автомобиль: :color :company :model\n"
         . "💵 Цена: :highest_price\$\n",
-    'car_sold_message_for_operator' => "<b>Машина распродана.</b>\n"
-        . "🆔 Идентификатор автомобиля: :car_id\n"
-        . "🚘 Автомобиль: :color :company :model\n"
-        . "💵 Цена: :highest_price\$\n\n"
-        . "🏆 Лучшие :bids_num участники торгов:\n" . ":bidders" . "\n"
-        . "👤 Владелец: :owner_fname :owner_lname\n"
-        . "📲 Телефон: :owner_phone\n",
     'car_sold_message_for_winner' => "🎉<b>Поздравляем!</b>🎉\n"
         . "Дорогой :firstname :lastname\n"
         . "Вы выиграли аукцион.\n\n"
@@ -238,12 +230,14 @@ return [
     'auction_info_msg_for_owner' => "📈 Самая высокая цена: :highest_price\$\n"
         . "👀 Участники: :participants\n"
         . "🏁 Готово: :finish\n",
+    // 'auction_info_msg_for_owner' => "📈 Самая высокая цена: :highest_price\$\n"
+    //     . "👨‍💼 Дилер: :fname :lname\n"
+    //     . "📲 Телефон: :phone\n"
+    //     . "👀 Участники: :participants\n"
+    //     . "🏁 Готово: :finish\n",
     'get_info_dealers' => "👨‍💼 Дилеры",
     'dealers_info_msg' => "👨‍💼 Дилеры:\n"
         . "🔢 Номер: :number\n",
-    'top_bidder' => ":number :price\$\n"
-        . "👨‍💼 Дилер: :fname :lname\n"
-        . "📲 Телефон: :phone\n",
     'not_bid_yet' => 'Еще не сделана ставка',
     'dealer_list_title' => "<b>👨‍💼 Дилеры :first_num - :last_num из :all_num </b>\n\n",
     'dealer_info' => "<b>👨‍💼 Дилер </b>\n\n"
@@ -251,6 +245,22 @@ return [
         . "Фамилия: :lname\n"
         . "Контакт: :contact\n"
         . "Количество автомобилей: :num_of_cars",
+    'take' => "Взять",
+    'bids_list' => "<b>🤝 Ставки :first_num - :last_num из :all_num </b>\n\n"
+        . ":slot\n"
+        . "👤 Владелец: :owner_fname :owner_lname\n"
+        . "📲 Телефон: :owner_phone\n",
+    'car_sold_message_for_operator' => "<b>Машина распродана.</b>\n"
+        . "🆔 Идентификатор автомобиля: :car_id\n"
+        . "🚘 Автомобиль: :color :company :model\n"
+        . "💵 Цена: :highest_price\$\n"
+        . "🏆 Победитель: :winner_fname :winner_lname\n"
+        . "📲 Телефон: :winner_phone\n"
+        . "👤 Владелец: :owner_fname :owner_lname\n"
+        . "📲 Телефон: :owner_phone\n",
+    'bidder' => "<b>:number - :price\$</b>\n"
+        . "👨‍💼 Дилер: :fname :lname\n"
+        . "📲 Телефон: :phone\n",
 
     'attributes' => [],
 

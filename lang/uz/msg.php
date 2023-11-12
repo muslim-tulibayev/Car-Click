@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     'cancelled' => '✅ Barcha operatsiyalar bekor qilindi',
     'empty_action' => "⚠️ Bekor qilish uchun hech narsa yo'q",
     'ask_contact' => "Kontakt: (Quyida \":btn\" tugmasini bosing)",
@@ -104,13 +103,6 @@ return [
         . "🏆 G'olib: :lastname :lastname\n"
         . "🚘 Avtomobil: :color :company :model\n"
         . "💵 Narxi: :highest_price\$\n",
-    'car_sold_message_for_operator' => "<b>Avtomobil sotildi</b>\n"
-        . "🆔 Avtomobil ID: :car_id\n"
-        . "🚘 Avtomobil: :color :company :model\n"
-        . "💵 Narxi: :highest_price\$\n\n"
-        . "🏆 Top :bids_num ta taklif beruvchilar:\n" . ":bidders" . "\n"
-        . "👤 Egasi: :owner_fname :owner_lname\n"
-        . "📲 Telefon: :owner_phone\n",
     'car_sold_message_for_winner' => "🎉<b>Tabriklaymiz!</b>🎉\n"
         . "Hurmatli :firstname :lastname\n"
         . "Auksionda g'olib chiqdingiz.\n\n"
@@ -238,12 +230,14 @@ return [
     'auction_info_msg_for_owner' => "📈 Eng yuqori narx: :highest_price\$\n"
         . "👀 Ishtirokchilar: :participants\n"
         . "🏁 Tugatish: :finish\n",
+    // 'auction_info_msg_for_owner' => "📈 Eng yuqori narx: :highest_price\$\n"
+    //     . "👨‍💼 Diler: :fname :lname\n"
+    //     . "📲 Telefon: :phone\n"
+    //     . "👀 Ishtirokchilar: :participants\n"
+    //     . "🏁 Tugatish: :finish\n",
     'get_info_dealers' => "👨‍💼 Dilerlar",
     'dealers_info_msg' => "👨‍💼 Dilerlar:\n"
         . "🔢 Raqam: :number\n",
-    'top_bidder' => ":number :price\$\n"
-        . "👨‍💼 Diler: :fname :lname\n"
-        . "📲 Telefon: :phone\n",
     'not_bid_yet' => 'Hali taklif kiritilmagan',
     'dealer_list_title' => "<b>👨‍💼 Dilerlar :all_num ta dan :first_num - :last_num </b>\n\n",
     'dealer_info' => "<b>👨‍💼 Diler </b>\n\n"
@@ -251,6 +245,22 @@ return [
         . "Familiya: :lname\n"
         . "Telefon: :contact\n"
         . "Avtomobillar soni: :num_of_cars",
+    'take' => "Oling",
+    'bids_list' => "<b>🤝 Takliflar :first_num - :last_num :all_num </b>\n\n"
+        . ":slot\n"
+        . "👤 Egasi: :owner_fname :owner_lname\n"
+        . "📲 Telefon: :owner_phone\n",
+    'car_sold_message_for_operator' => "<b>Avtomobil sotildi</b>\n"
+        . "🆔 Avtomobil ID: :car_id\n"
+        . "🚘 Avtomobil: :color :company :model\n"
+        . "💵 Narxi: :highest_price\$\n"
+        . "🏆 G'olib: :winner_fname :winner_lname\n"
+        . "📲 Telefon: :winner_phone\n"
+        . "👤 Egasi: :owner_fname :owner_lname\n"
+        . "📲 Telefon: :owner_phone\n",
+    'bidder' => "<b>:number - :price\$</b>\n"
+        . "👨‍💼 Diler: :fname :lname\n"
+        . "📲 Telefon: :phone\n",
 
     'attributes' => [],
 
