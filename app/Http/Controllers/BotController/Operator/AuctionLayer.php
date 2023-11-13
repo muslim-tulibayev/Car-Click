@@ -4,7 +4,7 @@ namespace App\Http\Controllers\BotController\Operator;
 
 use App\Http\Controllers\Auction\AuctionController;
 use App\Http\Controllers\BotController\Keyboard\KeyboardLayout;
-use App\Http\Controllers\Queue\QueueController;
+use App\Http\Controllers\Task\TaskManage;
 use App\Models\Car;
 use App\Traits\SendValidatorMessagesTrait;
 use DateTime;
@@ -184,9 +184,9 @@ class AuctionLayer
                 ]),
             ]);
 
-            if ($update->tg_chat->operator->queue) {
-                $update->tg_chat->operator->queue->delete();
-                QueueController::setOperatorToQueue($update->tg_chat->operator);
+            if ($update->tg_chat->operator->task) {
+                $update->tg_chat->operator->task->delete();
+                TaskManage::setOperatorToTask($update->tg_chat->operator);
             }
             return $update->tg_chat->update(['action' => 'home>end']);
         }

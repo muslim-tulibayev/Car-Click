@@ -16,10 +16,9 @@ class DatabaseSeeder extends Seeder
             // UserSeeder::class,
             // CarSeeder::class,
             // AuctionSeeder::class,
-            // QueueSeeder::class,
+            // TaskSeeder::class,
             // AlertSeeder::class,
-
-            BidSeeder::class,
+            // BidSeeder::class,
         ]);
     }
 }

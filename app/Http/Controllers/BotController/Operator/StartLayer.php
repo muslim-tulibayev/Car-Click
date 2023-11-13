@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\BotController\Operator;
 
 use App\Http\Controllers\BotController\Keyboard\KeyboardLayout;
-use App\Http\Controllers\Queue\QueueController;
+use App\Http\Controllers\Task\TaskManage;
 use App\Models\Operator;
 use App\Traits\SendValidatorMessagesTrait;
 use Illuminate\Support\Facades\Hash;
@@ -176,7 +176,7 @@ class StartLayer
                     'lastname' => $operator->lastname,
                 ]),
             ]);
-            return QueueController::setOperatorToQueue($operator);
+            return TaskManage::setOperatorToTask($operator);
         }
     }
 
@@ -273,7 +273,7 @@ class StartLayer
                 'text' => trans('msg.please_wait'),
             ]);
 
-            return QueueController::make('new_operator', $new_operator->id);
+            return TaskManage::make('new_operator', $new_operator->id);
         }
     }
 }

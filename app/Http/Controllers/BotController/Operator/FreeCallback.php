@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\BotController\Operator;
 
-use App\Http\Controllers\BotController\Keyboard\KeyboardLayout;
-use App\Http\Controllers\Queue\QueueController;
-use App\Models\Queue;
+use App\Http\Controllers\BotController\Message\MessageLayout;
+use App\Http\Controllers\Task\TaskManage;
+use App\Models\Task;
 
 class FreeCallback
 {
@@ -16,13 +16,16 @@ class FreeCallback
         $type = explode('|', $update->data)[0]; // * type
 
         switch ($type) {
-            case 'queue':
-                self::finishTask($update);
+            case 'task-ntfy':
+                self::taskNtfy($update);
+                return true;
+            case 'task':
+                self::task($update);
                 return true;
             case 'dealer':
                 self::getDealerInfo($update);
-            case 'bid':
-                self::getBidsInfo($update);
+            case 'bids-list':
+                self::getBidsList($update);
                 return true;
             default:
                 return false;
@@ -33,10 +36,10 @@ class FreeCallback
 
 
 
-    private static function getBidsInfo($update)
+    private static function getBidsList($update)
     {
         $type = explode('|', $update->data)[1]; // * type: [prev, next]
-        $data = explode('|', $update->data)[2]; // * data: [prev, next] -> current_page, [done] -> queue_id
+        $data = explode('|', $update->data)[2]; // * data: [current_page]
 
         switch ($type) {
             case 'prev':
@@ -44,12 +47,6 @@ class FreeCallback
                 break;
             case 'next':
                 BidLayer::editList($update, $data + 1);
-                break;
-            case 'done':
-                BidLayer::taskDone($update, $data);
-                break;
-            case 'cancel':
-                Command::cancel($update);
                 break;
         }
     }
@@ -83,45 +80,46 @@ class FreeCallback
 
 
 
-    private static function finishTask($update)
+    private static function taskNtfy($update)
     {
-        // * Remove each callbacks here first
-        $update->bot->deleteMessage([
-            'chat_id' => $update->chat_id,
-            'message_id' => $update->message_id,
-        ]);
+        $id = explode('|', $update->data)[1]; // * task id
+        $data = explode('|', $update->data)[2]; // * data [take, remove]
 
-        $id = explode('|', $update->data)[1]; // * queue id
-        $data = explode('|', $update->data)[2]; // * data [take, done, allow, deny, ignore]
+        $task = Task::find($id);
+        if (!$task)
+            return MessageLayout::answerCallbackQuery($update, trans('msg.task_not_found_msg'));
+
+        switch ($data) {
+            case 'take':
+                if ($update->tg_chat->action !== 'home>end')
+                    return MessageLayout::answerCallbackQuery($update, trans('msg.cant_take_task_msg'));
+                TaskManage::take($task, $update->tg_chat->operator);
+                break;
+
+            default:
+                TaskManage::remove($task, $update->tg_chat->operator);
+                break;
+        }
+    }
+
+
+
+
+    private static function task($update)
+    {
+        $id = explode('|', $update->data)[1]; // * task [id]
+        $data = explode('|', $update->data)[2]; // * data [done, allow, deny]
+
+        $task = Task::find($id);
+        if (!$task)
+            return MessageLayout::answerCallbackQuery($update, trans('msg.task_not_found_msg'));
 
         $operator = $update->tg_chat->operator;
-        if (!($operator->queue and $operator->queue->id == $id)) return;
+        if ($task->operator_id !== $operator->id) return;
 
-        $queue = Queue::find($id);
-        if (!$queue) return;
+        // * Remove each callbacks here first
+        MessageLayout::taskRmAnsweredMsg($task, $update);
 
-        if ($queue->queueable instanceof \App\Models\Car and $data === 'allow') {
-            $update->tg_chat->update([
-                'action' => 'operation>validate_car>waiting_auction_start',
-                'data' => json_encode(['car_id' => $queue->queueable->id]),
-            ]);
-            return $update->bot->sendMessage([
-                'chat_id' => $update->chat_id,
-                'parse_mode' => 'html',
-                'reply_markup' => KeyboardLayout::askStart(),
-                'text' => trans('msg.ask_start'),
-            ]);
-        }
-
-        if ($queue->operation === 'finished_auction' and $data === 'take') {
-            $update->tg_chat->update([
-                'action' => 'operation>finished_auction',
-                'data' => json_encode(['queue_id' => $queue->id]),
-            ]);
-
-            return BidLayer::getList($update);
-        }
-
-        QueueController::finish($queue, $data);
+        TaskManage::workOn($task, $data);
     }
 }

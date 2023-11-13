@@ -4,7 +4,7 @@ namespace App\Http\Controllers\PanelController;
 
 use App\Http\Controllers\Auction\AuctionController as BroadcastController;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Queue\QueueController;
+use App\Http\Controllers\Task\TaskManage;
 use App\Models\Auction;
 use App\Models\Car;
 use DateTime;
@@ -55,8 +55,8 @@ class AuctionController extends Controller
             'start' => $start->format('Y-m-d H:i:s'),
         ]);
 
-        if ($car->queueable)
-            QueueController::finish($car->queueable, 'allow');
+        if ($car->taskable)
+            TaskManage::finish($car->taskable, 'allow');
 
         $alert_success = (object) [
             'primary' => 'Success',

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\BotController\Operator;
 
 use App\Http\Controllers\BotController\Keyboard\KeyboardLayout;
-use App\Http\Controllers\Queue\QueueController;
+use App\Http\Controllers\Task\TaskManage;
 use App\Models\Operator;
 use App\Models\OperatorChat;
 
@@ -62,13 +62,13 @@ class Command
         if (!$operator->is_validated) return;
         if ($update->tg_chat->action !== 'home>end') return;
 
-        if ($operator->queue)
-            return QueueController::setOperatorToQueue($operator, $operator->queue);
+        if ($operator->task)
+            return TaskManage::setOperatorToTask($operator, $operator->task);
 
-        if (!QueueController::setOperatorToQueue($operator))
+        if (!TaskManage::setOperatorToTask($operator))
             return $update->bot->sendMessage([
                 'chat_id' => $update->chat_id,
-                'text' => trans('msg.empty_queue'),
+                'text' => trans('msg.empty_task'),
             ]);
     }
 
@@ -100,36 +100,36 @@ class Command
             ]);
         }
 
-        // * No queue:
+        // * No task:
         // *    No operation
-        if (!$operator->queue and $operation === 'home>end') {
+        if (!$operator->task and $operation === 'home>end') {
             $update->bot->sendMessage([
                 'chat_id' => $update->chat_id,
                 'reply_markup' => KeyboardLayout::home('operator'),
                 'text' => trans('msg.empty_action'),
             ]);
-            return QueueController::setOperatorToQueue($operator);
+            return TaskManage::setOperatorToTask($operator);
         }
 
 
         // *    Has an operation
-        if (!$operator->queue and $operation !== 'home>end') {
+        if (!$operator->task and $operation !== 'home>end') {
             $update->tg_chat->update(["action" => 'home>end']);
             $update->bot->sendMessage([
                 'chat_id' => $update->chat_id,
                 'reply_markup' => KeyboardLayout::home('operator'),
                 'text' => trans('msg.cancelled'),
             ]);
-            return QueueController::setOperatorToQueue($operator);
+            return TaskManage::setOperatorToTask($operator);
         }
 
-        // * Has queue
-        // *    Has queue but no operation
-        if ($operator->queue and $operation === 'home>end')
-            return QueueController::ignoreQueue($operator->queue);
+        // * Has task
+        // *    Has task but no operation
+        if ($operator->task and $operation === 'home>end')
+            return TaskManage::ignoreTask($operator->task);
 
-        // *    Has another operation (which doesn't belong to the current queue)
-        if ($operator->queue and explode('>', $operation)[0] !== 'operation') {
+        // *    Has another operation (which doesn't belong to the current task)
+        if ($operator->task and explode('>', $operation)[0] !== 'operation') {
             $update->tg_chat->update(["action" => 'home>end']);
             $update->bot->sendMessage([
                 'chat_id' => $update->chat_id,
@@ -139,13 +139,13 @@ class Command
         }
 
         // *    Doing the operation
-        if ($operator->queue and explode('>', $operation)[0] === 'operation') {
+        if ($operator->task and explode('>', $operation)[0] === 'operation') {
             doing_the_operation:
             // * If opertors count is only 1 -> 'Abort'
             if (Operator::where('is_validated', true)->count() === 1)
                 return $update->bot->sendMessage([
                     'chat_id' => $update->chat_id,
-                    'text' => trans('msg.cannot_cancel_queue'),
+                    'text' => trans('msg.cannot_cancel_task'),
                 ]);
 
             $update->tg_chat->update(["action" => 'home>end']);
@@ -154,7 +154,7 @@ class Command
                 'reply_markup' => KeyboardLayout::home('operator'),
                 'text' => trans('msg.cancelled'),
             ]);
-            return QueueController::ignoreQueue($operator->queue);
+            return TaskManage::ignoreTask($operator->task);
         }
     }
 
@@ -247,14 +247,14 @@ class Command
             ]);
 
         // *    Doing the operation
-        if ($operator->queue) {
+        if ($operator->task) {
             // * If opertors count is only 1 -> 'Abort'
             if (Operator::where('is_validated', true)->count() === 1)
                 return $update->bot->sendMessage([
                     'chat_id' => $update->chat_id,
-                    'text' => trans('msg.cannot_logout_because_of_queue'),
+                    'text' => trans('msg.cannot_logout_because_of_task'),
                 ]);
-            QueueController::ignoreQueue($operator->queue);
+            TaskManage::ignoreTask($operator->task);
         }
 
         $update->tg_chat->update([

@@ -48,13 +48,13 @@ return [
         . "🔷 Color: :color\n"
         . "🆕 Condition: :condition\n"
         . "💬 Additional: :additional\n"
-        . "� Owner: :owner_fname :owner_lname\n"
+        . "👤 Owner: :owner_fname :owner_lname\n"
         . "🏆 Winner: :winner_fname :winner_lname\n",
     'auction_created_info' => "<b>The auction is set</b>\n"
         . "🆔 Car ID: :car_id\n"
         . "🅰 Company: :company\n"
         . "Ⓜ Model: :model\n"
-        . "� Owner: :owner\n"
+        . "👤 Owner: :owner\n"
         . "📅 Start: :start\n"
         . "🏁 Finish: :finish\n"
         . "💵 Starting price: :starting_price\$\n",
@@ -131,7 +131,7 @@ return [
     'car_not_sold_message_for_operator' => "<b>Car not sold.</b>\n"
         . "🆔 Car ID: :car_id\n"
         . "🚘 Car: :color :company :model\n"
-        . "� Owner: :owner_fname :owner_lname\n"
+        . "👤 Owner: :owner_fname :owner_lname\n"
         . "📲 Phone: :owner_phone\n",
     'didnt_sell_message_for_dealers' => "<b>Car not sold.</b>\n"
         . "The owner of the car did not agree to sell.\n\n"
@@ -211,11 +211,11 @@ return [
     'playing' => "Playing",
     'waiting_confirmation' => "Waiting confirmation",
     'finished' => "Finished",
-    'cannot_cancel_queue' => "‼️ Sorry, You cannot cancel the operation beacuse there is no operator except you",
-    'queue_ignored' => "✅ The task ignored successfully",
-    'empty_queue' => "☑️ There is no task",
+    'cannot_cancel_task' => "‼️ Sorry, You cannot cancel the operation beacuse there is no operator except you",
+    'task_ignored' => "✅ The task ignored successfully",
+    'empty_task' => "☑️ There is no task",
     'done' => "Done",
-    'cannot_logout_because_of_queue' => "‼️ Sorry, you cannot log out because you have a task and there is no other operator to assign the task to",
+    'cannot_logout_because_of_task' => "‼️ Sorry, you cannot log out because you have a task and there is no other operator to assign the task to",
     'waiting_validation' => "Waiting validation",
     'help' => 'This is help',
     'info' => "This is info",
@@ -266,6 +266,12 @@ return [
     'bidder' => "<b>:number - :price\$</b>\n"
         . "👨‍💼 Dealer: :fname :lname\n"
         . "📲 Phone: :phone\n",
+
+    'remove' => "Remove",
+    'cant_take_task_msg' => "⚠️ You can't do the task because you have an operation now, You should finish the current operation",
+    'task_not_found_msg' => "⚠️ Task not found",
+    'mute_btn' => "🔕 Mute",
+    'unmute_btn' => "🔔 Unmute",
 
     'attributes' => [],
 

@@ -23,9 +23,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('cars', App\Http\Controllers\PanelController\CarController::class);
     Route::resource('bids', App\Http\Controllers\PanelController\BidController::class);
 
-    Route::get('/queues/{queue}/finish', [App\Http\Controllers\PanelController\QueueController::class, 'finishQueue'])
-        ->name('finish-queue');
-    Route::resource('queues', App\Http\Controllers\PanelController\QueueController::class);
+    Route::get('/tasks/{task}/finish', [App\Http\Controllers\PanelController\TaskController::class, 'finishTask'])
+        ->name('finish-task');
+    Route::resource('tasks', App\Http\Controllers\PanelController\TaskController::class);
 
     Route::resource('settings', App\Http\Controllers\PanelController\SettingController::class)
         ->only(['index', 'edit', 'update']);

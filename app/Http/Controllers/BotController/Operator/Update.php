@@ -41,7 +41,9 @@ class Update
                 "data" => $request->callback_query->data,
                 "chat_id" => $request->callback_query->from->id,
                 "message_id" => $request->callback_query->message->message_id,
+                "callback_query_id" => $request->callback_query->id,
                 "tg_chat" => OperatorChat::where('chat_id', '=', $request->callback_query->from->id)->first(),
+                "real_chat_id" => $request->callback_query->message->chat->id,
             ];
 
             if ($update->tg_chat)
