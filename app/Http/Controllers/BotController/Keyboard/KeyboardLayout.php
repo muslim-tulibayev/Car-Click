@@ -284,16 +284,16 @@ class KeyboardLayout
         $row = [];
         if ($prev)
             $row[] = Button::make([
-                'text' => '⬅ Prev',
+                'text' => trans('msg.prev'),
                 'callback_data' => 'dealer|prev|' . $current_page
             ]);
         $row[] = Button::make([
-            'text' => '🆑 Cancel',
+            'text' => trans('msg.remove'),
             'callback_data' => 'dealer|cancel|' . $current_page
         ]);
         if ($next)
             $row[] = Button::make([
-                'text' => 'Next ➡',
+                'text' => trans('msg.next'),
                 'callback_data' => 'dealer|next|' . $current_page
             ]);
         $keyboard->row($row);

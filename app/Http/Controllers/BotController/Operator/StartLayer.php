@@ -40,11 +40,11 @@ class StartLayer
 
     private static function choosingLang($update)
     {
-        if ($update->type !== 'callback_query')
-            return $update->bot->deleteMessage([
-                'chat_id' => $update->chat_id,
-                'message_id' => $update->message_id,
-            ]);
+        $update->bot->deleteMessage([
+            'chat_id' => $update->chat_id,
+            'message_id' => $update->message_id,
+        ]);
+        if ($update->type !== 'callback_query') return;
         $update->tg_chat->update(["lang" => $update->data]);
         app()->setLocale($update->data);
         $update->tg_chat->update(['action' => 'start>authenticate']);
@@ -176,7 +176,7 @@ class StartLayer
                     'lastname' => $operator->lastname,
                 ]),
             ]);
-            return TaskManage::setOperatorToTask($operator);
+            return TaskManage::availableTasks($operator);
         }
     }
 

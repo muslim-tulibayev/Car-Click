@@ -24,6 +24,7 @@ class FreeCallback
                 return true;
             case 'dealer':
                 self::getDealerInfo($update);
+                return true;
             case 'bids-list':
                 self::getBidsList($update);
                 return true;
@@ -85,9 +86,9 @@ class FreeCallback
         $id = explode('|', $update->data)[1]; // * task id
         $data = explode('|', $update->data)[2]; // * data [take, remove]
 
-        $task = Task::find($id);
+        $task = Task::where('is_done', false)->find($id);
         if (!$task)
-            return MessageLayout::answerCallbackQuery($update, trans('msg.task_not_found_msg'));
+            return MessageLayout::taskNotFound($update, trans('msg.task_not_found_msg'));
 
         switch ($data) {
             case 'take':
@@ -110,9 +111,9 @@ class FreeCallback
         $id = explode('|', $update->data)[1]; // * task [id]
         $data = explode('|', $update->data)[2]; // * data [done, allow, deny]
 
-        $task = Task::find($id);
+        $task = Task::where('is_done', false)->find($id);
         if (!$task)
-            return MessageLayout::answerCallbackQuery($update, trans('msg.task_not_found_msg'));
+            return MessageLayout::taskNotFound($update, trans('msg.task_not_found_msg'));
 
         $operator = $update->tg_chat->operator;
         if ($task->operator_id !== $operator->id) return;

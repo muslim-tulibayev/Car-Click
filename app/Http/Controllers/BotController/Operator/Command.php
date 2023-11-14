@@ -60,16 +60,8 @@ class Command
 
         if (!$operator) return;
         if (!$operator->is_validated) return;
-        if ($update->tg_chat->action !== 'home>end') return;
 
-        if ($operator->task)
-            return TaskManage::setOperatorToTask($operator, $operator->task);
-
-        if (!TaskManage::setOperatorToTask($operator))
-            return $update->bot->sendMessage([
-                'chat_id' => $update->chat_id,
-                'text' => trans('msg.empty_task'),
-            ]);
+        TaskManage::availableTasks($operator);
     }
 
 
@@ -81,12 +73,12 @@ class Command
     public static function cancel($update)
     {
         $operator = $update->tg_chat->operator;
-        $operation = $update->tg_chat->action;
+        $action = $update->tg_chat->action;
 
         // * No operator and Not validated
         if (!$operator or !$operator->is_validated) {
             // * No operation
-            if (!$operation)
+            if (!$action)
                 return $update->bot->sendMessage([
                     'chat_id' => $update->chat_id,
                     'reply_markup' => KeyboardLayout::empty(),
@@ -100,61 +92,31 @@ class Command
             ]);
         }
 
-        // * No task:
-        // *    No operation
-        if (!$operator->task and $operation === 'home>end') {
-            $update->bot->sendMessage([
+        // * Has task
+        if ($operator->currentTask()) {
+            return $update->bot->sendMessage([
+                'chat_id' => $update->chat_id,
+                'text' => trans('msg.cannot_cancel_task'),
+            ]);
+        }
+
+        // * Has an operation
+        if ($action !== 'home>end') {
+            $update->tg_chat->update(["action" => 'home>end']);
+            return $update->bot->sendMessage([
+                'chat_id' => $update->chat_id,
+                'reply_markup' => KeyboardLayout::home('operator'),
+                'text' => trans('msg.cancelled'),
+            ]);
+        }
+
+        // * No operation
+        if ($action === 'home>end') {
+            return $update->bot->sendMessage([
                 'chat_id' => $update->chat_id,
                 'reply_markup' => KeyboardLayout::home('operator'),
                 'text' => trans('msg.empty_action'),
             ]);
-            return TaskManage::setOperatorToTask($operator);
-        }
-
-
-        // *    Has an operation
-        if (!$operator->task and $operation !== 'home>end') {
-            $update->tg_chat->update(["action" => 'home>end']);
-            $update->bot->sendMessage([
-                'chat_id' => $update->chat_id,
-                'reply_markup' => KeyboardLayout::home('operator'),
-                'text' => trans('msg.cancelled'),
-            ]);
-            return TaskManage::setOperatorToTask($operator);
-        }
-
-        // * Has task
-        // *    Has task but no operation
-        if ($operator->task and $operation === 'home>end')
-            return TaskManage::ignoreTask($operator->task);
-
-        // *    Has another operation (which doesn't belong to the current task)
-        if ($operator->task and explode('>', $operation)[0] !== 'operation') {
-            $update->tg_chat->update(["action" => 'home>end']);
-            $update->bot->sendMessage([
-                'chat_id' => $update->chat_id,
-                'reply_markup' => KeyboardLayout::home('operator'),
-                'text' => trans('msg.cancelled'),
-            ]);
-        }
-
-        // *    Doing the operation
-        if ($operator->task and explode('>', $operation)[0] === 'operation') {
-            doing_the_operation:
-            // * If opertors count is only 1 -> 'Abort'
-            if (Operator::where('is_validated', true)->count() === 1)
-                return $update->bot->sendMessage([
-                    'chat_id' => $update->chat_id,
-                    'text' => trans('msg.cannot_cancel_task'),
-                ]);
-
-            $update->tg_chat->update(["action" => 'home>end']);
-            $update->bot->sendMessage([
-                'chat_id' => $update->chat_id,
-                'reply_markup' => KeyboardLayout::home('operator'),
-                'text' => trans('msg.cancelled'),
-            ]);
-            return TaskManage::ignoreTask($operator->task);
         }
     }
 
@@ -246,27 +208,26 @@ class Command
                 'text' => trans('msg.not_logged_in'),
             ]);
 
-        // *    Doing the operation
-        if ($operator->task) {
-            // * If opertors count is only 1 -> 'Abort'
-            if (Operator::where('is_validated', true)->count() === 1)
-                return $update->bot->sendMessage([
-                    'chat_id' => $update->chat_id,
-                    'text' => trans('msg.cannot_logout_because_of_task'),
-                ]);
-            TaskManage::ignoreTask($operator->task);
+        // * Has task
+        if ($operator->currentTask()) {
+            return $update->bot->sendMessage([
+                'chat_id' => $update->chat_id,
+                'text' => trans('msg.cannot_logout_because_of_task'),
+            ]);
         }
 
         $update->tg_chat->update([
             "operator_id" => null,
             "action" => null,
         ]);
+
         return $update->bot->sendMessage([
             'chat_id' => $update->chat_id,
             'reply_markup' => KeyboardLayout::empty(),
             'text' => trans('msg.logged_out')
         ]);
     }
+
 
 
 

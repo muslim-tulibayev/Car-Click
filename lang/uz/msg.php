@@ -172,7 +172,6 @@ return [
     'next_btn' => "➡ Keyingi",
     'allow' => "Ruxsat berish",
     'deny' => "Rad qilish",
-    'ignore' => "E'tibor bermaslik",
     'choose_section' => "Bo'limni tanlang 👇",
     'unexpected_callback_query' => "⚠️ Avtomobillar ro'yxatidan bitta bo'limni tanlashingiz kerak.",
     'exist_contact' => "⚠️ Bu kontakt allaqachon ro'yxatdan o'tgan.",
@@ -206,11 +205,10 @@ return [
     'playing' => "O'ynalmoqda",
     'waiting_confirmation' => "Tasdiqlash kutilmoqda",
     'finished' => "Tugatildi",
-    'cannot_cancel_task' => "‼️ Kechirasiz, siz operatsiyani bekor qila olmaysiz, chunki sizdan boshqa operator yo'q.",
-    'task_ignored' => "✅ Vazifa muvaffaqiyatli e'tiborsiz qoldirildi.",
+    'cannot_cancel_task' => "‼️ Kechirasiz, qabul qilingan vazifani bekor qilib bo'lmaydi.",
     'empty_task' => "☑️ Hech qanday vazifa yo'q",
     'done' => "Bajarildi",
-    'cannot_logout_because_of_task' => "‼️ Kechirasiz, siz tizimdan chiqa olmaysiz, chunki sizda vazifa bor va vazifani tayinlaydigan boshqa operator yo'q.",
+    'cannot_logout_because_of_task' => "‼️ Kechirasiz, siz tizimdan chiqa olmaysiz, chunki sizda vazifa bor",
     'waiting_validation' => "Tasdiqlash kutilmoqda",
     'help' => 'Bu yordam',
     'info' => "Bu ma'lumot",
@@ -230,11 +228,6 @@ return [
     'auction_info_msg_for_owner' => "📈 Eng yuqori narx: :highest_price\$\n"
         . "👀 Ishtirokchilar: :participants\n"
         . "🏁 Tugatish: :finish\n",
-    // 'auction_info_msg_for_owner' => "📈 Eng yuqori narx: :highest_price\$\n"
-    //     . "👨‍💼 Diler: :fname :lname\n"
-    //     . "📲 Telefon: :phone\n"
-    //     . "👀 Ishtirokchilar: :participants\n"
-    //     . "🏁 Tugatish: :finish\n",
     'get_info_dealers' => "👨‍💼 Dilerlar",
     'dealers_info_msg' => "👨‍💼 Dilerlar:\n"
         . "🔢 Raqam: :number\n",
@@ -245,7 +238,7 @@ return [
         . "Familiya: :lname\n"
         . "Telefon: :contact\n"
         . "Avtomobillar soni: :num_of_cars",
-    'take' => "Oling",
+    'take' => "Qabul qilish",
     'bids_list' => "<b>🤝 Takliflar :first_num - :last_num :all_num </b>\n\n"
         . ":slot\n"
         . "👤 Egasi: :owner_fname :owner_lname\n"
@@ -261,6 +254,13 @@ return [
     'bidder' => "<b>:number - :price\$</b>\n"
         . "👨‍💼 Diler: :fname :lname\n"
         . "📲 Telefon: :phone\n",
+    'remove' => "🗑 O'chirish",
+    'cant_take_task_msg' => "⚠️ Siz vazifani bajara olmaysiz, chunki sizda hozir operatsiya bor, joriy operatsiyani tugatishingiz kerak",
+    'task_not_found_msg' => "⚠️ Vazifa topilmadi",
+    'mute_btn' => "🔕 Ovozni o'chirish",
+    'unmute_btn' => "🔔 Ovozni yoqish",
+    'prev' => '⬅ Oldingi',
+    'next' => 'Keyingi ➡',
 
     'attributes' => [],
 

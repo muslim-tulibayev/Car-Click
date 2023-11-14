@@ -177,7 +177,6 @@ return [
     'next_btn' => "➡ Next",
     'allow' => "Allow",
     'deny' => "Deny",
-    'ignore' => "Ignore",
     'choose_section' => "Choose section 👇",
     'unexpected_callback_query' => "⚠️ You should select one section from cars list",
     'exist_contact' => "⚠️ This contact already registered",
@@ -211,11 +210,10 @@ return [
     'playing' => "Playing",
     'waiting_confirmation' => "Waiting confirmation",
     'finished' => "Finished",
-    'cannot_cancel_task' => "‼️ Sorry, You cannot cancel the operation beacuse there is no operator except you",
-    'task_ignored' => "✅ The task ignored successfully",
+    'cannot_cancel_task' => "‼️ Sorry, a taken task cannot be cancel.",
     'empty_task' => "☑️ There is no task",
     'done' => "Done",
-    'cannot_logout_because_of_task' => "‼️ Sorry, you cannot log out because you have a task and there is no other operator to assign the task to",
+    'cannot_logout_because_of_task' => "‼️ Sorry, you cannot log out because you have a task",
     'waiting_validation' => "Waiting validation",
     'help' => 'This is help',
     'info' => "This is info",
@@ -235,11 +233,6 @@ return [
     'auction_info_msg_for_owner' => "📈 Highest price: :highest_price\$\n"
         . "👀 Participants: :participants\n"
         . "🏁 Finish: :finish\n",
-    // 'auction_info_msg_for_owner' => "📈 Highest price: :highest_price\$\n"
-    //     . "👨‍💼 Dealer: :fname :lname\n"
-    //     . "📲 Phone: :phone\n"
-    //     . "👀 Participants: :participants\n"
-    //     . "🏁 Finish: :finish\n",
     'get_info_dealers' => "👨‍💼 Dealers",
     'dealers_info_msg' => "👨‍💼 Dealers:\n"
         . "🔢 Number: :number\n",
@@ -266,12 +259,13 @@ return [
     'bidder' => "<b>:number - :price\$</b>\n"
         . "👨‍💼 Dealer: :fname :lname\n"
         . "📲 Phone: :phone\n",
-
-    'remove' => "Remove",
+    'remove' => "🗑 Remove",
     'cant_take_task_msg' => "⚠️ You can't do the task because you have an operation now, You should finish the current operation",
     'task_not_found_msg' => "⚠️ Task not found",
     'mute_btn' => "🔕 Mute",
     'unmute_btn' => "🔔 Unmute",
+    'prev' => '⬅ Prev',
+    'next' => 'Next ➡',
 
     'attributes' => [],
 

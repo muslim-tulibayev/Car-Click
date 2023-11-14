@@ -197,4 +197,29 @@ class TaskManage
     {
         MessageLayout::taskFnshFnshdAuction($task, $data);
     }
+
+
+
+
+    // * Getting all available tasks
+    public static function availableTasks(Operator $operator)
+    {
+        $tasks = Task::where('is_done', false)
+            ->where('operator_id', null)
+            ->get();
+
+        foreach ($tasks as $task) {
+            $msg = $task->messages()->where('operator_id', $operator->id)->first();
+            $msg_id = MessageLayout::taskNtfyNewCar($operator, $task->taskable);
+            if ($msg)
+                $msg->update([
+                    'msg_id' => $msg_id,
+                ]);
+            else
+                $task->messages()->create([
+                    'msg_id' => $msg_id,
+                    'operator_id' => $operator->id,
+                ]);
+        }
+    }
 }

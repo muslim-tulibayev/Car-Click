@@ -281,6 +281,19 @@ class MessageLayout
 
 
 
+    public static function taskNotFound($update, $msg)
+    {
+        $update->bot->deleteMessage([
+            'chat_id' => $update->chat_id,
+            'message_id' => $update->message_id,
+        ]);
+
+        self::answerCallbackQuery($update, $msg);
+    }
+
+
+
+
     public static function auctionAskStart($chat_id)
     {
         Telegram::bot('operator-bot')->sendMessage([
@@ -343,7 +356,7 @@ class MessageLayout
                     'starting_price' => $new_auction->starting_price,
                 ]),
             ]);
-            Telegram::bot('operator-bot')->sendMessage([
+            Telegram::bot('user-bot')->sendMessage([
                 'chat_id' => $operator->tg_chat->chat_id,
                 'parse_mode' => 'html',
                 'reply_markup' => KeyboardLayout::home('operator'),
