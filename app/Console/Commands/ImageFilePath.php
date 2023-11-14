@@ -35,8 +35,14 @@ class ImageFilePath extends Command
         }
         foreach ($models as $model){
             $response = json_decode(Http::get("https://api.telegram.org/bot". env("TELEGRAM_BOT_TOKEN_USER") ."/getFile?file_id={$model->file_id}")->body());
-            $model->file_path = $response->result->file_path;
-            $model->update();
+            if($response->ok){
+                $model->file_path = $response->result->file_path;
+                $model->update();
+            }
+            else{
+                $this->info($response->error_code . " " . $response->description);
+                continue;
+            }
         }
         return $this->info("Successfully");
     }
