@@ -11,8 +11,15 @@
                     {{ $operator->contact }}
                 </span>
             </x-card-item>
-            <x-card-item name="Validated">
+            <x-card-item name="Is Validated">
                 @if ($operator->is_validated)
+                    <span class="text-sm text-green-500"> True </span>
+                @else
+                    <span class="text-sm text-red-500"> False </span>
+                @endif
+            </x-card-item>
+            <x-card-item name="Is Muted">
+                @if ($operator->is_muted)
                     <span class="text-sm text-green-500"> True </span>
                 @else
                     <span class="text-sm text-red-500"> False </span>

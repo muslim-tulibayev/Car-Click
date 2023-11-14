@@ -31,6 +31,7 @@ class Operator extends Authenticatable implements JWTSubject
         "contact",
         "password",
         "is_validated",
+        "is_muted",
     ];
 
     protected $hidden = [
@@ -47,14 +48,19 @@ class Operator extends Authenticatable implements JWTSubject
         return $this->hasMany(Auction::class);
     }
 
-    public function queue(): HasOne
+    public function tasks(): HasMany
     {
-        return $this->hasOne(Queue::class);
+        return $this->hasMany(Task::class);
     }
 
-    public function queueable()
+    public function taskable()
     {
-        return $this->morphOne(Queue::class, 'queueable');
+        return $this->morphOne(Task::class, 'taskable');
+    }
+
+    public function currentTask(): ?Task
+    {
+        return $this->tasks()->where('is_done', false)->first();
     }
 
     /**

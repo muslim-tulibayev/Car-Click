@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\BotController\Keyboard;
 
-use App\Models\Queue;
+use App\Models\Operator;
+use App\Models\Task;
 use Telegram\Bot\Keyboard\Button;
 use Telegram\Bot\Keyboard\Keyboard;
 
@@ -147,13 +148,19 @@ class KeyboardLayout
 
 
 
-    public static function settingItems()
+    public static function settingItems(Operator $operator)
     {
-        return Keyboard::make()
+        $keyboard = Keyboard::make()
             ->setOneTimeKeyboard(true)
             ->setResizeKeyboard(true)
-            ->row([Button::make(['text' => trans('msg.auction_duration_btn')])])
-            ->row([Button::make(['text' => trans('msg.back_btn')])]);
+            ->row([Button::make(['text' => trans('msg.auction_duration_btn')])]);
+
+        if ($operator->is_muted)
+            $keyboard->row([Button::make(['text' => trans('msg.unmute_btn')])]);
+        else
+            $keyboard->row([Button::make(['text' => trans('msg.mute_btn')])]);
+
+        return $keyboard->row([Button::make(['text' => trans('msg.back_btn')])]);
     }
 
 
@@ -183,25 +190,19 @@ class KeyboardLayout
 
 
 
-    public static function taskValidationBtns(Queue $queue)
+    public static function taskValidationBtns(Task $task)
     {
         return Keyboard::make()
             ->inline()
             ->row([
                 Button::make([
                     'text' => trans('msg.allow'),
-                    'callback_data' => 'queue|' . $queue->id . '|allow'
+                    'callback_data' => 'task|' . $task->id . '|allow'
                 ]),
                 Button::make([
                     'text' => trans('msg.deny'),
-                    'callback_data' => 'queue|' . $queue->id . '|deny'
+                    'callback_data' => 'task|' . $task->id . '|deny'
                 ]),
-            ])
-            ->row([
-                Button::make([
-                    'text' => trans('msg.ignore'),
-                    'callback_data' => 'queue|' . $queue->id . '|ignore'
-                ])
             ]);
     }
 
@@ -209,42 +210,14 @@ class KeyboardLayout
 
 
 
-    public static function taskDoneBtns(Queue $queue)
+    public static function taskDoneBtns(Task $task)
     {
         return Keyboard::make()
             ->inline()
             ->row([
                 Button::make([
                     'text' => trans('msg.done'),
-                    'callback_data' => 'queue|' . $queue->id . '|done',
-                ])
-            ])
-            ->row([
-                Button::make([
-                    'text' => trans('msg.ignore'),
-                    'callback_data' => 'queue|' . $queue->id . '|ignore'
-                ])
-            ]);
-    }
-
-
-
-
-
-    public static function taskTakeBtns(Queue $queue)
-    {
-        return Keyboard::make()
-            ->inline()
-            ->row([
-                Button::make([
-                    'text' => trans('msg.take'),
-                    'callback_data' => 'queue|' . $queue->id . '|take',
-                ])
-            ])
-            ->row([
-                Button::make([
-                    'text' => trans('msg.ignore'),
-                    'callback_data' => 'queue|' . $queue->id . '|ignore'
+                    'callback_data' => 'task|' . $task->id . '|done',
                 ])
             ]);
     }
@@ -261,8 +234,8 @@ class KeyboardLayout
             ->row([Button::make(['text' => trans('msg.now_btn')])])
             ->row([Button::make(['text' => trans('msg.after_30_mins_btn')])])
             ->row([Button::make(['text' => trans('msg.after_1_h_btn')])])
-            ->row([Button::make(['text' => trans('msg.after_2_hs_btn')])])
-            ->row([Button::make(['text' => trans('msg.cancel_btn')])]);
+            ->row([Button::make(['text' => trans('msg.after_2_hs_btn')])]);
+        // ->row([Button::make(['text' => trans('msg.cancel_btn')])]);
     }
 
 
@@ -311,16 +284,16 @@ class KeyboardLayout
         $row = [];
         if ($prev)
             $row[] = Button::make([
-                'text' => '⬅ Prev',
+                'text' => trans('msg.prev'),
                 'callback_data' => 'dealer|prev|' . $current_page
             ]);
         $row[] = Button::make([
-            'text' => '🆑 Cancel',
+            'text' => trans('msg.remove'),
             'callback_data' => 'dealer|cancel|' . $current_page
         ]);
         if ($next)
             $row[] = Button::make([
-                'text' => 'Next ➡',
+                'text' => trans('msg.next'),
                 'callback_data' => 'dealer|next|' . $current_page
             ]);
         $keyboard->row($row);
@@ -332,31 +305,49 @@ class KeyboardLayout
 
 
 
-    public static function bidsList(Queue $queue, int $current_page = 1, bool $prev = false, bool $next = false)
+    public static function bidsList(Task $task, int $current_page = 1, bool $prev = false, bool $next = false)
     {
         $keyboard = Keyboard::make()->inline();
         $row = [];
         if ($prev)
             $row[] = Button::make([
                 'text' => '⬅ Prev',
-                'callback_data' => 'bid|prev|' . $current_page
+                'callback_data' => 'bids-list|prev|' . $current_page
             ]);
-        $row[] = Button::make([
-            'text' => '🆑 Cancel',
-            'callback_data' => 'bid|cancel|' . $queue->id
-        ]);
         if ($next)
             $row[] = Button::make([
                 'text' => 'Next ➡',
-                'callback_data' => 'bid|next|' . $current_page
+                'callback_data' => 'bids-list|next|' . $current_page
             ]);
         $keyboard->row($row);
         $keyboard->row([
             Button::make([
                 'text' => '✅ Done',
-                'callback_data' => 'bid|done|' . $queue->id
+                'callback_data' => 'task|' . $task->id . '|done'
             ])
         ]);
         return $keyboard;
+    }
+
+
+
+
+
+    public static function taskNtfyBtns(Task $task)
+    {
+        return Keyboard::make()
+            ->inline()
+            ->row([
+                Button::make([
+                    'text' => trans('msg.take'),
+                    'callback_data' => 'task-ntfy|' . $task->id . '|take'
+                ])
+            ])
+            ->row([
+                Button::make([
+                    'text' => trans('msg.remove'),
+                    'callback_data' => 'task-ntfy|' . $task->id . '|remove'
+                ])
+            ]);
     }
 }

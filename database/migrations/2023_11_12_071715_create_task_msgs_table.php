@@ -13,8 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('operators', function (Blueprint $table) {
-            //
+        Schema::create('task_msgs', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('msg_id');
+            $table->foreignId('task_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('operator_id')->constrained()->cascadeOnDelete();
+            $table->timestamps();
         });
     }
 
@@ -25,8 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('operators', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('task_msgs');
     }
 };

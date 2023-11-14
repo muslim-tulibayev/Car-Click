@@ -64,7 +64,6 @@ class HomeLayer
 
     private static function getInfoDealers($update)
     {
-        // todo: make operation for this
         if (Dealer::count() === 0)
             return $update->bot->sendMessage([
                 'chat_id' => $update->chat_id,
@@ -110,7 +109,7 @@ class HomeLayer
         $update->tg_chat->update(['action' => 'home>settings>end']);
         return $update->bot->sendMessage([
             'chat_id' => $update->chat_id,
-            'reply_markup' => KeyboardLayout::settingItems(),
+            'reply_markup' => KeyboardLayout::settingItems($update->tg_chat->operator),
             'text' => trans('msg.choose_section'),
         ]);
     }

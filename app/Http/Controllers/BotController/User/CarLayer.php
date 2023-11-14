@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\BotController\User;
 
 use App\Http\Controllers\BotController\Keyboard\KeyboardLayout;
-use App\Http\Controllers\Queue\QueueController;
+use App\Http\Controllers\Task\TaskManage;
 use App\Models\Car;
 use App\Models\Operator;
 use Illuminate\Support\Facades\Validator;
@@ -324,7 +324,7 @@ class CarLayer
                 'chat_id' => env('STORAGE_CHANNEL_ID'),
                 'photo' => $image_id,
             ]);
-            $response = json_decode(\Illuminate\Support\Facades\Http::get("https://api.telegram.org/bot" . env("TELEGRAM_BOT_TOKEN") ."/getFile?file_id=$image_id")->body());
+            $response = json_decode(\Illuminate\Support\Facades\Http::get("https://api.telegram.org/bot" . env("TELEGRAM_BOT_TOKEN_USER") ."/getFile?file_id=$image_id")->body());
             $new_car->images()->create([
                 'file_id' => $image_id,
                 'file_path' => $response->result->file_path,
@@ -359,6 +359,6 @@ class CarLayer
             'text' => trans('msg.please_wait'),
         ]);
 
-        return QueueController::make('new_car', $new_car->id);
+        return TaskManage::make('new_car', $new_car->id);
     }
 }

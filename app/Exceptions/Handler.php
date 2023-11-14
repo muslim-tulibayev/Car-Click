@@ -43,27 +43,27 @@ class Handler extends ExceptionHandler
         });
     }
 
-    public function report(Throwable $exception)
-    {
-        if ($this->shouldReport($exception)) {
-            $this->logToAlertsTable($exception);
-        }
+    // public function report(Throwable $exception)
+    // {
+    //     if ($this->shouldReport($exception)) {
+    //         $this->logToAlertsTable($exception);
+    //     }
 
-        parent::report($exception);
-    }
+    //     parent::report($exception);
+    // }
 
-    private function logToAlertsTable(Throwable $exception)
-    {
-        $message = $exception->getMessage();
-        $lineNumber = $exception->getLine();
-        $file = $exception->getFile();
-        $error = "$message (Line $lineNumber in $file) -> [ExceptionHandler report]";
-        Log::error($error);
-        Alert::create([
-            'type' => 'error',
-            'message' => $error,
-        ]);
-    }
+    // private function logToAlertsTable(Throwable $exception)
+    // {
+    //     $message = $exception->getMessage();
+    //     $lineNumber = $exception->getLine();
+    //     $file = $exception->getFile();
+    //     $error = "$message (Line $lineNumber in $file) -> [ExceptionHandler report]";
+    //     Log::error($error);
+    //     Alert::create([
+    //         'type' => 'error',
+    //         'message' => $error,
+    //     ]);
+    // }
 
     protected function unauthenticated($request, AuthenticationException $exception)
     {

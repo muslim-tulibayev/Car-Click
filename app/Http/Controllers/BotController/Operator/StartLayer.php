@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\BotController\Operator;
 
 use App\Http\Controllers\BotController\Keyboard\KeyboardLayout;
-use App\Http\Controllers\Queue\QueueController;
+use App\Http\Controllers\Task\TaskManage;
 use App\Models\Operator;
 use App\Traits\SendValidatorMessagesTrait;
 use Illuminate\Support\Facades\Hash;
@@ -40,11 +40,11 @@ class StartLayer
 
     private static function choosingLang($update)
     {
-        if ($update->type !== 'callback_query')
-            return $update->bot->deleteMessage([
-                'chat_id' => $update->chat_id,
-                'message_id' => $update->message_id,
-            ]);
+        $update->bot->deleteMessage([
+            'chat_id' => $update->chat_id,
+            'message_id' => $update->message_id,
+        ]);
+        if ($update->type !== 'callback_query') return;
         $update->tg_chat->update(["lang" => $update->data]);
         app()->setLocale($update->data);
         $update->tg_chat->update(['action' => 'start>authenticate']);
@@ -176,7 +176,7 @@ class StartLayer
                     'lastname' => $operator->lastname,
                 ]),
             ]);
-            return QueueController::setOperatorToQueue($operator);
+            return TaskManage::availableTasks($operator);
         }
     }
 
@@ -273,7 +273,7 @@ class StartLayer
                 'text' => trans('msg.please_wait'),
             ]);
 
-            return QueueController::make('new_operator', $new_operator->id);
+            return TaskManage::make('new_operator', $new_operator->id);
         }
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auction;
 
 use App\Http\Controllers\BotController\Keyboard\KeyboardLayout;
-use App\Http\Controllers\Queue\QueueController;
+use App\Http\Controllers\Task\TaskManage;
 use App\Models\Auction;
 use App\Models\Setting;
 use DateTime;
@@ -12,7 +12,7 @@ use Telegram\Bot\Laravel\Facades\Telegram;
 
 class AuctionController
 {
-    public static function broadcast($data)
+    public static function broadcast($data): ?Auction
     {
         $start = new DateTime($data->start, new DateTimeZone('GMT+5'));
         $start->setTimezone(new DateTimeZone('GMT+0'));
@@ -245,7 +245,7 @@ class AuctionController
             ]);
         }
 
-        return QueueController::make('finished_auction', $auction->id);
+        return TaskManage::make('finished_auction', $auction->id);
     }
 
 
@@ -307,7 +307,7 @@ class AuctionController
             ]);
         }
 
-        return QueueController::make('finished_auction', $auction->id);
+        return TaskManage::make('finished_auction', $auction->id);
     }
 
 
@@ -350,6 +350,6 @@ class AuctionController
             ]);
         }
 
-        return QueueController::make('finished_auction', $auction->id);
+        return TaskManage::make('finished_auction', $auction->id);
     }
 }

@@ -12,5 +12,6 @@ class Image extends Model
     public $fillable = [
         "car_id",
         "file_id",
+        "file_path",
     ];
 }

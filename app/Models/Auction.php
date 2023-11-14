@@ -36,9 +36,9 @@ class Auction extends Model
         "join_btn_message_id",
     ];
 
-    public function queueable()
+    public function taskable()
     {
-        return $this->morphOne(Queue::class, 'queueable');
+        return $this->morphOne(Task::class, 'taskable');
     }
 
     public function car(): BelongsTo

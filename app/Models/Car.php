@@ -23,9 +23,9 @@ class Car extends Model
         "dealer_id",
     ];
 
-    public function queueable()
+    public function taskable()
     {
-        return $this->morphOne(Queue::class, 'queueable');
+        return $this->morphOne(Task::class, 'taskable');
     }
 
     public function user(): BelongsTo

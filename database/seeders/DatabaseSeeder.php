@@ -11,15 +11,14 @@ class DatabaseSeeder extends Seeder
         $this->call([
             // AdminSeeder::class,
             // SettingSeeder::class,
-            
             // OperatorSeeder::class,
             // DealerSeeder::class,
             // UserSeeder::class,
             // CarSeeder::class,
             // AuctionSeeder::class,
-            // QueueSeeder::class,
-
-            AlertSeeder::class,
+            // TaskSeeder::class,
+            // AlertSeeder::class,
+            // BidSeeder::class,
         ]);
     }
 }

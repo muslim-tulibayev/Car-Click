@@ -4,12 +4,11 @@ namespace App\Http\Controllers\BotController\Operator;
 
 use App\Http\Controllers\Auction\AuctionController;
 use App\Http\Controllers\BotController\Keyboard\KeyboardLayout;
-use App\Http\Controllers\Queue\QueueController;
+use App\Http\Controllers\Task\TaskManage;
 use App\Traits\SendValidatorMessagesTrait;
 use DateTime;
 use DateTimeZone;
 use Illuminate\Support\Facades\Validator;
-use Telegram\Bot\Laravel\Facades\Telegram;
 
 class OperationLayer
 {
@@ -19,7 +18,6 @@ class OperationLayer
     {
         // * Gate
         if (!$update->tg_chat->operator) return;
-        if (!$update->tg_chat->operator->queue) return;
         if (!$update->tg_chat->operator->is_validated) return;
 
         switch ($update->action[1]) {
@@ -39,8 +37,8 @@ class OperationLayer
     private static function validateCar($update)
     {
         if ($update->action[2] === 'waiting_auction_start') {
-            if ($update->data === trans('msg.cancel_btn'))
-                return Command::cancel($update);
+            // // if ($update->data === trans('msg.cancel_btn'))
+            // //     return Command::cancel($update);
             // * Check for btns
             if ($update->data === trans('msg.now_btn')) {
                 $start = new DateTime(timezone: new DateTimeZone('GMT+5'));
@@ -101,12 +99,13 @@ class OperationLayer
             ]);
             return $update->bot->sendMessage([
                 'chat_id' => $update->chat_id,
-                'reply_markup' => KeyboardLayout::cancel(),
+                // // 'reply_markup' => KeyboardLayout::cancel(),
+                'reply_markup' => KeyboardLayout::empty(),
                 'text' => trans('msg.ask_starting_price'),
             ]);
         } elseif ($update->action[2] === 'waiting_auction_starting_price') {
-            if ($update->data === trans('msg.cancel_btn'))
-                return Command::cancel($update);
+            // // if ($update->data === trans('msg.cancel_btn'))
+            // //     return Command::cancel($update);
 
             $update->data = str_replace('$', '', $update->data);
             $update->data = str_replace(' ', '', $update->data);
@@ -122,11 +121,9 @@ class OperationLayer
             $data->starting_price = $update->data;
 
             // * Broadcast
-            AuctionController::broadcast($data);
+            $auction = AuctionController::broadcast($data);
 
-            QueueController::finish($update->tg_chat->operator->queue, 'allow');
-
-            return $update->tg_chat->update(['action' => 'home>end']);
+            TaskManage::finish($auction->car->taskable, 'allow');
         }
     }
 }

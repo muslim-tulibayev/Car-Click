@@ -48,13 +48,13 @@ return [
         . "🔷 Color: :color\n"
         . "🆕 Condition: :condition\n"
         . "💬 Additional: :additional\n"
-        . "� Owner: :owner_fname :owner_lname\n"
+        . "👤 Owner: :owner_fname :owner_lname\n"
         . "🏆 Winner: :winner_fname :winner_lname\n",
     'auction_created_info' => "<b>The auction is set</b>\n"
         . "🆔 Car ID: :car_id\n"
         . "🅰 Company: :company\n"
         . "Ⓜ Model: :model\n"
-        . "� Owner: :owner\n"
+        . "👤 Owner: :owner\n"
         . "📅 Start: :start\n"
         . "🏁 Finish: :finish\n"
         . "💵 Starting price: :starting_price\$\n",
@@ -131,7 +131,7 @@ return [
     'car_not_sold_message_for_operator' => "<b>Car not sold.</b>\n"
         . "🆔 Car ID: :car_id\n"
         . "🚘 Car: :color :company :model\n"
-        . "� Owner: :owner_fname :owner_lname\n"
+        . "👤 Owner: :owner_fname :owner_lname\n"
         . "📲 Phone: :owner_phone\n",
     'didnt_sell_message_for_dealers' => "<b>Car not sold.</b>\n"
         . "The owner of the car did not agree to sell.\n\n"
@@ -177,7 +177,6 @@ return [
     'next_btn' => "➡ Next",
     'allow' => "Allow",
     'deny' => "Deny",
-    'ignore' => "Ignore",
     'choose_section' => "Choose section 👇",
     'unexpected_callback_query' => "⚠️ You should select one section from cars list",
     'exist_contact' => "⚠️ This contact already registered",
@@ -211,11 +210,10 @@ return [
     'playing' => "Playing",
     'waiting_confirmation' => "Waiting confirmation",
     'finished' => "Finished",
-    'cannot_cancel_queue' => "‼️ Sorry, You cannot cancel the operation beacuse there is no operator except you",
-    'queue_ignored' => "✅ The task ignored successfully",
-    'empty_queue' => "☑️ There is no task",
+    'cannot_cancel_task' => "‼️ Sorry, a taken task cannot be cancel.",
+    'empty_task' => "☑️ There is no task",
     'done' => "Done",
-    'cannot_logout_because_of_queue' => "‼️ Sorry, you cannot log out because you have a task and there is no other operator to assign the task to",
+    'cannot_logout_because_of_task' => "‼️ Sorry, you cannot log out because you have a task",
     'waiting_validation' => "Waiting validation",
     'help' => 'This is help',
     'info' => "This is info",
@@ -245,7 +243,6 @@ return [
         . "Lastname: :lname\n"
         . "Phone: :contact\n"
         . "Number of cars: :num_of_cars",
-
     'take' => "Take",
     'bids_list' => "<b>🤝 Bids :first_num - :last_num of :all_num </b>\n\n"
         . ":slot\n"
@@ -262,6 +259,13 @@ return [
     'bidder' => "<b>:number - :price\$</b>\n"
         . "👨‍💼 Dealer: :fname :lname\n"
         . "📲 Phone: :phone\n",
+    'remove' => "🗑 Remove",
+    'cant_take_task_msg' => "⚠️ You can't do the task because you have an operation now, You should finish the current operation",
+    'task_not_found_msg' => "⚠️ Task not found",
+    'mute_btn' => "🔕 Mute",
+    'unmute_btn' => "🔔 Unmute",
+    'prev' => '⬅ Prev',
+    'next' => 'Next ➡',
 
     'attributes' => [],
 

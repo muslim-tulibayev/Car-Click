@@ -6,20 +6,20 @@
 
     <x-alerts.success />
 
-    <form action="{{ route('queues.update', ['queue' => $queue->id]) }}" method="POST"
+    <form action="{{ route('tasks.update', ['task' => $task->id]) }}" method="POST"
         class="w-full my-5 flex flex-col items-center justify-center">
         @method('PUT')
         @csrf
 
         <x-show-card>
-            <h2 class="text-[20px] text-gray-700 font-[700]"> Queue id: {{ $queue->id }} </h2>
+            <h2 class="text-[20px] text-gray-700 font-[700]"> Task id: {{ $task->id }} </h2>
             <x-card-item name="Operation">
                 <span class="font-medium text-green-500">
-                    {{ $queue->operation }}
+                    {{ $task->operation }}
                 </span>
             </x-card-item>
 
-            <x-queue.data :queue="$queue" />
+            <x-task.data :task="$task" />
 
             <x-card-item name="Operator">
                 <div class="relative inline-flex">
@@ -36,7 +36,7 @@
                             <option value="{{ $operator->id }}"
                                 @if (old('operator_id')) @if (old('operator_id') == $operator->id)
                                         selected @endif
-                            @else @if ($queue->operator_id == $operator->id) selected @endif @endif>
+                            @else @if ($task->operator_id == $operator->id) selected @endif @endif>
                                 {{ $operator->firstname . ' ' . $operator->lastname }}
                             </option>
                         @endforeach

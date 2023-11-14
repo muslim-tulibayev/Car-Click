@@ -2,11 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Queue;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class QueueSeeder extends Seeder
+class TaskMsgSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,6 +14,6 @@ class QueueSeeder extends Seeder
      */
     public function run()
     {
-        Queue::factory(20)->create();
+        //
     }
 }

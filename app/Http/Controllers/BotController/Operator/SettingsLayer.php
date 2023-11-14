@@ -35,6 +35,12 @@ class SettingsLayer
             case trans('msg.auction_duration_btn'):
                 self::auctionDurationBtn($update);
                 return true;
+            case trans('msg.mute_btn'):
+                self::mute($update, true);
+                return true;
+            case trans('msg.unmute_btn'):
+                self::mute($update, false);
+                return true;
             case trans('msg.back_btn'):
                 self::back($update);
                 return true;
@@ -94,7 +100,26 @@ class SettingsLayer
         ]);
         return $update->bot->sendMessage([
             'chat_id' => $update->chat_id,
-            'reply_markup' => KeyboardLayout::settingItems(),
+            'reply_markup' => KeyboardLayout::settingItems($update->tg_chat->operator),
+            'text' => trans('msg.settings_updated'),
+        ]);
+    }
+
+
+
+
+
+    private static function mute($update, bool $mute)
+    {
+        $update->tg_chat->update(['action' => 'home>settings>end']);
+
+        $update->tg_chat->operator->update([
+            'is_muted' => $mute,
+        ]);
+
+        return $update->bot->sendMessage([
+            'chat_id' => $update->chat_id,
+            'reply_markup' => KeyboardLayout::settingItems($update->tg_chat->operator),
             'text' => trans('msg.settings_updated'),
         ]);
     }
