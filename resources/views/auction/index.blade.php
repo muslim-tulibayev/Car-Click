@@ -2,7 +2,7 @@
 
     <x-alerts.success />
 
-    {{-- <x-search-bar name="post" value="{{ $search_val ?? null }}" /> --}}
+    <x-search-bar name="auctions" :types="App\Models\Auction::fillables()" :oldcol="$oldcol ?? null" :oldval="$oldval ?? null" />
 
     <div class="p-4">
         <div class="w-full">

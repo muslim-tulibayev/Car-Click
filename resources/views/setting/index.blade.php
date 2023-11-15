@@ -33,6 +33,15 @@
             </a>
         </x-settings-list-item>
 
+        <x-settings-list-item>
+            <span class="text-sm text-blue-500 font-medium">
+                Set telegram commands
+            </span>
+            <a href="{{ route('set-tg-cmds') }}"
+                class="flex items-center justify-center w-[120px] h-[30px] my-2 rounded-md text-white bg-blue-700 bg-gradient-to-t from-[rgba(0,0,0,0.1)]">
+                Set
+            </a>
+        </x-settings-list-item>
     </div>
 
 </x-layouts.app>

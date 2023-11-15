@@ -5,6 +5,7 @@ namespace App\Http\Controllers\PanelController;
 use App\Http\Controllers\Controller;
 use App\Models\UserChat;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class UserChatController extends Controller
 {
@@ -80,6 +81,26 @@ class UserChatController extends Controller
         return redirect()
             ->route('userchats.index')
             ->with('alert_success', $alert_success)
+            ->with('userchats', $userchats);
+    }
+
+    public function search($col, $val)
+    {
+        $validator = Validator::make([
+            'col' => $col,
+            'val' => $val
+        ], [
+            'col' => ['required', 'in:' . implode(',', UserChat::fillables())],
+            'val' => ['required', 'string'],
+        ]);
+
+        if ($validator->fails()) return;
+
+        $userchats = UserChat::where($col, 'like', "%$val%")->paginate();
+
+        return view('user-chat.index')
+            ->with('oldcol', $col)
+            ->with('oldval', $val)
             ->with('userchats', $userchats);
     }
 }

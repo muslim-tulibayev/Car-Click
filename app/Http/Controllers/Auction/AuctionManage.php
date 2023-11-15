@@ -10,7 +10,7 @@ use DateTime;
 use DateTimeZone;
 use Telegram\Bot\Laravel\Facades\Telegram;
 
-class AuctionController
+class AuctionManage
 {
     public static function broadcast($data): ?Auction
     {
@@ -29,7 +29,7 @@ class AuctionController
                 ->format('Y-m-d H:i:s'),
         ]);
         $new_auction->car->update(["status" => 'on_sale']);
-        app()->setLocale('ru');
+        app()->setLocale(Setting::first()->system_lang);
         $album = [];
         foreach ($new_auction->car->images as $image)
             $album[] = [

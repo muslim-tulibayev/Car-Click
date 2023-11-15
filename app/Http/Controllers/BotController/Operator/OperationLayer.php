@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\BotController\Operator;
 
-use App\Http\Controllers\Auction\AuctionController;
+use App\Http\Controllers\Auction\AuctionManage;
 use App\Http\Controllers\BotController\Keyboard\KeyboardLayout;
 use App\Http\Controllers\Task\TaskManage;
 use App\Traits\SendValidatorMessagesTrait;
@@ -121,7 +121,7 @@ class OperationLayer
             $data->starting_price = $update->data;
 
             // * Broadcast
-            $auction = AuctionController::broadcast($data);
+            $auction = AuctionManage::broadcast($data);
 
             TaskManage::finish($auction->car->taskable, 'allow');
         }

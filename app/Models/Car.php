@@ -12,6 +12,7 @@ class Car extends Model
     use HasFactory;
 
     public $fillable = [
+        "id",
         "company",
         "model",
         "year",
@@ -71,5 +72,10 @@ class Car extends Model
             'good',
             'new'
         ];
+    }
+
+    public static function fillables()
+    {
+        return (new static)->fillable;
     }
 }

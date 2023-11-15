@@ -24,6 +24,8 @@ class OperatorController
             $update->bot = Telegram::bot('operator-bot');
             app()->setLocale($update->tg_chat->lang ?? 'en');
 
+            Log::alert(json_encode($update));
+
             $completed = $update->type === 'unsupported';
 
             // * Commands

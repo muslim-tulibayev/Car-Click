@@ -95,8 +95,7 @@ class TaskManage
             ->where('operator_id', $operator->id)
             ->first();
         if (!$msg) return;
-        MessageLayout::taskRmMsg($task, $operator, $msg->msg_id);
-        $msg->delete();
+        MessageLayout::taskRmMsg($task, $operator, $msg);
     }
 
 
@@ -208,9 +207,22 @@ class TaskManage
             ->where('operator_id', null)
             ->get();
 
+        if (!count($tasks))
+            return MessageLayout::emptyTask($operator);
+
         foreach ($tasks as $task) {
             $msg = $task->messages()->where('operator_id', $operator->id)->first();
-            $msg_id = MessageLayout::taskNtfyNewCar($operator, $task->taskable);
+            switch ($task->operation) {
+                case 'new_car':
+                    $msg_id = MessageLayout::taskNtfyNewCar($operator, $task->taskable);
+                    break;
+                case 'new_operator':
+                    $msg_id = MessageLayout::taskNtfyNewOperator($operator, $task->taskable);
+                    break;
+                case 'finished_auction':
+                    $msg_id = MessageLayout::taskNtfyFnshdAuction($operator, $task->taskable);
+                    break;
+            }
             if ($msg)
                 $msg->update([
                     'msg_id' => $msg_id,

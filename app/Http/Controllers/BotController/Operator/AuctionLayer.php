@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\BotController\Operator;
 
-use App\Http\Controllers\Auction\AuctionController;
+use App\Http\Controllers\Auction\AuctionManage;
 use App\Http\Controllers\BotController\Keyboard\KeyboardLayout;
 use App\Models\Car;
 use App\Traits\SendValidatorMessagesTrait;
@@ -148,7 +148,7 @@ class AuctionLayer
             $data->starting_price = $update->data;
 
             // * Broadcast
-            $new_auction = AuctionController::broadcast($data);
+            $new_auction = AuctionManage::broadcast($data);
 
             // * Send message for Owner
             app()->setlocale($new_auction->car->user->tg_chat->lang);

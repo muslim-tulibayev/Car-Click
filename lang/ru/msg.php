@@ -15,9 +15,9 @@ return [
     'please_wait' => "⏳ Пожалуйста, подождите, мы постараемся ответить вам как можно скорее.",
     'request_allowed' => "✅ Ваш запрос разрешен.",
     'request_denied' => "❌ Ваш запрос отклонен.",
-    'request_allowed_for_operator' => "✅ Вы успешно разрешили запрос.",
-    'request_denied_for_operator' => "✅ Вы успешно отклонили запрос.",
-    'task_done_msg' => " ✅ Вы успешно выполнили свою задачу",
+    'request_allowed_for_operator' => "🚀 Вы успешно разрешили запрос.",
+    'request_denied_for_operator' => "🚀 Вы успешно отклонили запрос.",
+    'task_done_msg' => "🚀 Вы успешно выполнили свою задачу",
     'new_operator_confirmation' => "🪪 <b>Новый оператор</b>\n"
         . "Имя: :firstname\n"
         . "Фамилия: :lastname\n"
@@ -51,7 +51,7 @@ return [
         . "Ⓜ Модель: :model\n"
         . "👤 Владелец: :owner\n"
         . "📅 Начало: :start\n"
-        . "🏁 Готово: :finish\n"
+        . "🏁 Финиш: :finish\n"
         . "💵 Начальная цена: :starting_price\$\n",
     'broadcast_message' => "Новая машина на аукционе\n"
         . "🅰 Компания: :company\n"
@@ -61,7 +61,7 @@ return [
         . "🆕 Состояние: :condition\n"
         . "💬 Дополнительно: :additional\n"
         . "📅 Начало: :start\n"
-        . "🏁 Готово: :finish\n"
+        . "🏁 Финиш: :finish\n"
         . "💵 Начальная цена: :starting_price\$\n",
     'ask_start' => "<b>Укажите время начала аукциона</b>\n"
         . "Время должно быть в одном из этих форматов:\n"
@@ -204,14 +204,14 @@ return [
     'waiting_start' => "Ожидание начала",
     'playing' => "Играет",
     'waiting_confirmation' => "Ожидание подтверждения",
-    'finished' => "Готово",
+    'finished' => "Финиш",
     'cannot_cancel_task' => "‼️ Извините, взятую задачу нельзя отменить.",
-    'empty_task' => "☑️ Нет задачи",
-    'done' => "Готово",
+    'empty_task' => "☑️ Нет доступных задач",
+    'done' => "Финиш",
     'cannot_logout_because_of_task' => "‼️ Извините, вы не можете выйти, потому что у вас есть задача",
     'waiting_validation' => "Ожидание проверки",
-    'help' => 'Это помощь',
-    'info' => "Это информация",
+    'help' => "📎 Здесь должно быть сообщение \"Помощь\"",
+    'info' => "📎 Здесь должно быть сообщение \"Информация\"",
     'more_images' => "Вы можете добавить больше изображений вашего автомобиля. Если вы не хотите добавлять, нажмите кнопку \":next_btn\" ниже",
     'image_limit_msg' => "‼️ Вы достигли максимального количества изображений",
     'invalid_image' => "⚠️ Вы должны прислать нам фотографию",
@@ -219,15 +219,15 @@ return [
     'visit_channel' => "🌐 Посетить канал",
     'auction_info_msg_for_current_winner' => "📈 Самая высокая цена: :highest_price\$\n"
         . "👀 Участники: :participants\n"
-        . "🏁 Готово: :finish\n\n"
+        . "🏁 Финиш: :finish\n\n"
         . "<b> 👑 Дорогой :fname :lname, теперь ты предложишь самую высокую цену </b>",
     'auction_info_msg_for_dealers' => "📈 Самая высокая цена: :highest_price\n"
         . "👀 Участники: :participants\n"
-        . "🏁 Готово: :finish\n\n"
+        . "🏁 Финиш: :finish\n\n"
         . "✳ Теперь вы можете предложить :enough_price\$, чтобы выиграть аукцион",
     'auction_info_msg_for_owner' => "📈 Самая высокая цена: :highest_price\$\n"
         . "👀 Участники: :participants\n"
-        . "🏁 Готово: :finish\n",
+        . "🏁 Финиш: :finish\n",
     'get_info_dealers' => "👨‍💼 Дилеры",
     'dealers_info_msg' => "👨‍💼 Дилеры:\n"
         . "🔢 Номер: :number\n",
@@ -238,7 +238,6 @@ return [
         . "Фамилия: :lname\n"
         . "Контакт: :contact\n"
         . "Количество автомобилей: :num_of_cars",
-    'take' => "Взять",
     'bids_list' => "<b>🤝 Ставки :first_num - :last_num из :all_num </b>\n\n"
         . ":slot\n"
         . "👤 Владелец: :owner_fname :owner_lname\n"
@@ -254,6 +253,7 @@ return [
     'bidder' => "<b>:number - :price\$</b>\n"
         . "👨‍💼 Дилер: :fname :lname\n"
         . "📲 Телефон: :phone\n",
+    'take' => "📥 Взять",
     'remove' => "🗑 Удалить",
     'cant_take_task_msg' => "⚠️ Вы не можете выполнить задачу, поскольку у вас сейчас есть операция. Вам следует завершить текущую операцию",
     'task_not_found_msg' => "⚠️ Задача не найдена",
@@ -261,6 +261,15 @@ return [
     'unmute_btn' => "🔔 Включить звук",
     'prev' => '⬅ Предыдущая',
     'next' => 'Далее ➡',
+    'task_taken_msg' => "✳ Задача получена",
+    'start_cmd' => "♻ Перезапустить бота",
+    'help_cmd' => "🆘 Помощь",
+    'info_cmd' => "ℹ Информация",
+    'login_cmd' => "➡ Войти",
+    'registration_cmd' => "➡ Регистрация в системе",
+    'logout_cmd' => "⬅ Выйти",
+    'cancel_cmd' => "❌ Отменить операцию",
+    'task_cmd' => "🧩 Получить доступные задачи",
 
     'attributes' => [],
 

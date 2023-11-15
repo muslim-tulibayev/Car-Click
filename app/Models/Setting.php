@@ -13,5 +13,6 @@ class Setting extends Model
 
     public $fillable = [
         "auction_expire_duration",
+        "system_lang",
     ];
 }

@@ -2,6 +2,8 @@
 
     <x-alerts.success />
 
+    <x-search-bar name="dealers" :types="App\Models\Dealer::fillables()" :oldcol="$oldcol ?? null" :oldval="$oldval ?? null" />
+
     <div class="p-4">
         <div class="w-full">
             <div class="w-full flex text-gray-400 px-2">

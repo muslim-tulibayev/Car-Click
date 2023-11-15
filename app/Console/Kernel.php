@@ -13,8 +13,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         $schedule->call(function () {
-            \App\Http\Controllers\Auction\AuctionController::finish();
-            \App\Http\Controllers\Auction\AuctionController::start();
+            \App\Http\Controllers\Auction\AuctionManage::finish();
+            \App\Http\Controllers\Auction\AuctionManage::start();
         })->everyMinute();
     }
 

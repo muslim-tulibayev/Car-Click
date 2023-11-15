@@ -1,41 +1,80 @@
 <?php
 
+use App\Http\Controllers\PanelController\AlertController;
+use App\Http\Controllers\PanelController\AuctionController;
+use App\Http\Controllers\PanelController\BidController;
+use App\Http\Controllers\PanelController\CarController;
+use App\Http\Controllers\PanelController\DealerChatController;
+use App\Http\Controllers\PanelController\DealerController;
+use App\Http\Controllers\PanelController\OperatorChatController;
+use App\Http\Controllers\PanelController\OperatorController;
+use App\Http\Controllers\PanelController\SettingController;
+use App\Http\Controllers\PanelController\TaskController;
+use App\Http\Controllers\PanelController\UserChatController;
+use App\Http\Controllers\PanelController\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {
 
-    // todo: use only method
-
-    Route::get('/auctions/{auction}/dealers', [App\Http\Controllers\PanelController\AuctionController::class, 'showDealers'])
+    // * Auction
+    Route::get('/auctions/{auction}/dealers', [AuctionController::class, 'showDealers'])
         ->name('auctions.dealers');
-    Route::get('/auctions/{auction}/bids', [App\Http\Controllers\PanelController\AuctionController::class, 'showBids'])
+    Route::get('/auctions/{auction}/bids', [AuctionController::class, 'showBids'])
         ->name('auctions.bids');
-    Route::resource('auctions', App\Http\Controllers\PanelController\AuctionController::class);
+    Route::get('/auctions/search/{col}/{val}', [AuctionController::class, 'search'])
+        ->name('auctions.search');
+    Route::resource('auctions', AuctionController::class);
 
-    Route::resource('users', App\Http\Controllers\PanelController\UserController::class);
-    Route::resource('dealers', App\Http\Controllers\PanelController\DealerController::class);
-    Route::resource('operators', App\Http\Controllers\PanelController\OperatorController::class);
+    // * User
+    Route::get('/users/search/{col}/{val}', [UserController::class, 'search'])
+        ->name('users.search');
+    Route::resource('users', UserController::class);
+    Route::get('/userchats/search/{col}/{val}', [UserChatController::class, 'search'])
+        ->name('userchats.search');
+    Route::resource('userchats', UserChatController::class);
 
-    Route::resource('userchats', App\Http\Controllers\PanelController\UserChatController::class);
-    Route::resource('dealerchats', App\Http\Controllers\PanelController\DealerChatController::class);
-    Route::resource('operatorchats', App\Http\Controllers\PanelController\OperatorChatController::class);
+    // * Dealer
+    Route::get('/dealers/search/{col}/{val}', [DealerController::class, 'search'])
+        ->name('dealers.search');
+    Route::resource('dealers', DealerController::class);
+    Route::get('/dealerchats/search/{col}/{val}', [DealerChatController::class, 'search'])
+        ->name('dealerchats.search');
+    Route::resource('dealerchats', DealerChatController::class);
 
-    Route::resource('cars', App\Http\Controllers\PanelController\CarController::class);
-    Route::resource('bids', App\Http\Controllers\PanelController\BidController::class);
+    // * Operator
+    Route::get('/operators/search/{col}/{val}', [OperatorController::class, 'search'])
+        ->name('operators.search');
+    Route::resource('operators', OperatorController::class);
+    Route::get('/operatorchats/search/{col}/{val}', [OperatorChatController::class, 'search'])
+        ->name('operatorchats.search');
+    Route::resource('operatorchats', OperatorChatController::class);
 
-    Route::get('/tasks/{task}/finish', [App\Http\Controllers\PanelController\TaskController::class, 'finishTask'])
+    // * Car
+    Route::get('/cars/search/{col}/{val}', [CarController::class, 'search'])
+        ->name('cars.search');
+    Route::resource('cars', CarController::class);
+
+    // * Task
+    Route::get('/tasks/search/{col}/{val}', [TaskController::class, 'search'])
+        ->name('tasks.search');
+    Route::get('/tasks/{task}/finish', [TaskController::class, 'finishTask'])
         ->name('finish-task');
-    Route::resource('tasks', App\Http\Controllers\PanelController\TaskController::class);
+    Route::resource('tasks', TaskController::class);
 
-    Route::resource('settings', App\Http\Controllers\PanelController\SettingController::class)
-        ->only(['index', 'edit', 'update']);
+    // * Bid
+    Route::resource('bids', BidController::class);
 
-    Route::delete('/alerts/{alert}', [App\Http\Controllers\PanelController\AlertController::class, 'destroy'])
+    // * Alert
+    Route::delete('/alerts/{alert}', [AlertController::class, 'destroy'])
         ->name('alerts.destroy');
-    Route::get('/alerts', [App\Http\Controllers\PanelController\AlertController::class, 'index'])
+    Route::get('/alerts', [AlertController::class, 'index'])
         ->name('alerts.index');
-    Route::delete('/alerts', [App\Http\Controllers\PanelController\AlertController::class, 'destroyAll'])
+    Route::delete('/alerts', [AlertController::class, 'destroyAll'])
         ->name('alerts.destroy-all');
+
+    // * Setting
+    Route::resource('settings', SettingController::class)
+        ->only(['index', 'edit', 'update']);
 });
 
 require __DIR__ . '/telegram.php';

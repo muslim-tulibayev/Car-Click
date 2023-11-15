@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\PanelController;
 
-use App\Http\Controllers\Auction\AuctionController as BroadcastController;
+use App\Http\Controllers\Auction\AuctionManage;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Task\TaskManage;
 use App\Models\Auction;
@@ -10,6 +10,7 @@ use App\Models\Car;
 use DateTime;
 use DateTimeZone;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class AuctionController extends Controller
 {
@@ -49,7 +50,7 @@ class AuctionController extends Controller
 
         $car = Car::find($request->car_id);
 
-        $new_auction = BroadcastController::broadcast((object) [
+        $new_auction = AuctionManage::broadcast((object) [
             "car_id" => $car->id,
             "starting_price" => $request->starting_price,
             'start' => $start->format('Y-m-d H:i:s'),
@@ -159,5 +160,28 @@ class AuctionController extends Controller
 
         return view('bid.index')
             ->with('bids', $bids);
+    }
+
+
+
+
+    public function search($col, $val)
+    {
+        $validator = Validator::make([
+            'col' => $col,
+            'val' => $val
+        ], [
+            'col' => ['required', 'in:' . implode(',', Auction::fillables())],
+            'val' => ['required', 'string'],
+        ]);
+
+        if ($validator->fails()) return;
+
+        $auctions = Auction::where($col, 'like', "%$val%")->paginate();
+
+        return view('auction.index')
+            ->with('oldcol', $col)
+            ->with('oldval', $val)
+            ->with('auctions', $auctions);
     }
 }

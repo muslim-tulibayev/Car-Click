@@ -26,6 +26,7 @@ class Operator extends Authenticatable implements JWTSubject
     use HasApiTokens, HasFactory, Notifiable;
 
     public $fillable = [
+        "id",
         "firstname",
         "lastname",
         "contact",
@@ -61,6 +62,11 @@ class Operator extends Authenticatable implements JWTSubject
     public function currentTask(): ?Task
     {
         return $this->tasks()->where('is_done', false)->first();
+    }
+
+    public static function fillables()
+    {
+        return (new static)->fillable;
     }
 
     /**

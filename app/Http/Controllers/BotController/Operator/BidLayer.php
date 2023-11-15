@@ -35,7 +35,7 @@ class BidLayer
                 next: $per_page < $auction->bids()->count()
             ),
             'text' => trans('msg.bids_list', [
-                'first_num' => 1,
+                'first_num' => count($bids) ? 1 : 0,
                 'last_num' => count($bids),
                 'all_num' => $auction->bids()->count(),
                 'slot' => $text,
@@ -54,8 +54,7 @@ class BidLayer
         $per_page = 5;
         $skipped = ($need_page - 1) * $per_page;
 
-        $task_id = json_decode($update->tg_chat->data)->task_id;
-        $task = Task::find($task_id);
+        $task = Task::find($update->tg_chat->data);
         if (!$task) return;
         $auction = $task->taskable;
         $bids = $auction->bids()->orderByDesc('price')->skip($skipped)->take($per_page)->get();
@@ -82,8 +81,8 @@ class BidLayer
                 next: $skipped + $per_page < $auction->bids()->count()
             ),
             'text' => trans('msg.bids_list', [
-                'first_num' => 1,
-                'last_num' => count($bids),
+                'first_num' => $skipped + 1,
+                'last_num' => $skipped + count($bids),
                 'all_num' => $auction->bids()->count(),
                 'slot' => $text,
                 'owner_fname' => $auction->car->user->firstname,

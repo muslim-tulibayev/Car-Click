@@ -13,6 +13,7 @@ class Dealer extends Model
     use HasFactory;
 
     public $fillable = [
+        "id",
         "firstname",
         "lastname",
         "contact",
@@ -31,5 +32,10 @@ class Dealer extends Model
     public function cars(): HasMany
     {
         return $this->hasMany(Car::class);
+    }
+
+    public static function fillables()
+    {
+        return (new static)->fillable;
     }
 }

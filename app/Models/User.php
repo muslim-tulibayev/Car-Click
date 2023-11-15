@@ -15,6 +15,7 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $fillable = [
+        'id',
         'firstname',
         'lastname',
         'contact',
@@ -43,4 +44,9 @@ class User extends Authenticatable
     //     'email_verified_at' => 'datetime',
     //     'password' => 'hashed',
     // ];
+
+    public static function fillables()
+    {
+        return (new static)->fillable;
+    }
 }

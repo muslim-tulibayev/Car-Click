@@ -94,12 +94,10 @@ class FreeCallback
             case 'take':
                 if ($update->tg_chat->action !== 'home>end')
                     return MessageLayout::answerCallbackQuery($update, trans('msg.cant_take_task_msg'));
-                TaskManage::take($task, $update->tg_chat->operator);
-                break;
+                return TaskManage::take($task, $update->tg_chat->operator);
 
             default:
-                TaskManage::remove($task, $update->tg_chat->operator);
-                break;
+                return TaskManage::remove($task, $update->tg_chat->operator);
         }
     }
 

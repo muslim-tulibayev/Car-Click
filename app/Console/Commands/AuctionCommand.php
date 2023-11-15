@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Http\Controllers\Auction\AuctionController;
+use App\Http\Controllers\Auction\AuctionManage;
 use Illuminate\Console\Command;
 
 class AuctionCommand extends Command
@@ -28,8 +28,8 @@ class AuctionCommand extends Command
      */
     public function handle()
     {
-        AuctionController::finish();
-        AuctionController::start();
+        AuctionManage::finish();
+        AuctionManage::start();
 
         return Command::SUCCESS;
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\BotController\Operator;
 
 use App\Http\Controllers\BotController\Keyboard\KeyboardLayout;
+use App\Http\Controllers\Task\TaskManage;
 use App\Models\Setting;
 use App\Traits\SendValidatorMessagesTrait;
 use Illuminate\Support\Facades\Validator;
@@ -113,14 +114,19 @@ class SettingsLayer
     {
         $update->tg_chat->update(['action' => 'home>settings>end']);
 
-        $update->tg_chat->operator->update([
+        $operator = $update->tg_chat->operator;
+
+        $operator->update([
             'is_muted' => $mute,
         ]);
 
-        return $update->bot->sendMessage([
+        $update->bot->sendMessage([
             'chat_id' => $update->chat_id,
-            'reply_markup' => KeyboardLayout::settingItems($update->tg_chat->operator),
+            'reply_markup' => KeyboardLayout::settingItems($operator),
             'text' => trans('msg.settings_updated'),
         ]);
+
+        if (!$mute)
+            TaskManage::availableTasks($operator);
     }
 }

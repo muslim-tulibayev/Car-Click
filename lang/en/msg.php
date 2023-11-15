@@ -20,9 +20,9 @@ return [
     'please_wait' => "⏳ Please wait, we will try to answer you as soon as possible",
     'request_allowed' => "✅ Your request allowed",
     'request_denied' => "❌ Your request denied",
-    'request_allowed_for_operator' => "✅ You successfully allowed the request",
-    'request_denied_for_operator' => "✅ You successfully denied the request",
-    'task_done_msg' => "✅ You have successfully completed your task",
+    'request_allowed_for_operator' => "🚀 You successfully allowed the request",
+    'request_denied_for_operator' => "🚀 You successfully denied the request",
+    'task_done_msg' => "🚀 You successfully completed your task",
     'new_operator_confirmation' => "🪪 <b>New Operator</b>\n"
         . "Firstname: :firstname\n"
         . "Lastname: :lastname\n"
@@ -211,12 +211,12 @@ return [
     'waiting_confirmation' => "Waiting confirmation",
     'finished' => "Finished",
     'cannot_cancel_task' => "‼️ Sorry, a taken task cannot be cancel.",
-    'empty_task' => "☑️ There is no task",
+    'empty_task' => "☑️ There is no available tasks",
     'done' => "Done",
     'cannot_logout_because_of_task' => "‼️ Sorry, you cannot log out because you have a task",
     'waiting_validation' => "Waiting validation",
-    'help' => 'This is help',
-    'info' => "This is info",
+    'help' => "📎 There should be the \"Help\" message here",
+    'info' => "📎 There should be the \"Information\" message here",
     'more_images' => "You can add more images of your car, If you don't want to add, click \":next_btn\" button below",
     'image_limit_msg' => "‼️ You have reached the maximum number of images",
     'invalid_image' => "⚠️ You should send us a photo",
@@ -243,7 +243,6 @@ return [
         . "Lastname: :lname\n"
         . "Phone: :contact\n"
         . "Number of cars: :num_of_cars",
-    'take' => "Take",
     'bids_list' => "<b>🤝 Bids :first_num - :last_num of :all_num </b>\n\n"
         . ":slot\n"
         . "👤 Owner: :owner_fname :owner_lname\n"
@@ -259,6 +258,7 @@ return [
     'bidder' => "<b>:number - :price\$</b>\n"
         . "👨‍💼 Dealer: :fname :lname\n"
         . "📲 Phone: :phone\n",
+    'take' => "📥 Take",
     'remove' => "🗑 Remove",
     'cant_take_task_msg' => "⚠️ You can't do the task because you have an operation now, You should finish the current operation",
     'task_not_found_msg' => "⚠️ Task not found",
@@ -266,6 +266,15 @@ return [
     'unmute_btn' => "🔔 Unmute",
     'prev' => '⬅ Prev',
     'next' => 'Next ➡',
+    'task_taken_msg' => "✳ Task taken",
+    'start_cmd' => "♻ Restart bot",
+    'help_cmd' => "🆘 Help",
+    'info_cmd' => "ℹ Information",
+    'login_cmd' => "➡ Log in",
+    'registration_cmd' => "➡ Registration in the system",
+    'logout_cmd' => "⬅ Log out",
+    'cancel_cmd' => "❌ Cancel the operation",
+    'task_cmd' => "🧩 Get available tasks",
 
     'attributes' => [],
 

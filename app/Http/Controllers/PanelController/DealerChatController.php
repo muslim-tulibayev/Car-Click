@@ -5,6 +5,7 @@ namespace App\Http\Controllers\PanelController;
 use App\Http\Controllers\Controller;
 use App\Models\DealerChat;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class DealerChatController extends Controller
 {
@@ -80,6 +81,26 @@ class DealerChatController extends Controller
         return redirect()
             ->route('dealerchats.index')
             ->with('alert_success', $alert_success)
+            ->with('dealerchats', $dealerchats);
+    }
+
+    public function search($col, $val)
+    {
+        $validator = Validator::make([
+            'col' => $col,
+            'val' => $val
+        ], [
+            'col' => ['required', 'in:' . implode(',', DealerChat::fillables())],
+            'val' => ['required', 'string'],
+        ]);
+
+        if ($validator->fails()) return;
+
+        $dealerchats = DealerChat::where($col, 'like', "%$val%")->paginate();
+
+        return view('dealer-chat.index')
+            ->with('oldcol', $col)
+            ->with('oldval', $val)
             ->with('dealerchats', $dealerchats);
     }
 }

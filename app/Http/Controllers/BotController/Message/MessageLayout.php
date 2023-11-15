@@ -8,10 +8,19 @@ use App\Models\Auction;
 use App\Models\Car;
 use App\Models\Operator;
 use App\Models\Task;
+use App\Models\TaskMsg;
 use Telegram\Bot\Laravel\Facades\Telegram;
 
 class MessageLayout
 {
+    public static function emptyTask(Operator $operator)
+    {
+        Telegram::bot('operator-bot')->sendMessage([
+            'chat_id' => $operator->tg_chat->chat_id,
+            'text' => trans('msg.empty_task'),
+        ]);
+    }
+
     public static function taskNtfyNewCar(Operator $operator, Car $car): int
     {
         app()->setLocale($operator->tg_chat->lang);
@@ -138,7 +147,7 @@ class MessageLayout
     }
 
 
-    public static function taskRmMsg(Task $task, Operator $operator, int $msg_id): void
+    public static function taskRmMsg(Task $task, Operator $operator, TaskMsg $msg): void
     {
         switch ($task->operation) {
             case 'new_car':
@@ -152,8 +161,10 @@ class MessageLayout
         for ($i = 0; $i <= $len + 1; $i++)
             Telegram::bot('operator-bot')->deleteMessage([
                 'chat_id' => $operator->tg_chat->chat_id,
-                'message_id' => $msg_id - $i,
+                'message_id' => $msg->id - $i,
             ]);
+
+        $msg->delete();
     }
 
 
@@ -169,12 +180,14 @@ class MessageLayout
                 break;
         }
 
-        foreach ($task->messages as $msg)
+        foreach ($task->messages as $msg) {
             for ($i = 0; $i <= $len + 1; $i++)
                 Telegram::bot('operator-bot')->deleteMessage([
                     'chat_id' => $msg->operator->tg_chat->chat_id,
                     'message_id' => $msg->msg_id - $i,
                 ]);
+            $msg->delete();
+        }
     }
 
 
@@ -205,6 +218,10 @@ class MessageLayout
     public static function taskNewCar(Operator $operator, Car $car): int
     {
         app()->setLocale($operator->tg_chat->lang);
+        Telegram::bot('operator-bot')->sendMessage([
+            'chat_id' => $operator->tg_chat->chat_id,
+            'text' => trans('msg.task_taken_msg'),
+        ]);
         $album = [];
         foreach ($car->images as $image)
             $album[] = [
@@ -219,10 +236,6 @@ class MessageLayout
             'color' => $car->color,
             'condition' => trans('msg.' . $car->condition),
             'additional' => $car->additional,
-        ]);
-        Telegram::bot('operator-bot')->sendMessage([
-            'chat_id' => $operator->tg_chat->chat_id,
-            'text' => trans('msg.new_task'),
         ]);
         Telegram::bot('operator-bot')->sendMediaGroup([
             'chat_id' => $operator->tg_chat->chat_id,
@@ -244,7 +257,7 @@ class MessageLayout
         app()->setLocale($operator->tg_chat->lang);
         Telegram::bot('operator-bot')->sendMessage([
             'chat_id' => $operator->tg_chat->chat_id,
-            'text' => trans('msg.new_task'),
+            'text' => trans('msg.task_taken_msg'),
         ]);
         $response = Telegram::bot('operator-bot')->sendMessage([
             'chat_id' => $operator->tg_chat->chat_id,
@@ -263,6 +276,10 @@ class MessageLayout
 
     public static function taskFnshdAuction(Operator $operator, Auction $auction): void
     {
+        Telegram::bot('operator-bot')->sendMessage([
+            'chat_id' => $operator->tg_chat->chat_id,
+            'text' => trans('msg.task_taken_msg'),
+        ]);
         BidLayer::getList($operator, $auction);
     }
 

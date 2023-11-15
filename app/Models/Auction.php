@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+
 /**
  * @OA\Schema(schema="Auction", title="Auction Title",
  *   @OA\Property(property="car_id ", type="integer"),
@@ -21,6 +22,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  *   @OA\Property(property="updated_at",type="date"),
  * )
  */
+
 class Auction extends Model
 {
     use HasFactory;
@@ -28,6 +30,7 @@ class Auction extends Model
     public $timestamps = false;
 
     public $fillable = [
+        "id",
         "car_id",
         "starting_price",
         "life_cycle", // * ['waiting_start', 'playing', 'waiting_confirmation', 'finished']
@@ -118,5 +121,10 @@ class Auction extends Model
             'waiting_confirmation',
             'finished'
         ];
+    }
+
+    public static function fillables()
+    {
+        return (new static)->fillable;
     }
 }

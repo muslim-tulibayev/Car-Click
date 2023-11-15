@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Task\TaskManage;
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class TaskController extends Controller
 {
@@ -92,5 +93,28 @@ class TaskController extends Controller
         return redirect()->route('tasks.index')
             ->with('alert_success', $alert_success)
             ->with('task', $task);
+    }
+
+
+
+
+    public function search($col, $val)
+    {
+        $validator = Validator::make([
+            'col' => $col,
+            'val' => $val
+        ], [
+            'col' => ['required', 'in:' . implode(',', Task::fillables())],
+            'val' => ['required', 'string'],
+        ]);
+
+        if ($validator->fails()) return;
+
+        $tasks = Task::where($col, 'like', "%$val%")->paginate();
+
+        return view('task.index')
+            ->with('oldcol', $col)
+            ->with('oldval', $val)
+            ->with('tasks', $tasks);
     }
 }

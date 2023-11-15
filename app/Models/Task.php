@@ -15,6 +15,7 @@ class Task extends Model
     use HasFactory;
 
     public $fillable = [
+        "id",
         "operation",
         "operator_id",
         "taskable_type",
@@ -49,5 +50,10 @@ class Task extends Model
     {
         $date = new DateTime($this->created_at);
         return  $date->setTimezone(new DateTimeZone('GMT+5'))->format('H:i');
+    }
+
+    public static function fillables()
+    {
+        return (new static)->fillable;
     }
 }

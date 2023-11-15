@@ -15,9 +15,9 @@ return [
     'please_wait' => "⏳ Iltimos, kuting, biz sizga imkon qadar tezroq javob berishga harakat qilamiz.",
     'request_allowed' => "✅ Sizning so'rovingiz ruxsat etildi.",
     'request_denied' => "❌ Sizning so'rovingiz rad etildi.",
-    'request_allowed_for_operator' => "✅ Siz muvaffaqiyatli so'rovga ruxsat berdingiz.",
-    'request_denied_for_operator' => "✅ Siz so'rovni muvaffaqiyatli rad etdingiz.",
-    'task_done_msg' => "✅ Siz vazifangizni muvaffaqiyatli bajardingiz",
+    'request_allowed_for_operator' => "🚀 Siz so'rovga muvaffaqiyatli ruxsat berdingiz",
+    'request_denied_for_operator' => "🚀 Siz so'rovni muvaffaqiyatli rad etdingiz",
+    'task_done_msg' => "🚀 Siz vazifangizni muvaffaqiyatli bajardingiz",
     'new_operator_confirmation' => "🪪 <b>Yangi operator</b>\n"
         . "Ism: :firstname\n"
         . "Familiya: :lastname\n"
@@ -206,12 +206,12 @@ return [
     'waiting_confirmation' => "Tasdiqlash kutilmoqda",
     'finished' => "Tugatildi",
     'cannot_cancel_task' => "‼️ Kechirasiz, qabul qilingan vazifani bekor qilib bo'lmaydi.",
-    'empty_task' => "☑️ Hech qanday vazifa yo'q",
+    'empty_task' => "☑️ Mavjud vazifalar yo'q",
     'done' => "Bajarildi",
     'cannot_logout_because_of_task' => "‼️ Kechirasiz, siz tizimdan chiqa olmaysiz, chunki sizda vazifa bor",
     'waiting_validation' => "Tasdiqlash kutilmoqda",
-    'help' => 'Bu yordam',
-    'info' => "Bu ma'lumot",
+    'help' => "📎 Bu yerda \"Yordam\" xabari bo'lishi kerak",
+    'info' => "📎 Bu yerda \"Ma'lumot\" xabari bo'lishi kerak",
     'more_images' => "Siz Avtomobilingizning boshqa rasmlarini qo'shishingiz mumkin, agar qo'shishni xohlamasangiz, quyidagi \":next_btn\" tugmasini bosing",
     'image_limit_msg' => "‼️ Siz maksimal rasmlar soniga yetdingiz",
     'invalid_image' => "⚠️ Bizga surat yuborishingiz kerak",
@@ -238,8 +238,7 @@ return [
         . "Familiya: :lname\n"
         . "Telefon: :contact\n"
         . "Avtomobillar soni: :num_of_cars",
-    'take' => "Qabul qilish",
-    'bids_list' => "<b>🤝 Takliflar :first_num - :last_num :all_num </b>\n\n"
+    'bids_list' => "<b>🤝 Takliflar :all_num dan :first_num - :last_num </b>\n\n"
         . ":slot\n"
         . "👤 Egasi: :owner_fname :owner_lname\n"
         . "📲 Telefon: :owner_phone\n",
@@ -254,6 +253,7 @@ return [
     'bidder' => "<b>:number - :price\$</b>\n"
         . "👨‍💼 Diler: :fname :lname\n"
         . "📲 Telefon: :phone\n",
+    'take' => "📥 Qabul qilish",
     'remove' => "🗑 O'chirish",
     'cant_take_task_msg' => "⚠️ Siz vazifani bajara olmaysiz, chunki sizda hozir operatsiya bor, joriy operatsiyani tugatishingiz kerak",
     'task_not_found_msg' => "⚠️ Vazifa topilmadi",
@@ -261,6 +261,15 @@ return [
     'unmute_btn' => "🔔 Ovozni yoqish",
     'prev' => '⬅ Oldingi',
     'next' => 'Keyingi ➡',
+    'task_taken_msg' => "✳ Vazifa qabul qilindi",
+    'start_cmd' => "♻ Botni qayta ishga tushirish",
+    'help_cmd' => "🆘 Yordam",
+    'info_cmd' => "ℹ Ma'lumot",
+    'login_cmd' => "➡ Tizimga kirish",
+    'registration_cmd' => "➡ Tizimda ro'yxatdan o'tish",
+    'logout_cmd' => "⬅ Chiqish",
+    'cancel_cmd' => "❌ Amaliyotni bekor qilish",
+    'task_cmd' => "🧩 Mavjud vazifalarni olish",
 
     'attributes' => [],
 

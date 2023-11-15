@@ -5,6 +5,7 @@ namespace App\Http\Controllers\PanelController;
 use App\Http\Controllers\Controller;
 use App\Models\OperatorChat;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class OperatorChatController extends Controller
 {
@@ -80,6 +81,26 @@ class OperatorChatController extends Controller
         return redirect()
             ->route('operatorchats.index')
             ->with('alert_success', $alert_success)
+            ->with('operatorchats', $operatorchats);
+    }
+
+    public function search($col, $val)
+    {
+        $validator = Validator::make([
+            'col' => $col,
+            'val' => $val
+        ], [
+            'col' => ['required', 'in:' . implode(',', OperatorChat::fillables())],
+            'val' => ['required', 'string'],
+        ]);
+
+        if ($validator->fails()) return;
+
+        $operatorchats = OperatorChat::where($col, 'like', "%$val%")->paginate();
+
+        return view('operator-chat.index')
+            ->with('oldcol', $col)
+            ->with('oldval', $val)
             ->with('operatorchats', $operatorchats);
     }
 }

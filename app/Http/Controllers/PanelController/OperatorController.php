@@ -5,6 +5,7 @@ namespace App\Http\Controllers\PanelController;
 use App\Http\Controllers\Controller;
 use App\Models\Operator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class OperatorController extends Controller
 {
@@ -45,7 +46,7 @@ class OperatorController extends Controller
             "contact" => ['required', 'string', 'max:255'],
             "is_validated" => ['required', 'boolean'],
         ]);
-        
+
         // if (!$operator->is_validated and $request->is_validated)
 
         $operator->update([
@@ -79,6 +80,26 @@ class OperatorController extends Controller
         return redirect()
             ->route('operators.index')
             ->with('alert_success', $alert_success)
+            ->with('operators', $operators);
+    }
+
+    public function search($col, $val)
+    {
+        $validator = Validator::make([
+            'col' => $col,
+            'val' => $val
+        ], [
+            'col' => ['required', 'in:' . implode(',', Operator::fillables())],
+            'val' => ['required', 'string'],
+        ]);
+
+        if ($validator->fails()) return;
+
+        $operators = Operator::where($col, 'like', "%$val%")->paginate();
+
+        return view('operator.index')
+            ->with('oldcol', $col)
+            ->with('oldval', $val)
             ->with('operators', $operators);
     }
 }

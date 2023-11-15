@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\BotController\User;
 
-use App\Http\Controllers\Auction\AuctionController;
+use App\Http\Controllers\Auction\AuctionManage;
 
 class FreeCallback
 {
@@ -34,8 +34,8 @@ class FreeCallback
     private static function ownerConfirm($update, $data)
     {
         if ($data[0] === 'owner_confirm|yes|auction_id')
-            return AuctionController::deactivateAuctionWithAgreement($data[1]);
+            return AuctionManage::deactivateAuctionWithAgreement($data[1]);
         else
-            return AuctionController::deactivateAuctionWithDisagreement($data[1]);
+            return AuctionManage::deactivateAuctionWithDisagreement($data[1]);
     }
 }

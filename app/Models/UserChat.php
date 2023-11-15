@@ -11,6 +11,7 @@ class UserChat extends Model
     use HasFactory;
 
     public $fillable = [
+        "id",
         "chat_id",
         "user_id",
         "action",
@@ -26,5 +27,10 @@ class UserChat extends Model
     public static function langsList()
     {
         return ['en', 'uz', 'ru'];
+    }
+
+    public static function fillables()
+    {
+        return (new static)->fillable;
     }
 }
