@@ -161,7 +161,7 @@ class MessageLayout
         for ($i = 0; $i <= $len + 1; $i++)
             Telegram::bot('operator-bot')->deleteMessage([
                 'chat_id' => $operator->tg_chat->chat_id,
-                'message_id' => $msg->id - $i,
+                'message_id' => $msg->msg_id - $i,
             ]);
 
         $msg->delete();
