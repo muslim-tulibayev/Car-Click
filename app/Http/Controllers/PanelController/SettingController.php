@@ -21,11 +21,13 @@ class SettingController extends Controller
     public function update(Request $request, Setting $setting)
     {
         $request->validate([
-            'auction_expire_duration' => ['required', 'integer', 'min:5']
+            'auction_expire_duration' => ['required', 'integer', 'min:5'],
+            'system_lang' => ['required', 'in:' . implode(',', Setting::langsList())],
         ]);
 
         $setting->update([
-            'auction_expire_duration' => $request->auction_expire_duration
+            'auction_expire_duration' => $request->auction_expire_duration,
+            'system_lang' => $request->system_lang,
         ]);
 
         $alert_success = (object) [

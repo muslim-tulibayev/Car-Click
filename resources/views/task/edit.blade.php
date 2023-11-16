@@ -1,5 +1,8 @@
 @props([
-    'operators_list' => App\Models\Operator::all(),
+    'operators_list' => App\Models\Operator::where('is_validated', true)
+        ->where('is_muted', false)
+        ->has('tg_chat')
+        ->get(),
 ])
 
 <x-layouts.app>
@@ -12,15 +15,17 @@
         @csrf
 
         <x-show-card>
+
             <h2 class="text-[20px] text-gray-700 font-[700]"> Task id: {{ $task->id }} </h2>
+
+            {{-- operation --}}
             <x-card-item name="Operation">
                 <span class="font-medium text-green-500">
                     {{ $task->operation }}
                 </span>
             </x-card-item>
 
-            <x-task.data :task="$task" />
-
+            {{-- operator_id --}}
             <x-card-item name="Operator">
                 <div class="relative inline-flex">
                     <svg class="w-2 h-2 absolute top-0 right-0 m-2 pointer-events-none" xmlns="http://www.w3.org/2000/svg"
@@ -44,6 +49,21 @@
                 </div>
             </x-card-item>
             <x-v-error name="operator_id" />
+
+            {{-- is_done --}}
+            <x-card-item name="Is Done">
+                <div>
+                    <select name="is_done"
+                        class="w-[150px] text-sm text-gray-400 outline-none bg-gray-100 focus:bg-gray-300 rounded-md px-[3px]">
+                        <option value="1" @if ($task->is_done) selected @endif> True </option>
+                        <option value="0" @if (!$task->is_done) selected @endif> False </option>
+                    </select>
+                </div>
+            </x-card-item>
+            <x-v-error name="is_done" />
+
+            {{-- data --}}
+            <x-task.data :task="$task" />
 
         </x-show-card>
         <div class="mt-[10px]">

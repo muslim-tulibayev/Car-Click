@@ -43,16 +43,27 @@
             </x-card-item>
             <x-v-error name="contact" />
 
-            <x-card-item name="Validated">
+            <x-card-item name="Is Validated">
                 <div>
                     <select name="is_validated"
                         class="w-[150px] text-sm text-gray-400 outline-none bg-gray-100 focus:bg-gray-300 rounded-md px-[3px]">
-                        <option value="0" @if (!$operator->is_validated) selected @endif> False </option>
                         <option value="1" @if ($operator->is_validated) selected @endif> True </option>
+                        <option value="0" @if (!$operator->is_validated) selected @endif> False </option>
                     </select>
                 </div>
             </x-card-item>
             <x-v-error name="is_validated" />
+
+            <x-card-item name="Is Muted">
+                <div>
+                    <select name="is_muted"
+                        class="w-[150px] text-sm text-gray-400 outline-none bg-gray-100 focus:bg-gray-300 rounded-md px-[3px]">
+                        <option value="1" @if ($operator->is_muted) selected @endif> True </option>
+                        <option value="0" @if (!$operator->is_muted) selected @endif> False </option>
+                    </select>
+                </div>
+            </x-card-item>
+            <x-v-error name="is_muted" />
 
         </x-show-card>
 

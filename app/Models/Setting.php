@@ -15,4 +15,9 @@ class Setting extends Model
         "auction_expire_duration",
         "system_lang",
     ];
+
+    public static function langsList(): array
+    {
+        return ['en', 'uz', 'ru'];
+    }
 }

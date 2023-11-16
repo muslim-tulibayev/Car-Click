@@ -1,7 +1,7 @@
 <x-profile.delete-modal />
 
 <div class="w-[70%] mx-auto">
-    <h1 class="font-bold text-2xl w-[70%] mb-2"> Danger Zone </h1>
+    <h1 class="font-medium text-xl w-[70%] mb-2"> Danger Zone </h1>
     <div class="p-4 text-red-900 bg-red-100 border border-red-200 rounded-md">
         <div class="flex justify-between flex-wrap">
             <div class="w-0 flex-1 flex">

@@ -45,15 +45,15 @@ class OperatorController extends Controller
             "lastname" => ['required', 'string', 'max:255'],
             "contact" => ['required', 'string', 'max:255'],
             "is_validated" => ['required', 'boolean'],
+            "is_muted" => ['required', 'boolean'],
         ]);
-
-        // if (!$operator->is_validated and $request->is_validated)
 
         $operator->update([
             "firstname" => $request->firstname,
             "lastname" => $request->lastname,
             "contact" => $request->contact,
             "is_validated" => $request->is_validated,
+            "is_muted" => $request->is_muted,
         ]);
 
         $alert_success = (object) [

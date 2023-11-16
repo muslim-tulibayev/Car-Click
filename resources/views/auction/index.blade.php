@@ -1,8 +1,6 @@
-<x-layouts.app>
+<x-layouts.app :searchbar="true" name="auctions" :types="App\Models\Auction::fillables()" :oldcol="$oldcol ?? null" :oldval="$oldval ?? null">
 
     <x-alerts.success />
-
-    <x-search-bar name="auctions" :types="App\Models\Auction::fillables()" :oldcol="$oldcol ?? null" :oldval="$oldval ?? null" />
 
     <div class="p-4">
         <div class="w-full">

@@ -40,10 +40,12 @@ class TaskController extends Controller
     {
         $request->validate([
             "operator_id" => ['nullable', 'exists:operators,id'],
+            "is_done" => ['required', 'boolean'],
         ]);
 
         $task->update([
             "operator_id" => $request->operator_id,
+            "is_done" => $request->is_done,
         ]);
 
         $alert_success = (object) [

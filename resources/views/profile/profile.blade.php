@@ -8,7 +8,7 @@
             <form action="{{ route('profile.update') }}" method="POST" class="flex flex-col items-center">
                 @method('PUT')
                 @csrf
-                <h1 class="font-bold text-2xl w-[70%] mb-2"> Profile Update </h1>
+                <h1 class="font-medium text-xl w-[70%] mb-2"> Profile Update </h1>
                 <x-inputs.input name="firstname" value="{{ $firstname }}" />
                 <x-inputs.input name="lastname" value="{{ $lastname }}" />
                 <x-inputs.input name="username" value="{{ $username }}" />
@@ -20,7 +20,7 @@
             <form action="{{ route('profile.password') }}" method="POST" class="flex flex-col items-center">
                 @method('PUT')
                 @csrf
-                <h1 class="font-bold text-2xl w-[70%] mb-2"> Change Password </h1>
+                <h1 class="font-medium text-xl w-[70%] mb-2"> Change Password </h1>
                 <x-inputs.input type="password" name="current_password" />
                 <x-inputs.input type="password" name="password" />
                 <x-inputs.input type="password" name="password_confirmation" />

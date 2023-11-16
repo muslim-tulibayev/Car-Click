@@ -1,8 +1,6 @@
-<x-layouts.app>
+<x-layouts.app :searchbar="true" name="dealerchats" :types="App\Models\DealerChat::fillables()" :oldcol="$oldcol ?? null" :oldval="$oldval ?? null">
 
     <x-alerts.success />
-
-    <x-search-bar name="dealerchats" :types="App\Models\DealerChat::fillables()" :oldcol="$oldcol ?? null" :oldval="$oldval ?? null" />
 
     <div class="p-4">
         <div class="w-full">

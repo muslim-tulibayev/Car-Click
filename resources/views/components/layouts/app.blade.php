@@ -12,7 +12,13 @@
 
 <body class="h-[100vh] w-[100%] flex flex-col">
     <!-- Navigation Bar -->
-    @include('components.layouts.navigation')
+    {{-- @include('components.layouts.navigation') --}}
+
+    @if ($searchbar ?? null)
+        <x-layouts.navigation :searchbar="$searchbar" :name="$name" :types="$types" :oldcol="$oldcol" :oldval="$oldval" />
+    @else
+        <x-layouts.navigation :searchbar="null" />
+    @endif
 
     <div class="flex flex-1 overflow-auto">
         <!-- Side Bar -->
