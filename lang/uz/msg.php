@@ -271,6 +271,8 @@ return [
     'cancel_cmd' => "❌ Amaliyotni bekor qilish",
     'task_cmd' => "🧩 Mavjud vazifalarni olish",
 
+    'fnshd_auction_msg_for_chnl' => "💸 <b>MASHINA SOTILDI</b>",
+
     'attributes' => [],
 
 ];

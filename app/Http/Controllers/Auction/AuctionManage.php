@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auction;
 
 use App\Http\Controllers\BotController\Keyboard\KeyboardLayout;
 use App\Http\Controllers\Task\TaskManage;
+use App\Models\Alert;
 use App\Models\Auction;
 use App\Models\Setting;
 use DateTime;
@@ -81,6 +82,13 @@ class AuctionManage
                 'message_id' => $auction->join_btn_message_id,
             ]);
 
+            Telegram::bot('dealer-bot')->editMessageCaption([
+                'chat_id' => env('BROADCASTING_CHANNEL_ID'),
+                'parse_mode' => 'html',
+                'message_id' => $auction->join_btn_message_id - $auction->car->images()->count(),
+                'caption' => trans(key: 'msg.fnshd_auction_msg_for_chnl', locale: Setting::first()->system_lang),
+            ]);
+
             if (!$auction->highestPrice()) {
                 self::deactivateAuctionWithNotSold($auction);
                 continue;
@@ -88,6 +96,18 @@ class AuctionManage
             self::askConfirmation($auction);
         }
     }
+
+    /*
+    todo
+
+    1: car not sold msg with op keyb
+
+Car not sold.
+Dear User-name User your car not sold.
+
+🚘 Car: Black Tesla Model X
+💵 Price: $
+    */
 
 
 
@@ -316,8 +336,12 @@ class AuctionManage
 
     public static function deactivateAuctionWithNotSold($auction)
     {
-        $auction->update(["life_cycle" => 'finished']);
-        $auction->car->update(["status" => 'not_sold']);
+        $auction->update([
+            "life_cycle" => 'finished'
+        ]);
+        $auction->car->update([
+            "status" => 'not_sold'
+        ]);
 
         app()->setLocale($auction->car->user->tg_chat->lang);
         Telegram::bot('user-bot')->sendMessage([
@@ -329,7 +353,7 @@ class AuctionManage
                 'color' => $auction->car->color,
                 'company' => $auction->car->company,
                 'model' => $auction->car->model,
-                'starting_price' => $auction->car->starting_price,
+                'starting_price' => $auction->starting_price,
             ]),
         ]);
 

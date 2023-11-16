@@ -271,6 +271,8 @@ return [
     'cancel_cmd' => "❌ Отменить операцию",
     'task_cmd' => "🧩 Получить доступные задачи",
 
+    'fnshd_auction_msg_for_chnl' => "💸 <b>АВТОМОБИЛЬ РАСПРОДАН</b>",
+
     'attributes' => [],
 
 ];

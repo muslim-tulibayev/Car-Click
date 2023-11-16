@@ -276,6 +276,9 @@ return [
     'cancel_cmd' => "❌ Cancel the operation",
     'task_cmd' => "🧩 Get available tasks",
 
+    // 'car_sold_out_msg_for_chnl' => "💸 <br>The car is sold out</br> 💸",
+    'fnshd_auction_msg_for_chnl' => "💸 <b>THE CAR IS SOLD OUT</b>",
+
     'attributes' => [],
 
 ];

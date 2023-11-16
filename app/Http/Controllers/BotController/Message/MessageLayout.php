@@ -220,6 +220,7 @@ class MessageLayout
         app()->setLocale($operator->tg_chat->lang);
         Telegram::bot('operator-bot')->sendMessage([
             'chat_id' => $operator->tg_chat->chat_id,
+            'reply_markup' => KeyboardLayout::empty(),
             'text' => trans('msg.task_taken_msg'),
         ]);
         $album = [];
@@ -257,6 +258,7 @@ class MessageLayout
         app()->setLocale($operator->tg_chat->lang);
         Telegram::bot('operator-bot')->sendMessage([
             'chat_id' => $operator->tg_chat->chat_id,
+            'reply_markup' => KeyboardLayout::empty(),
             'text' => trans('msg.task_taken_msg'),
         ]);
         $response = Telegram::bot('operator-bot')->sendMessage([
@@ -278,6 +280,7 @@ class MessageLayout
     {
         Telegram::bot('operator-bot')->sendMessage([
             'chat_id' => $operator->tg_chat->chat_id,
+            'reply_markup' => KeyboardLayout::empty(),
             'text' => trans('msg.task_taken_msg'),
         ]);
         BidLayer::getList($operator, $auction);
@@ -363,6 +366,11 @@ class MessageLayout
             Telegram::bot('user-bot')->sendMessage([
                 'chat_id' => $owner->tg_chat->chat_id,
                 'parse_mode' => 'html',
+                'text' => trans('msg.request_allowed'),
+            ]);
+            Telegram::bot('user-bot')->sendMessage([
+                'chat_id' => $owner->tg_chat->chat_id,
+                'parse_mode' => 'html',
                 'text' => trans('msg.auction_created_info', [
                     'car_id' => $car->id,
                     'company' => $car->company,
@@ -372,12 +380,6 @@ class MessageLayout
                     'finish' => $new_auction->getFinish(),
                     'starting_price' => $new_auction->starting_price,
                 ]),
-            ]);
-            Telegram::bot('user-bot')->sendMessage([
-                'chat_id' => $operator->tg_chat->chat_id,
-                'parse_mode' => 'html',
-                'reply_markup' => KeyboardLayout::home('operator'),
-                'text' => trans('msg.request_allowed'),
             ]);
         }
 

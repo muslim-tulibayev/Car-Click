@@ -86,7 +86,7 @@ class FreeCallback
         $id = explode('|', $update->data)[1]; // * task id
         $data = explode('|', $update->data)[2]; // * data [take, remove]
 
-        $task = Task::where('is_done', false)->find($id);
+        $task = Task::where('operator_id', null)->where('is_done', false)->find($id);
         if (!$task)
             return MessageLayout::taskNotFound($update, trans('msg.task_not_found_msg'));
 
