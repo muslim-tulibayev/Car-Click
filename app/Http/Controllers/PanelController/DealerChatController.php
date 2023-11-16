@@ -45,7 +45,7 @@ class DealerChatController extends Controller
             "chat_id" => ['required', 'string', 'max:255'],
             "dealer_id" => ['nullable', 'integer', 'exists:dealers,id'],
             "action" => ['required', 'string', 'max:255'],
-            "data" => ['required', 'string', 'max:255'],
+            "data" => ['required', 'string', 'max:500'],
             "lang" => ['required', 'in:en,uz,ru'],
         ]);
 

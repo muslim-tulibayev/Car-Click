@@ -45,7 +45,7 @@ class OperatorChatController extends Controller
             "chat_id" => ['required', 'string', 'max:255'],
             "operator_id" => ['nullable', 'integer', 'exists:operators,id'],
             "action" => ['required', 'string', 'max:255'],
-            "data" => ['required', 'string', 'max:255'],
+            "data" => ['required', 'string', 'max:500'],
             "lang" => ['required', 'in:en,uz,ru'],
         ]);
 

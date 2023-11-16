@@ -45,7 +45,7 @@ class UserChatController extends Controller
             "chat_id" => ['required', 'string', 'max:255'],
             "user_id" => ['nullable', 'integer', 'exists:users,id'],
             "action" => ['required', 'string', 'max:255'],
-            "data" => ['required', 'string', 'max:255'],
+            "data" => ['required', 'string', 'max:500'],
             "lang" => ['required', 'in:en,uz,ru'],
         ]);
 

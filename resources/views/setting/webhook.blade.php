@@ -17,22 +17,28 @@
     ],
 ])
 
-<x-layouts.app>
+<x-layouts.empty-app>
+    <div class="h-full w-full relative">
+        <div class="w-[50%] h-auto mx-auto">
 
-    @if ($alert_error)
-        <x-webhook.error :message="$alert_error" />
-    @endif
+            <x-btns.back />
 
-    @if ($operator_bot)
-        <x-webhook.success :message="$operator_message" id="successOne" />
-    @endif
+            @if ($alert_error)
+                <x-webhook.error :message="$alert_error" />
+            @endif
 
-    @if ($dealer_bot)
-        <x-webhook.success :message="$dealer_message" id="successTwo" />
-    @endif
+            @if ($operator_bot)
+                <x-webhook.success :message="$operator_message" id="successOne" />
+            @endif
 
-    @if ($user_bot)
-        <x-webhook.success :message="$user_message" id="successThree" />
-    @endif
+            @if ($dealer_bot)
+                <x-webhook.success :message="$dealer_message" id="successTwo" />
+            @endif
 
-</x-layouts.app>
+            @if ($user_bot)
+                <x-webhook.success :message="$user_message" id="successThree" />
+            @endif
+
+        </div>
+    </div>
+</x-layouts.empty-app>
