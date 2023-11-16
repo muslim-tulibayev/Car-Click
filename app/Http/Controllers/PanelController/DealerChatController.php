@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\PanelController;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Search\Search;
 use App\Models\DealerChat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -13,7 +14,7 @@ class DealerChatController extends Controller
     {
         $dealerchats = DealerChat::orderByDesc('id')->paginate();
 
-        return view('dealer-chat.index')
+        return view('dealerchat.index')
             ->with('dealerchats', $dealerchats);
     }
 
@@ -29,12 +30,12 @@ class DealerChatController extends Controller
 
     public function show(DealerChat $dealerchat)
     {
-        return view('dealer-chat.show')->with('dealerchat', $dealerchat);
+        return view('dealerchat.show')->with('dealerchat', $dealerchat);
     }
 
     public function edit(DealerChat $dealerchat)
     {
-        return view('dealer-chat.edit')
+        return view('dealerchat.edit')
             ->with('dealerchat', $dealerchat);
     }
 
@@ -84,23 +85,11 @@ class DealerChatController extends Controller
             ->with('dealerchats', $dealerchats);
     }
 
+
+
+
     public function search($col, $val)
     {
-        $validator = Validator::make([
-            'col' => $col,
-            'val' => $val
-        ], [
-            'col' => ['required', 'in:' . implode(',', DealerChat::fillables())],
-            'val' => ['required', 'string'],
-        ]);
-
-        if ($validator->fails()) return;
-
-        $dealerchats = DealerChat::where($col, 'like', "%$val%")->paginate();
-
-        return view('dealer-chat.index')
-            ->with('oldcol', $col)
-            ->with('oldval', $val)
-            ->with('dealerchats', $dealerchats);
+        return Search::search(DealerChat::class, 'dealerchat', $col, $val);
     }
 }

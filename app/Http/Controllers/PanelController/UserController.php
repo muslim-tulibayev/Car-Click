@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\PanelController;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Search\Search;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -79,23 +80,11 @@ class UserController extends Controller
             ->with('users', $users);
     }
 
+
+
+
     public function search($col, $val)
     {
-        $validator = Validator::make([
-            'col' => $col,
-            'val' => $val
-        ], [
-            'col' => ['required', 'in:' . implode(',', User::fillables())],
-            'val' => ['required', 'string'],
-        ]);
-
-        if ($validator->fails()) return;
-
-        $users = User::where($col, 'like', "%$val%")->paginate();
-
-        return view('user.index')
-            ->with('oldcol', $col)
-            ->with('oldval', $val)
-            ->with('users', $users);
+        return Search::search(User::class, 'user', $col, $val);
     }
 }

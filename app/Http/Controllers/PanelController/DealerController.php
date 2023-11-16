@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\PanelController;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Search\Search;
 use App\Models\Dealer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -79,23 +80,12 @@ class DealerController extends Controller
             ->with('dealers', $dealers);
     }
 
+
+
+
+
     public function search($col, $val)
     {
-        $validator = Validator::make([
-            'col' => $col,
-            'val' => $val
-        ], [
-            'col' => ['required', 'in:' . implode(',', Dealer::fillables())],
-            'val' => ['required', 'string'],
-        ]);
-
-        if ($validator->fails()) return;
-
-        $dealers = Dealer::where($col, 'like', "%$val%")->paginate();
-
-        return view('dealer.index')
-            ->with('oldcol', $col)
-            ->with('oldval', $val)
-            ->with('dealers', $dealers);
+        return Search::search(Dealer::class, 'dealer', $col, $val);
     }
 }

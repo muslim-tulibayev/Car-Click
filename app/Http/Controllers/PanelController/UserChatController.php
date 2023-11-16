@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\PanelController;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Search\Search;
 use App\Models\UserChat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -13,7 +14,7 @@ class UserChatController extends Controller
     {
         $userchats = UserChat::orderByDesc('id')->paginate();
 
-        return view('user-chat.index')
+        return view('userchat.index')
             ->with('userchats', $userchats);
     }
 
@@ -29,12 +30,12 @@ class UserChatController extends Controller
 
     public function show(UserChat $userchat)
     {
-        return view('user-chat.show')->with('userchat', $userchat);
+        return view('userchat.show')->with('userchat', $userchat);
     }
 
     public function edit(UserChat $userchat)
     {
-        return view('user-chat.edit')
+        return view('userchat.edit')
             ->with('userchat', $userchat);
     }
 
@@ -84,23 +85,11 @@ class UserChatController extends Controller
             ->with('userchats', $userchats);
     }
 
+
+
+
     public function search($col, $val)
     {
-        $validator = Validator::make([
-            'col' => $col,
-            'val' => $val
-        ], [
-            'col' => ['required', 'in:' . implode(',', UserChat::fillables())],
-            'val' => ['required', 'string'],
-        ]);
-
-        if ($validator->fails()) return;
-
-        $userchats = UserChat::where($col, 'like', "%$val%")->paginate();
-
-        return view('user-chat.index')
-            ->with('oldcol', $col)
-            ->with('oldval', $val)
-            ->with('userchats', $userchats);
+        return Search::search(UserChat::class, 'userchat', $col, $val);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\PanelController;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Search\Search;
 use App\Models\OperatorChat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -13,7 +14,7 @@ class OperatorChatController extends Controller
     {
         $operatorchats = OperatorChat::orderByDesc('id')->paginate();
 
-        return view('operator-chat.index')
+        return view('operatorchat.index')
             ->with('operatorchats', $operatorchats);
     }
 
@@ -29,12 +30,12 @@ class OperatorChatController extends Controller
 
     public function show(OperatorChat $operatorchat)
     {
-        return view('operator-chat.show')->with('operatorchat', $operatorchat);
+        return view('operatorchat.show')->with('operatorchat', $operatorchat);
     }
 
     public function edit(OperatorChat $operatorchat)
     {
-        return view('operator-chat.edit')
+        return view('operatorchat.edit')
             ->with('operatorchat', $operatorchat);
     }
 
@@ -84,23 +85,11 @@ class OperatorChatController extends Controller
             ->with('operatorchats', $operatorchats);
     }
 
+
+
+
     public function search($col, $val)
     {
-        $validator = Validator::make([
-            'col' => $col,
-            'val' => $val
-        ], [
-            'col' => ['required', 'in:' . implode(',', OperatorChat::fillables())],
-            'val' => ['required', 'string'],
-        ]);
-
-        if ($validator->fails()) return;
-
-        $operatorchats = OperatorChat::where($col, 'like', "%$val%")->paginate();
-
-        return view('operator-chat.index')
-            ->with('oldcol', $col)
-            ->with('oldval', $val)
-            ->with('operatorchats', $operatorchats);
+        return Search::search(OperatorChat::class, 'operatorchat', $col, $val);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\PanelController;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Search\Search;
 use App\Models\Car;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -91,23 +92,12 @@ class CarController extends Controller
             ->with('cars', $cars);
     }
 
+
+
+
+
     public function search($col, $val)
     {
-        $validator = Validator::make([
-            'col' => $col,
-            'val' => $val
-        ], [
-            'col' => ['required', 'in:' . implode(',', Car::fillables())],
-            'val' => ['required', 'string'],
-        ]);
-
-        if ($validator->fails()) return;
-
-        $cars = Car::where($col, 'like', "%$val%")->paginate();
-
-        return view('car.index')
-            ->with('oldcol', $col)
-            ->with('oldval', $val)
-            ->with('cars', $cars);
+        return Search::search(Car::class, 'car', $col, $val);
     }
 }

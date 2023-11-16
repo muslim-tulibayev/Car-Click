@@ -4,6 +4,7 @@ namespace App\Http\Controllers\PanelController;
 
 use App\Http\Controllers\Auction\AuctionManage;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Search\Search;
 use App\Http\Controllers\Task\TaskManage;
 use App\Models\Auction;
 use App\Models\Car;
@@ -167,21 +168,6 @@ class AuctionController extends Controller
 
     public function search($col, $val)
     {
-        $validator = Validator::make([
-            'col' => $col,
-            'val' => $val
-        ], [
-            'col' => ['required', 'in:' . implode(',', Auction::fillables())],
-            'val' => ['required', 'string'],
-        ]);
-
-        if ($validator->fails()) return;
-
-        $auctions = Auction::where($col, 'like', "%$val%")->paginate();
-
-        return view('auction.index')
-            ->with('oldcol', $col)
-            ->with('oldval', $val)
-            ->with('auctions', $auctions);
+        return Search::search(Auction::class, 'auction', $col, $val);
     }
 }

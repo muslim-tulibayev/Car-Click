@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\PanelController;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Search\Search;
 use App\Http\Controllers\Task\TaskManage;
 use App\Models\Task;
 use Illuminate\Http\Request;
@@ -102,21 +103,6 @@ class TaskController extends Controller
 
     public function search($col, $val)
     {
-        $validator = Validator::make([
-            'col' => $col,
-            'val' => $val
-        ], [
-            'col' => ['required', 'in:' . implode(',', Task::fillables())],
-            'val' => ['required', 'string'],
-        ]);
-
-        if ($validator->fails()) return;
-
-        $tasks = Task::where($col, 'like', "%$val%")->paginate();
-
-        return view('task.index')
-            ->with('oldcol', $col)
-            ->with('oldval', $val)
-            ->with('tasks', $tasks);
+        return Search::search(Task::class, 'task', $col, $val);
     }
 }

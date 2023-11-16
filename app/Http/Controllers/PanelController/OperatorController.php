@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\PanelController;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Search\Search;
 use App\Models\Operator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -83,23 +84,11 @@ class OperatorController extends Controller
             ->with('operators', $operators);
     }
 
+
+
+
     public function search($col, $val)
     {
-        $validator = Validator::make([
-            'col' => $col,
-            'val' => $val
-        ], [
-            'col' => ['required', 'in:' . implode(',', Operator::fillables())],
-            'val' => ['required', 'string'],
-        ]);
-
-        if ($validator->fails()) return;
-
-        $operators = Operator::where($col, 'like', "%$val%")->paginate();
-
-        return view('operator.index')
-            ->with('oldcol', $col)
-            ->with('oldval', $val)
-            ->with('operators', $operators);
+        return Search::search(Operator::class, 'operator', $col, $val);
     }
 }
