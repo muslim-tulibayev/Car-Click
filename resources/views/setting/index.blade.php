@@ -5,7 +5,7 @@
 
         <x-settings-list-item>
             <span class="text-sm text-blue-500 font-medium">
-                Auction expire duration
+                Auction expire duration and Telegram system language
             </span>
             <a href="{{ route('settings.edit', ['setting' => $setting->id]) }}"
                 class="flex items-center justify-center w-[120px] h-[30px] my-2 rounded-md text-white bg-blue-700 bg-gradient-to-t from-[rgba(0,0,0,0.1)]">
